@@ -1,0 +1,31 @@
+.example-form {
+    min-width: 150px;
+    max-width: 500px;
+    width: 100%;
+  }
+  
+  .example-full-width {
+    width: 100%;
+  }
+  
+  .table-responsive {
+    overflow-x: auto;
+  }
+  
+  @media (max-width: 768px) {
+    .table {
+      font-size: 0.8rem;
+    }
+    .table th, .table td {
+      padding: 0.5rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .table {
+      font-size: 0.6rem;
+    }
+    .table th, .table td {
+      padding: 0.3rem;
+    }
+  }

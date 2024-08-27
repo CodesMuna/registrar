@@ -1,0 +1,125 @@
+<div class="container mb-5 ms-1">
+    <p class="h4">My Account</p>
+</div>
+
+<div class="container">
+    <div class="row g-2">
+        <!-- Profile Picture and Name --> 
+        <div class="col-12 col-md-3">
+            <div class="card1 text-center">
+                <div class="card-body p-2">
+                    <img src="mik.jpg" alt="User" class="rounded-circle mx-auto d-block" width="150" height="150">
+                    <p class="h4 mt-3">Registrar</p>
+                </div>
+            </div>
+        </div>
+        <!-- Update / Change Profile Picture -->
+        <div class="col-12 col-md-5">
+            <div class="card text-center">
+                <div class="card-body">
+                    <p class="h2 mt-3">Update your Profile Pic</p>
+                    <div class="upload-form">
+                        <form action="/upload" method="post" enctype="multipart/form-data">
+                            <div class="form-group">
+                                <input type="file" class="form-control" id="fileInput" name="fileInput" required>
+                            </div>
+                        </form>
+                        <p class="h6 mt-3 text-start">Image Preview:</p>
+                        <img src="mik.jpg" alt="User" class="mx-auto d-block" width="150" height="150">
+                        <button type="submit" class="btn btn-primary btn-block mt-3" style="width: 100%;">Upload Image</button>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+        <!-- Change Password -->
+        <div class="col-12 col-md-4">
+            <div class="card text-center h-100">
+                <div class="card-body">
+                    <p class="h2 mt-3">Change Password</p>
+                    <div class="change-password-form">
+                        <form action="/change-password" method="post">
+                            <div class="form-group">
+                                <label for="currentPassword" class="mb-1">Old Password</label>
+                                <input type="password" class="form-control" id="currentPassword" name="currentPassword" placeholder="Enter your old password">
+                            </div>
+                            <div class="form-group mt-3">
+                                <label for="newPassword" class="mb-1">New Password</label>
+                                <input type="password" class="form-control" id="newPassword" name="newPassword" required placeholder="Enter your new password">
+                            </div>
+                            <div class="form-group mt-3">
+                                <label for="confirmPassword" class="mb-1">Confirm New Password</label>
+                                <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" required placeholder="Retype your password">
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-block mt-3" style="width: 100%;">Update</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- <div class="container mb-5 ms-1">
+    <p class="h4">My Account</p>
+</div>
+
+<div class="container">
+    <div class="row g-2">
+      
+        <div class="col-12 col-md-3">
+            <div class="card1 text-center">
+                <div class="card-body p-2">
+                    <img src="academy.jpg" alt="User" class="rounded-circle mx-auto d-block" width="150" height="150">
+                    <p class="h4 mt-3">Registrar</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-12 col-md-5">
+            <div class="card text-center">
+                <div class="card-body">
+                    <p class="h2 mt-3">Update your Profile Pic</p>
+                    <div class="upload-form">
+                        <form action="/upload" method="post" enctype="multipart/form-data">
+                            <div class="form-group">
+                                <input type="file" class="form-control" id="fileInput" name="fileInput" required>
+                            </div>
+                        </form>
+                        <p class="h6 mt-3 text-start">Image Preview:</p>
+                        <img src="academy.jpg" alt="User" class="mx-auto d-block" width="150" height="150">
+                        <button type="submit" class="btn btn-primary btn-block mt-3" style="width: 100%;">Upload Image</button>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+     
+        <div class="col-12 col-md-4">
+            <div class="card text-center h-100">
+                <div class="card-body">
+                    <p class="h2 mt-3">Change Password</p>
+                    <div class="change-password-form">
+                        <form action="/change-password" method="post">
+                            <div class="form-group">
+                                <label for="currentPassword" class="mb-1">Old Password</label>
+                                <input type="password" class="form-control" id="currentPassword" name="currentPassword" placeholder="Enter your old password">
+                            </div>
+                            <div class="form-group mt-3">
+                                <label for="newPassword" class="mb-1">New Password</label>
+                                <input type="password" class="form-control" id="newPassword" name="newPassword" required placeholder="Enter your new password">
+                            </div>
+                            <div class="form-group mt-3">
+                                <label for="confirmPassword" class="mb-1">Confirm New Password</label>
+                                <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" required placeholder="Retype your password">
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-block mt-3" style="width: 100%;">Update</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> -->

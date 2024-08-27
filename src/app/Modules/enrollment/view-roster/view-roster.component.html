@@ -1,0 +1,103 @@
+<div class="container align-self-center p-3 bg-white rounded" style="height: 400px; overflow-y: auto;">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="d-flex align-items-center">
+          <p class="h4 ms-2 text-start">Grade 7 Emerald Roster</p>
+          <button mat-icon-button aria-label="Example icon button with a delete icon" class="ms-2 mb-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            <mat-icon>group_add</mat-icon>
+          </button>
+        </div>
+      </div>
+    <input type="text" class="form-control search-input " placeholder="Search Name"  aria-label="Name" aria-describedby="basic-addon2">
+    <table class="table table-hover">
+      <thead class="table">
+        <tr>
+          <th scope="col">Student</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody class="table-group-divider">
+        <tr>
+            <th scope="row">Kimiko Fukuhara</th>
+            <td class="text-body-secondary" colspan="3">
+                <button mat-icon-button aria-label="Example icon button with a delete icon" class="">
+                    <mat-icon>person_remove</mat-icon>
+                  </button>
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">Frenchie Biswe</th>
+            <td class="text-body-secondary" colspan="3">
+                <button mat-icon-button aria-label="Example icon button with a delete icon" class="">
+                    <mat-icon>person_remove</mat-icon>
+                  </button>
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">Laz Alonzo</th>
+            <td class="text-body-secondary" colspan="3">
+                <button mat-icon-button aria-label="Example icon button with a delete icon" class="">
+                    <mat-icon>person_remove</mat-icon>
+                  </button>
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">William Butcher</th>
+            <td class="text-body-secondary" colspan="3">
+                <button mat-icon-button aria-label="Example icon button with a delete icon" class="">
+                    <mat-icon>person_remove</mat-icon>
+                  </button>
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">Hughie Campbell</th>
+            <td class="text-body-secondary" colspan="3">
+                <button mat-icon-button aria-label="Example icon button with a delete icon" class="">
+                    <mat-icon>person_remove</mat-icon>
+                  </button>
+            </td>
+          </tr>    
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="false">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Grade 7 Enrolees</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="container align-self-center p-3 bg-white rounded" style="height: 400px; overflow-y: auto;">
+            <div class="row">
+            <input type="text" class="form-control search-input " placeholder="Search Name"  aria-label="Name" aria-describedby="basic-addon2">
+            <table class="table table-hover">
+              <thead class="table">
+                <tr>
+                  <th scope="col">Student</th>
+                </tr>
+              </thead>
+              <tbody class="table-group-divider">
+                <mat-selection-list #enrls>
+                  @for (enrl of enrolees; track enrl) {
+                        <mat-list-option >{{enrl}}</mat-list-option>
+                  }
+                </mat-selection-list>
+                
+                <p>
+                  Options selected: {{enrls.selectedOptions.selected.length}}
+                </p>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Add to Section Emerald</button>
+        </div>
+      </div>
+    </div>
+  </div>

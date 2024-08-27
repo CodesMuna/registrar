@@ -1,0 +1,15 @@
+.custom-input {
+    background-color: #d5f2ffa8;
+    color: #333; 
+    border-color: white;
+  }
+
+  .custom-btn {
+    background-color: #3ABEF9;
+    border-color: #ffffff;
+  }
+
+  .custom-btn:hover {
+    background-color: #3abcf9b7; 
+   
+  }

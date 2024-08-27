@@ -1,0 +1,39 @@
+<mat-toolbar class="mat-elevation-z3">
+  <button mat-icon-button (click)="collapsed.set(!collapsed())">
+    <mat-icon>menu</mat-icon> 
+  </button>
+
+  <img [width]="180" [height]="40" src="portal.png"/>
+  <span class="example-spacer"></span>
+
+    <!-- Profile Button with Dropdown -->
+  <button mat-icon-button class="example-icon circle-btn ms-2" [matMenuTriggerFor]="profileMenu">
+      <img src="mik.jpg" class="prof-image" />
+  </button>
+  
+  <!-- Profile Dropdown Menu -->
+    <mat-menu #profileMenu="matMenu">
+        <button mat-menu-item [routerLink]="['/main/account/accountpage/view']">
+            <mat-icon>settings</mat-icon>
+            <span>Account Settings</span>
+        </button>
+        <button mat-menu-item [routerLink]="['/login']">
+            <mat-icon>exit_to_app</mat-icon>
+            <span>Logout</span>
+        </button>
+    </mat-menu>
+
+</mat-toolbar>
+
+<mat-sidenav-container>
+  
+  <mat-sidenav opened mode="side" [style.width]="sidenavWidth()" autosize>
+    
+    <app-custom-sidenav [collapsed]="collapsed()"/>
+  </mat-sidenav>
+
+  <mat-sidenav-content class="content" [style.margin-left]="sidenavWidth()">
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+
+</mat-sidenav-container>
