@@ -1,125 +1,132 @@
-<div class="container mb-5 ms-1">
-    <p class="h4">My Account</p>
-</div>
 
-<div class="container">
-    <div class="row g-2">
-        <!-- Profile Picture and Name --> 
-        <div class="col-12 col-md-3">
-            <div class="card1 text-center">
-                <div class="card-body p-2">
-                    <img src="mik.jpg" alt="User" class="rounded-circle mx-auto d-block" width="150" height="150">
-                    <p class="h4 mt-3">Registrar</p>
+<div class="content-body">
+    <div class="container-fluid">
+      <div class="row">
+        <!-- Profile Card -->
+        <div class="card flex-lg-column flex-md-row">
+          <!-- Profile Information -->
+          <div class="card-body text-center border-bottom profile-bx">
+            <div class="profile-container">
+              <div class="profile-image">
+                <img src="mik.jpg" alt="Profile Image" class="rounded-circle">
+                <div class="upload-container">
+                  <label for="fileUpload" class="upload-icon">
+                    <i class="bi bi-camera"></i>
+                  </label>
+                  <input type="file" id="fileUpload" class="d-none" (change)="onFileChange($event)">
                 </div>
+              </div>
             </div>
+            <h4 class="fs-22 text-black mb-1">{{ user.lname }} {{ user.fname }}  {{ user.mname }}</h4>
+            <p class="mb-4">{{ user.role }}</p>
+            
+          </div>
+  
+          <!-- Contact Information -->
+          <div class="card-body text-center">
+            <div class="contact-list">
+              <div class="contact-item">
+                <a href="mailto:{{ user.email }}" class="contact-icon"><i class="bi bi-envelope"></i></a>
+                <span class="text-black">{{ user.email }}</span>
+              </div>
+              <div class="contact-item">
+                <a href="#" class="contact-icon"><i class="bi bi-geo-alt"></i></a>
+                <span class="text-black">{{ user.address }}</span>
+              </div>
+            </div>
+          </div>
         </div>
-        <!-- Update / Change Profile Picture -->
-        <div class="col-12 col-md-5">
-            <div class="card text-center">
-                <div class="card-body">
-                    <p class="h2 mt-3">Update your Profile Pic</p>
-                    <div class="upload-form">
-                        <form action="/upload" method="post" enctype="multipart/form-data">
-                            <div class="form-group">
-                                <input type="file" class="form-control" id="fileInput" name="fileInput" required>
-                            </div>
-                        </form>
-                        <p class="h6 mt-3 text-start">Image Preview:</p>
-                        <img src="mik.jpg" alt="User" class="mx-auto d-block" width="150" height="150">
-                        <button type="submit" class="btn btn-primary btn-block mt-3" style="width: 100%;">Upload Image</button>
+  
+        <!-- Profile Edit Card -->
+        <div class="card flex-lg-column flex-md-row">
+          <div class="header-container mt-3">
+            <h1 class="fs-50 text-black font-w600 ms-3">Edit Profile</h1>
+            <div class="button-group">
+              <button (click)="saveChanges()" class="btn btn-primary rounded">Save Changes</button>
+            </div>
+          </div>
+  
+          <div class="card-body">
+            <form [formGroup]="profileForm" novalidate>
+              <!-- Generals Section -->
+              <div class="mb-sm-5 mb-2">
+                <div class="title mb-4">
+                  <div class="title-wrapper">
+                    <span class="fs-18 text-black font-w600">GENERALS</span>
+                    <div class="title-line"></div>
+                  </div>
+                </div>
+  
+                <div class="row">
+                      
+                  <div class="col-xl-4 col-sm-6">
+                    <div class="form-group">
+                      <label for="firstName">Firstname {{user.admin_id}}</label>
+                      <input formControlName="fname" id="firstName" placeholder="Enter name" class="form-control">
                     </div>
-                    
-                </div>
-            </div>
-        </div>
-        <!-- Change Password -->
-        <div class="col-12 col-md-4">
-            <div class="card text-center h-100">
-                <div class="card-body">
-                    <p class="h2 mt-3">Change Password</p>
-                    <div class="change-password-form">
-                        <form action="/change-password" method="post">
-                            <div class="form-group">
-                                <label for="currentPassword" class="mb-1">Old Password</label>
-                                <input type="password" class="form-control" id="currentPassword" name="currentPassword" placeholder="Enter your old password">
-                            </div>
-                            <div class="form-group mt-3">
-                                <label for="newPassword" class="mb-1">New Password</label>
-                                <input type="password" class="form-control" id="newPassword" name="newPassword" required placeholder="Enter your new password">
-                            </div>
-                            <div class="form-group mt-3">
-                                <label for="confirmPassword" class="mb-1">Confirm New Password</label>
-                                <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" required placeholder="Retype your password">
-                            </div>
-                            <button type="submit" class="btn btn-primary btn-block mt-3" style="width: 100%;">Update</button>
-                        </form>
+                  </div>
+                  <div class="col-xl-4 col-sm-6">
+                    <div class="form-group">
+                      <label for="middleName">Middlename</label>
+                      <input formControlName="mname" id="middleName" placeholder="Enter Middlename" class="form-control">
                     </div>
+                  </div>
+                  <div class="col-xl-4 col-sm-6">
+                    <div class="form-group">
+                      <label for="lastName">Lastname</label>
+                      <input formControlName="lname" id="lastName" placeholder="Enter lastname" class="form-control">
+                    </div>
+                  </div>
                 </div>
-            </div>
+                <div class="row">
+                  <div class="col-xl-4 col-sm-6">
+                    <div class="form-group">
+                      <label for="oldPassword">Old Password</label>
+                      <input formControlName="oldPassword" id="oldPassword" type="password" placeholder="Enter old password" class="form-control">
+                    </div>
+                  </div>
+                  <div class="col-xl-4 col-sm-6">
+                    <div class="form-group">
+                      <label for="password">New Password</label>
+                      <input formControlName="newPassword" id="password" type="password" placeholder="Enter new password" class="form-control">
+                    </div>
+                  </div>
+                  <div class="col-xl-4 col-sm-6">
+                    <div class="form-group">
+                      <label for="retypePassword">Re-Type Password</label>
+                      <input formControlName="newPassword_confirmation" id="retypePassword" type="password" placeholder="Re-enter new password" class="form-control">
+                    </div>
+                  </div>
+                </div>
+              </div>
+  
+              <!-- Contact Section -->
+              <div class="mb-sm-5 mb-2">
+                <div class="title mb-4">
+                  <div class="title-wrapper">
+                    <span class="fs-18 text-black font-w600">CONTACT</span>
+                    <div class="title-line"></div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xl-4 col-sm-6">
+                    <div class="form-group">
+                      <label for="email">Email</label>
+                      <input formControlName="email" id="email" placeholder="Enter email" class="form-control">
+                    </div>
+                  </div>
+                  <div class="col-xl-4 col-sm-6">
+                    <div class="form-group">
+                      <label for="address">Address</label>
+                      <input formControlName="address" id="address" placeholder="Enter address" class="form-control">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
         </div>
+      </div>
     </div>
-</div>
-
-
-
-<!-- <div class="container mb-5 ms-1">
-    <p class="h4">My Account</p>
-</div>
-
-<div class="container">
-    <div class="row g-2">
-      
-        <div class="col-12 col-md-3">
-            <div class="card1 text-center">
-                <div class="card-body p-2">
-                    <img src="academy.jpg" alt="User" class="rounded-circle mx-auto d-block" width="150" height="150">
-                    <p class="h4 mt-3">Registrar</p>
-                </div>
-            </div>
-        </div>
-        
-        <div class="col-12 col-md-5">
-            <div class="card text-center">
-                <div class="card-body">
-                    <p class="h2 mt-3">Update your Profile Pic</p>
-                    <div class="upload-form">
-                        <form action="/upload" method="post" enctype="multipart/form-data">
-                            <div class="form-group">
-                                <input type="file" class="form-control" id="fileInput" name="fileInput" required>
-                            </div>
-                        </form>
-                        <p class="h6 mt-3 text-start">Image Preview:</p>
-                        <img src="academy.jpg" alt="User" class="mx-auto d-block" width="150" height="150">
-                        <button type="submit" class="btn btn-primary btn-block mt-3" style="width: 100%;">Upload Image</button>
-                    </div>
-                    
-                </div>
-            </div>
-        </div>
-     
-        <div class="col-12 col-md-4">
-            <div class="card text-center h-100">
-                <div class="card-body">
-                    <p class="h2 mt-3">Change Password</p>
-                    <div class="change-password-form">
-                        <form action="/change-password" method="post">
-                            <div class="form-group">
-                                <label for="currentPassword" class="mb-1">Old Password</label>
-                                <input type="password" class="form-control" id="currentPassword" name="currentPassword" placeholder="Enter your old password">
-                            </div>
-                            <div class="form-group mt-3">
-                                <label for="newPassword" class="mb-1">New Password</label>
-                                <input type="password" class="form-control" id="newPassword" name="newPassword" required placeholder="Enter your new password">
-                            </div>
-                            <div class="form-group mt-3">
-                                <label for="confirmPassword" class="mb-1">Confirm New Password</label>
-                                <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" required placeholder="Retype your password">
-                            </div>
-                            <button type="submit" class="btn btn-primary btn-block mt-3" style="width: 100%;">Update</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div> -->
+  </div>
+  

@@ -9,10 +9,13 @@ import { ReplyComponent } from './reply/reply.component';
 export const messageRoutes: Routes = [
     {path: 'messagepage', component: MessagepageComponent,
         children: [
-            {path: 'send', component: SendComponent},
-            {path: 'view', component: ViewComponent},
+            {path: 'messages', component: SendComponent, 
+                children: [
+                    {path: 'view/:sid', component: ViewComponent},
+                ]
+            },
             {path: 'reply', component: ReplyComponent},
-            {path: '', redirectTo: 'send', pathMatch: 'full'}
+            {path: '', redirectTo: 'messages', pathMatch: 'full'}
         ]
     },
     {path: '', redirectTo:'messagepage', pathMatch: 'full'}

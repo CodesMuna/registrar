@@ -4,17 +4,28 @@
     <div class="d-flex justify-content-between align-items-center mb-3">
       <div class="d-flex align-items-center">
         <mat-form-field class="me-2">
-          <mat-label>Class</mat-label>
-          <mat-select>
+          <mat-label>Grade Level</mat-label>
+          <mat-select [(ngModel)]="selectedLevel" (ngModelChange)="updateRosters()" (change)="gradeLevelChange($event)">
             <!-- <mat-option>None</mat-option> -->
-            @for (class of classes; track class) {
-            <mat-option [value]="class">{{class}}</mat-option>
+            @for (lvl of gradelevel; track lvl) {
+            <mat-option [value]="lvl">{{lvl}}</mat-option>
             }
           </mat-select>
         </mat-form-field>
+        @if(selectedLevel == '11' || selectedLevel == '12'){
+          <mat-form-field class="me-2">
+            <mat-label>Strand</mat-label>
+            <mat-select [(ngModel)]="selectedStrand" (ngModelChange)="updateRosters()">
+              <!-- <mat-option>None</mat-option> -->
+              @for (strnd of strands; track strnd) {
+              <mat-option [value]="strnd">{{strnd}}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+        } 
         <mat-form-field class="me-2">
           <mat-label>Section</mat-label>
-          <mat-select>
+          <mat-select [(ngModel)]="selectedSection" (ngModelChange)="updateRosters()">
             <!-- <mat-option>None</mat-option> -->
             @for (sect of sections; track sect) {
             <mat-option [value]="sect">{{sect}}</mat-option>
@@ -22,73 +33,67 @@
           </mat-select>
         </mat-form-field>
         <mat-form-field class="me-2">
-          <mat-label>Strand</mat-label>
-          <mat-select>
+          <mat-label>Gender</mat-label>
+          <mat-select [(ngModel)]="selectedGender" (ngModelChange)="updateRosters()">
             <!-- <mat-option>None</mat-option> -->
-            @for (strnd of strands; track strnd) {
-            <mat-option [value]="strnd">{{strnd}}</mat-option>
+            @for (gender of genders; track gender) {
+            <mat-option [value]="gender">{{gender}}</mat-option>
             }
           </mat-select>
         </mat-form-field>
       </div>
       </div>
           <!-- Class Roster -->
-        <div class=""> 
-          <div class="container align-self-center p-3 bg-white rounded" style="height: 400px; overflow-y: auto;">
+          <div class="container align-self-center p-3 bg-white rounded" style="height: 430px; overflow-y: auto;">
             <div class="row">
-              <div class="col-md-6">
+              <div class="col-md-12 d-flex justify-content-between align-items-center">
                 <div class="d-flex align-items-center">
-                  <p class="h4 ms-2 text-start">Grade 7 Emerald Roster</p>
+                  <!-- <p>{{rosters.roster_id}}</p> -->
+                  @if(selectedLevel != '11' && selectedLevel != '12'){
+                    <p class="h4 ms-2 text-start">Grade {{selectedLevel}} {{selectedSection}} Roster </p>
+                  } @else {
+                    <p class="h4 ms-2 text-start">Grade {{selectedLevel}} {{selectedStrand}} {{selectedSection}} Roster </p>
+                  }     
+                  @if(rosters){
+                    <div class="btn-group ms-2">
+                      <button mat-icon-button aria-label="Example icon button with a delete icon" (click)="addtoRoster()">
+                        <mat-icon>group_add</mat-icon>
+                      </button>
+                      <!-- <button mat-icon-button aria-label="Example icon button with a delete icon" (click)="addtoRoster()" [disabled]="!rosters || rosters.length === 0">
+                        <mat-icon>group_add</mat-icon>
+                      </button> -->
+                    </div>
+                  }
+                </div>
+                <div>
+                  <span><strong>Male:</strong> {{ maleStudents }}</span>
+                  <span class="ms-3"><strong>Female:</strong> {{ femaleStudents }}</span>
+                  <span class="ms-3"><strong>Total:</strong> {{ totalStudents }}</span>
+                  <i class="fa fa-search" aria-hidden="true" style="margin-left: 80px; margin-bottom: 50px; cursor: pointer;" (click)="showSearchRoster = !showSearchRoster"></i>
                 </div>
               </div>
-            <input type="text" class="form-control search-input " placeholder="Search Name"  aria-label="Name" aria-describedby="basic-addon2">
-            <table class="table table-hover">
-              <thead class="table">
-                <tr>
-                  <th scope="col">Student</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody class="table-group-divider">
-                <tr>
-                    <th scope="row">Kimiko Fukuhara</th>
-                    <td class="text-body-secondary" colspan="3">
-                      <button mat-icon-button aria-label="Example icon button with a delete icon" class="">
-                        </button>
-                    </td>
-                  </tr>
+              @if(showSearchRoster){
+                <input type="text" class="form-control search-input"  placeholder="Search Name" aria-label="Name" aria-describedby="basic-addon2" [(ngModel)]="keyword">
+              } 
+              <table class="table table-hover mt-3">
+                <thead class="table">
                   <tr>
-                    <th scope="row">Frenchie Biswe</th>
-                    <td class="text-body-secondary" colspan="3">
-                      <button mat-icon-button aria-label="Example icon button with a delete icon" class="">
-                        </button>
-                    </td>
+                    <th scope="col"></th>
+                    <th></th>
+                    <th></th>
                   </tr>
-                  <tr>
-                    <th scope="row">Laz Alonzo</th>
-                    <td class="text-body-secondary" colspan="3">
-                      <button mat-icon-button aria-label="Example icon button with a delete icon" class="">
-                        </button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">William Butcher</th>
-                    <td class="text-body-secondary" colspan="3">
-                      <button mat-icon-button aria-label="Example icon button with a delete icon" class="">
-                        </button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">Hughie Campbell</th>
-                    <td class="text-body-secondary" colspan="3">
-                      <button mat-icon-button aria-label="Example icon button with a delete icon" class="">
-                        </button>
-                    </td>
-                  </tr>    
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
+                </thead>
+                <tbody class="table-group-divider">
+                  @for(roster of getUniqueRosters() | searchFilter: keyword; track roster.roster_id){
+                      <tr>
+                        <th scope="row">{{roster.student_name}}</th>
+                        <td>{{roster.contact_no}}</td>
+                        
+                      </tr>
+                    }
+                </tbody>
+              </table>
+            </div>
+          </div>          
     </div>
   </div>

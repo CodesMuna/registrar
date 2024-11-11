@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component } from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {FormsModule} from '@angular/forms';
@@ -14,26 +14,10 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import { MatTableModule } from '@angular/material/table';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatButtonModule} from '@angular/material/button';
-
-export interface PeriodicElement {
-  name: string;
-  gender: string;
-  year: string;
-  balance: number;
-}
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  { name: 'Miko', gender: "Male",  year: "II", balance: 20000.31},
-  { name: 'Helium', gender: "Female", year: "III", balance: 1000.31},
-  { name: 'Lithium', gender: "Male", year: "II", balance: 1200.31},
-  { name: 'Beryllium', gender: "Female", year: "I", balance: 20000.31},
-  { name: 'Boron', gender: "Male", year: "IV", balance: 20120.31},
-  { name: 'Carbon', gender: "Male", year: "IV", balance: 80040.31},
-  { name: 'Nitrogen', gender:"Female", year: "I", balance: 53231.31},
-  { name: 'Oxygen', gender: "Female", year: "III", balance: 14110.31},
-  { name: 'Fluorine', gender: "Female", year: "IV", balance: 12400.31},
-  { name: 'Neon', gender: "Male", year: "II", balance: 21415.31},
-];
+import { ActivatedRoute, Route, Router, RouterModule } from '@angular/router';
+import { PortalService } from '../../../portal.service';
+import { MatDialog } from '@angular/material/dialog';
+import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
 
 @Component({
   selector: 'app-approval',
@@ -41,13 +25,68 @@ const ELEMENT_DATA: PeriodicElement[] = [
   providers: [provideNativeDateAdapter()],
   imports: [FormsModule, MatFormFieldModule, MatInputModule, MatCardModule, MatToolbar,
     MatTabsModule,
-    MatIconModule, MatChipsModule, MatSelectModule,MatDatepickerModule, MatSidenavModule, MatTableModule, MatDividerModule, MatButtonModule],
+    MatIconModule, MatChipsModule, MatSelectModule,MatDatepickerModule, MatSidenavModule, MatTableModule, MatDividerModule, MatButtonModule, RouterModule],
   templateUrl: './approval.component.html',
   styleUrl: './approval.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 
-export class ApprovalComponent {
-  displayedColumns: string[] = ['name', 'gender', 'year', 'balance', ''];
-  dataSource = ELEMENT_DATA;
+export class ApprovalComponent implements OnInit{
+  enrolinfo: any;
+  eid: any;
+  studentInfo: any;
+
+  constructor(private conn: PortalService,
+    private aroute: ActivatedRoute,
+    private route: Router,
+    private dialog: MatDialog
+  ) { }
+
+  ngOnInit(): void {
+    const eid = this.aroute.snapshot.paramMap.get('lrn');
+    this.getStudentInfo(eid);
+    
+  }
+
+  // getEnrollmentInfo(lrn: string): void {
+  //   this.conn.getEnrollmentInfo(lrn).subscribe((result: any) => {
+  //     this.enrolinfo = result;
+  //     console.log(this.enrolinfo);
+  //   });
+  // }
+
+  getStudentInfo(eid: any) {
+    this.conn.getEnrollmentInfo(eid).subscribe((result: any) => {
+      this.studentInfo = result;
+      console.log(this.studentInfo);
+    });
+  }
+
+  approve(eid: any){
+    this.conn.approval(eid).subscribe((result: any) => {
+      console.log(eid)
+      this.route.navigate(['/main/enrollment/enrollmentpage/monitor'])
+    })
+  }
+
+  deleteEnrollment(eid: any){
+    this.conn.deleteEnrollment(eid).subscribe((result: any) => {
+      console.log(eid)
+      this.route.navigate(['/main/enrollment/enrollmentpage/monitor'])
+    })
+  }
+
+  openMessage(eid: any): void {
+    const dialogRef = this.dialog.open(DeleteDialogComponent, {
+      data: { eid } // Pass the enrollment ID to the dialog
+    });
+  
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        // Handle any actions after the dialog is closed, if needed
+        this.deleteEnrollment(eid);
+      }
+    });
+  }
+  
 }

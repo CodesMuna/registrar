@@ -9,6 +9,20 @@
     @if (!collapsed()) {
         <span matListItemTitle>{{item().label}}</span>
     }
+    @if(item().subItems){
+        <span matListItemMeta>
+            @if(nestedMenuOpen()){
+                <mat-icon>expand_less</mat-icon>
+            } @else {
+                <mat-icon>expand_more</mat-icon>
+            }           
+        </span>
+    }
+    <!-- @if(item().subItems){
+        <span matListItemMeta>
+            <mat-icon>expand_more</mat-icon>
+        </span>
+    } -->
 </a>
 
 @if(item().subItems && nestedMenuOpen()) {
@@ -26,6 +40,8 @@
                 @if (!collapsed()) {
                     <span matListItemTitle>{{subItem.label}}</span>
                 }
+
+                
         </a>
     }
     </div>

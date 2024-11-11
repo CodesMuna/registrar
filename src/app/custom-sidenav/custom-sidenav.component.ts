@@ -36,11 +36,11 @@ export class CustomSidenavComponent {
       label: 'Enrollment',
       route: 'enrollment',
       subItems: [
-        {
-          icon: 'how_to_reg',
-          label: 'Approval',
-          route: 'enrollment/enrollmentpage/approval',
-        },
+        // {
+        //   icon: 'how_to_reg',
+        //   label: 'Approval',
+        //   route: 'enrollment/enrollmentpage/approval',
+        // },
         {
           icon: 'monitoring',
           label: 'Monitor',
@@ -51,12 +51,17 @@ export class CustomSidenavComponent {
           label: 'Roster',
           route: 'enrollment/enrollmentpage/roster',
         },
-        {
-          icon: 'group_add',
-          label: 'Rostering',
-          route: 'enrollment/enrollmentpage/rostering',
-        },
+        // {
+        //   icon: 'group_add',
+        //   label: 'Rostering',
+        //   route: 'enrollment/enrollmentpage/rostering',
+        // },
       ]
+    },
+    {
+      icon: 'grade',
+      label: 'Grades',
+      route: 'grades/gradespage/studentlist',
     },
     {
       icon: 'chat',

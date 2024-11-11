@@ -1,0 +1,83 @@
+<div class="container-fluid min-vh-100 d-flex align-items-center justify-content-center p-3 p-md-4 p-xl-5">
+    <div class="row justify-content-center">
+      <div class="col-12 col-md-8 col-lg-9">
+        <div class="card border-light shadow-lg">
+          <div class="row g-0">
+            <div class="col-12 col-md-6">
+              <img class="img-fluid rounded-start w-100 h-100 object-fit-cover" loading="lazy" src="nlac1.jpg" alt="">
+            </div>
+            <div class="col-12 col-md-6 d-flex align-items-center justify-content-center">
+              <div class="col-12 col-lg-11 col-xl-10">
+                <div class="card-body p-3 p-md-4 p-xl-5">
+                  <div class="row">
+                  </div>
+                  <form [formGroup]="adminForm" (ngSubmit)="onSubmit()">
+                      <div class="row gy-3 overflow-hidden">
+                        <div class="col-12">
+                            <div class="form-floating">
+                              <input type="text" formControlName="fname" class="form-control custom-input" name="ftname" id="ftname" placeholder="name@example.com" required>
+                              <label for="fname" class="form-label">Firstname</label>
+                            </div>  
+                        </div>
+                        <div class="form-floating">
+                            <input type="text" formControlName="lname" class="form-control custom-input" name="ltname" id="ltname" placeholder="name@example.com" required>
+                            <label for="lname" class="form-label">Lastname</label>
+                        </div>  
+                        <div class="form-floating">
+                            <input type="text" formControlName="mname" class="form-control custom-input" name="mdname" id="mdname" placeholder="name@example.com" required>
+                            <label for="mname" class="form-label">Middlename</label>
+                        </div>  
+                        <div class="form-floating">
+                          <input type="text" formControlName="address" class="form-control custom-input" name="addrs" id="addrs" placeholder="name@example.com" required>
+                          <label for="mname" class="form-label">Address</label>
+                      </div>  
+                        <div class="form-floating">
+                            <select class="form-select" formControlName="role" aria-label="Default select example">
+                                <option selected>Open this select menu</option>
+                                @for(r of roles; track r){
+                                    <option>
+                                        {{r}}
+                                    </option>
+                                }
+                                <!-- <option value="1">Principal</option>
+                                <option value="2">DSF</option>
+                                <option value="3">Registrar</option>
+                                <option value="4">Teacher</option> -->
+                              </select>
+                            <label for="email" class="form-label">Role</label>
+                        </div>    
+                        <div class="col-12">
+                          <div class="form-floating">
+                            <input type="email" formControlName="email" class="form-control custom-input" name="email" id="email" placeholder="name@example.com" required>
+                            <label for="email" class="form-label">Email</label>
+                          </div>  
+                        </div>
+                        <div class="col-12">
+                          <div class="form-floating">
+                            <input type="password" formControlName="password" class="form-control custom-input" name="password" id="password" placeholder="Password" required>
+                            <label for="password" class="form-label">Password</label>
+                          </div>
+                        </div>
+                        <div class="col-12">
+                          <div class="form-floating">
+                            <input type="password" formControlName="password_confirmation" class="form-control custom-input" name="password2" id="password2" placeholder="Password" required>
+                            <label for="password" class="form-label">Confirm Password</label>
+                          </div>
+                        </div>
+                        <div class="col-12">
+                          <div class="d-grid">
+                            <button type="submit" value="submit" class="text-center btn btn-primary custom-btn" >Register</button>
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                    
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+

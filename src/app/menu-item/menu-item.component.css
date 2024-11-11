@@ -1,5 +1,6 @@
 :host * {
     transition: all 500ms ease-in-out;
+    overflow-y: hidden;
   }
 
 .menu-item {
@@ -10,6 +11,7 @@
   }
   
   .selected-menu-item {
+    color: blue;
     border-left-color: #0504aa;
     background: rgba(0, 0, 0, 0.05);
   }

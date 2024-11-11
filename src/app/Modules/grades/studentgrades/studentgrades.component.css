@@ -1,0 +1,53 @@
+.container {
+    width: 100%; /* Use 100% for better responsiveness */
+    padding: 20px;
+}
+
+h2 {
+    text-align: center; /* Center the title */
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse; /* Remove extra spacing between cells */
+}
+
+th, td {
+    padding: 10px;
+    text-align: center; /* Center-align all text */
+    border: 1px solid #ddd; /* Add border for clarity */
+}
+
+th {
+    background-color: #f2f2f2; /* Header background color */
+}
+
+td strong {
+    font-weight: bold;
+    font-size: 1.1em; /* Emphasize the average grade */
+}
+
+/* Make the table responsive */
+@media only screen and (max-width: 768px) {
+    .responsive-table {
+        display: block;
+    }
+    .responsive-table thead {
+        display: none;
+    }
+    .responsive-table tr {
+        display: block;
+        margin-bottom: 10px;
+    }
+    .responsive-table td {
+        display: block;
+        text-align: right;
+        border-bottom: 1px solid #ddd;
+    }
+    .responsive-table td:before {
+        content: attr(data-label);
+        float: left;
+        font-weight: bold;
+        width: 30%;
+    }
+}

@@ -1,0 +1,137 @@
+<div class="row">
+  <div class="container mb-5 ms-1">
+    <p class="h1">Student Grades</p>
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <div class="d-flex align-items-center">
+        <mat-form-field class="me-2">
+          <mat-label>Grade Level</mat-label>
+          <mat-select [(ngModel)]="selectedLevel" (ngModelChange)="updateRosters()" (change)="gradeLevelChange($event)">
+            <!-- <mat-option>None</mat-option> -->
+            @for (lvl of gradelevel; track lvl) {
+            <mat-option [value]="lvl">{{lvl}}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+        
+        @if(selectedLevel == '11' || selectedLevel == '12'){
+          <mat-form-field class="me-2">
+            <mat-label>Strand</mat-label>
+            <mat-select [(ngModel)]="selectedStrand" (ngModelChange)="updateRosters()">
+              <!-- <mat-option>None</mat-option> -->
+              @for (strnd of strands; track strnd) {
+              <mat-option [value]="strnd">{{strnd}}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+        } 
+        <mat-form-field class="me-2">
+          <mat-label>Section</mat-label>
+          <mat-select [(ngModel)]="selectedSection" (ngModelChange)="updateRosters()">
+            <!-- <mat-option>None</mat-option> -->
+            @for (sect of sections; track sect) {
+            <mat-option [value]="sect">{{sect}}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field class="me-2">
+          <mat-label>Subject</mat-label>
+          <mat-select [(ngModel)]="selectedSubject" (ngModelChange)="updateRosters()" (change)="gradeLevelChange($event)">
+            <!-- <mat-option>None</mat-option> -->
+            @for (sbjct of subjects; track sbjct) {
+            <mat-option [value]="sbjct">{{sbjct}}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field class="me-2">
+          <mat-label>Gender</mat-label>
+          <mat-select [(ngModel)]="selectedGender" (ngModelChange)="updateRosters()">
+            <!-- <mat-option>None</mat-option> -->
+            @for (gender of genders; track gender) {
+            <mat-option [value]="gender">{{gender}}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+      </div>
+      </div>
+          <!-- Class Roster -->
+          <div class="container align-self-center p-3 bg-white rounded" style="height: 430px; overflow-y: auto;">
+            <div class="row">
+              <div class="col-md-12 d-flex justify-content-between align-items-center">
+                <div class="d-flex align-items-center">
+                  <!-- <p>{{rosters.roster_id}}</p> -->
+                  @if(selectedLevel != '11' && selectedLevel != '12'){
+                    <p class="h4 ms-2 text-start">Grade {{selectedLevel}} {{selectedSection}} - {{selectedSubject}} </p>
+                  } @else {
+                    <p class="h4 ms-2 text-start">Grade {{selectedLevel}} {{selectedStrand}} {{selectedSection}} - {{selectedSubject}} </p>
+                  }     
+                </div>
+                <div>
+                  <span><strong>Male:</strong> {{ maleStudents }}</span>
+                  <span class="ms-3"><strong>Female:</strong> {{ femaleStudents }}</span>
+                  <span class="ms-3"><strong>Total:</strong> {{ totalStudents }}</span>
+                  <i class="fa fa-search" aria-hidden="true" style="margin-left: 80px; margin-bottom: 50px; cursor: pointer;" (click)="showSearchRoster = !showSearchRoster"></i>
+                </div>
+              </div>
+              <table class="table table-hover mt-3">
+                <thead class="table">
+                  <tr>
+                    <th scope="col">Names</th>
+                    <th>1st Grading</th>
+                    <th>2nd Grading</th>
+                    <th>3rd Grading</th>
+                    <th>4th Grading</th>
+                  </tr>
+                </thead>
+                <tbody class="table-group-divider">
+                  @for(roster of rosters | searchFilter: keyword; track roster){
+                      <tr [routerLink]="['/main/grades/gradespage/studentgrades/' + roster.LRN + '/' + roster.school_year]">
+                        <th scope="row">{{roster.student_name}}</th>
+                        <!-- <td>{{roster.contact_no}}</td> -->
+                         <td>{{roster.grade_Q1}}</td>
+                         <td>{{roster.grade_Q2}}</td>
+                         <td>{{roster.grade_Q3}}</td>
+                         <td>{{roster.grade_Q4}}</td>
+                      </tr>
+                    }
+                </tbody>
+              </table>
+            </div>
+          </div>          
+    </div>
+  </div>
+
+<!-- <div class="container ms-1">
+    <p class="h1">Student Grades</p>
+  </div>
+
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <div class="d-flex align-items-center">
+      <mat-form-field>
+        <mat-label>Search Name</mat-label>
+        <input matInput [(ngModel)]="keyword">
+      </mat-form-field>    </div>
+  </div>
+  <div class="container align-self-center p-3 bg-white rounded" >
+      <div class="row">
+        <div class="col-md-12">
+          <table class="table table-hover">
+            <thead class="table">
+              <tr>
+                <th scope="col">Student</th>
+                <th class="text-center" scope="col">School Year</th>
+              </tr>
+            </thead>
+            <tbody class="table-group-divider">
+              @for(enrollment of enrollments | searchFilter: keyword; track enrollment){
+                 <tr [routerLink]="['/main/grades/gradespage/studentgrades/' + enrollment.LRN + '/' + enrollment.school_year]">
+                <th scope="row">{{enrollment.full_name}}</th>
+                <td class="text-center"> 
+                  {{enrollment.school_year}}
+                </td>
+              </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div> -->

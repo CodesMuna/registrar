@@ -11,12 +11,12 @@ export const enrollmentRoutes: Routes = [
     {path: 'enrollmentpage', component: EnrollmentpageComponent,
         children: [
             {path: 'enrollmentlist', component: EnrollmentlistComponent},
-            {path: 'approval', component: ApprovalComponent},
-            {path: 'monitor', component: MonitorComponent},
+            {path: 'approval/:lrn', component: ApprovalComponent},
+            {path: 'monitor', component: MonitorComponent}, 
             {path: 'roster', component: RosterComponent},
-            {path: 'rostering', component: RosteringComponent},
+            {path: 'rostering/:classIds', component: RosteringComponent},
             {path: 'viewroster', component: ViewRosterComponent},
-            {path: '', redirectTo: 'approval', pathMatch: 'full'}
+            {path: '', redirectTo: 'monitor', pathMatch: 'full'}
         ]
     },
     {path: '', redirectTo:'enrollmentpage', pathMatch: 'full'}
