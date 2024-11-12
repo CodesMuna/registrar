@@ -15,7 +15,7 @@
                    <input type="text" [(ngModel)]="keyword" class="form-control" placeholder="Search chats" aria-label="Search chats" style="border-radius: 20px;">
                </div>
            </div>
-
+           <input type="hidden"  [(ngModel)]="uid">
            <!-- List of Users -->
             @for(msg of messages | searchFilter: keyword; track msg.message_id){
                 <div class="user-list-item" [routerLink]="['/main/message/messagepage/messages/view/' + msg.message_sender]" routerLinkActive="active-link">

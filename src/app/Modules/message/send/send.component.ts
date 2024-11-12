@@ -18,6 +18,7 @@ export class SendComponent implements OnInit{
   conversation: any;
   keyword: any;
   sid: any;
+  uid: any;
 
   constructor(private conn: PortalService,
     private aroute: ActivatedRoute,
@@ -25,18 +26,20 @@ export class SendComponent implements OnInit{
   ) { }
 
   ngOnInit(): void {
+    this.uid = localStorage.getItem('admin_id')
     this.getMessages()
   }
 
   getMessages(){
-    this.conn.getMessages().subscribe((result: any) => {
+    console.log(this.uid)
+    this.conn.getMessages(this.uid).subscribe((result: any) => {
       console.log(result)
       this.messages = result; 
     })
   }
 
-  openConvo(sid: any) {
-    this.conn.getConvo(sid).subscribe((result: any) => {
+  openConvo(sid: any, uid:any) {
+    this.conn.getConvo(sid, uid).subscribe((result: any) => {
       this.route.navigate(['/main/message/messagepage/messages/view', sid])
       console.log(result);
       this.conversation = result;

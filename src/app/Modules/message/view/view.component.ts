@@ -15,7 +15,7 @@ export class ViewComponent implements OnInit{
 
   convo: any;
   sid: any;
-  aid: any;
+  uid: any;
   
 
   msgForm = new FormGroup({
@@ -30,17 +30,19 @@ export class ViewComponent implements OnInit{
   ) { }
 
   ngOnInit(): void {
+    const uid = localStorage.getItem('admin_id')
     this.aroute.paramMap.subscribe(params => {
       const sid = params.get('sid');
       this.sid = sid;
+      this.uid = uid;
       this.msgForm.get('message_reciever')?.setValue(this.sid);
       // this.msgForm.get('message_sender')?.setValue(1);
-      this.getConvo(sid);
+      this.getConvo(sid, uid);
     });
   }
 
-  getConvo(sid: any){
-    this.conn.getConvo(sid).subscribe((result: any) => {
+  getConvo(sid: any, uid: any){
+    this.conn.getConvo(sid, uid).subscribe((result: any) => {
       console.log(result);
       this.convo = result;
     })
@@ -51,7 +53,7 @@ export class ViewComponent implements OnInit{
     this.conn.sendMessage(this.msgForm.value).subscribe((result: any) => {
       console.log(result);
       // You can also update the conversation list here
-      this.getConvo(this.aroute.snapshot.paramMap.get('sid'));
+      this.getConvo(this.aroute.snapshot.paramMap.get('sid'), this.uid);
       this.msgForm.get('message')?.reset(); 
     })
   }

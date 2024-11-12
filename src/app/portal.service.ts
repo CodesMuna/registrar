@@ -152,12 +152,12 @@ export class PortalService {
 
   //Message Service
 
-  getMessages(){
-    return this.http.get(this.url + 'getMessages');
+  getMessages(uid: any){
+    return this.http.get(this.url + 'getMessages', {params: {uid: uid}});
   }
 
-  getConvo(sid: any){
-    return this.http.get(this.url + 'getConvo/' + sid);
+  getConvo(sid: any, uid: any){
+    return this.http.get(this.url + 'getConvo/' + sid , {params: {uid: uid}});
   }
 
   sendMessage(mdata: any){
