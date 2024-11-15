@@ -39,7 +39,7 @@
         </thead>
         <tbody class="table-group-divider">
           @for (inq of inquries; track inquries) {
-            <tr [routerLink]="['/main/message/messagepage/messages']">
+            <tr [routerLink]="['/main/message/messagepage/messages/view/' + inq.message_sender]">
               <th scope="row">{{inq.student_name}}</th>
               <td class="text-body-secondary" colspan="3">{{inq.message}}</td>
               <td class="text-center">{{inq.message_date | date: 'MMMM dd, yyyy'}}</td>

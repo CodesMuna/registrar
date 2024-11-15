@@ -47,8 +47,8 @@ export class InquiryComponent implements OnInit{
       this.enrollments = results;
       // console.log(this.enrollments)
       this.totalEnrollments = this.enrollments.length
-      this.pendingEnrollees = this.enrollments.filter((pndng: any) => pndng.payment_approval === '0000-00-00').length
-      this.officiallyEnrolled = this.enrollments.filter((ofc: any) => ofc.regapproval_date != '0000-00-00').length
+      this.pendingEnrollees = this.enrollments.filter((pndng: any) => pndng.payment_approval === null || pndng.regapproval_date === null ).length
+      this.officiallyEnrolled = this.enrollments.filter((ofc: any) => ofc.regapproval_date != null).length
 
       console.log(this.totalEnrollments)
       console.log(this.pendingEnrollees)

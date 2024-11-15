@@ -67,7 +67,7 @@
               </thead>
                 <tbody class="table-group-divider">
                   @for(enrls of enrolees | searchFilter: enkey ; track enrls.LRN){
-                    <tr (click)="addStudent(enrls.LRN)">
+                    <tr (click)="addStudent(enrls.LRN)" class="pointer">
                       <td scope="row">{{enrls.student_name}}</td>
                       <td>{{enrls.gender}}</td>
                     </tr>

@@ -55,11 +55,11 @@ export class MonitorComponent implements OnInit{
       case 'All':
         return this.enrollments;
       case 'PreReg':
-        return this.enrollments.filter((enrollment: any) => enrollment.regapproval_date == '0000-00-00' && enrollment.payment_approval == '0000-00-00');
+        return this.enrollments.filter((enrollment: any) => enrollment.regapproval_date == null && enrollment.payment_approval == null);
       case 'Payment':
-        return this.enrollments.filter((enrollment: any) => enrollment.regapproval_date == '0000-00-00' && enrollment.payment_approval !== '0000-00-00');
+        return this.enrollments.filter((enrollment: any) => enrollment.regapproval_date == null && enrollment.payment_approval !== null);
       case 'Officially':
-        return this.enrollments.filter((enrollment: any) => enrollment.regapproval_date !== '0000-00-00' && enrollment.payment_approval !== '0000-00-00');
+        return this.enrollments.filter((enrollment: any) => enrollment.regapproval_date !== null && enrollment.payment_approval !== null);
       default:
         return []; // Return an empty array if selectedProgress does not match any of the conditions
     }
