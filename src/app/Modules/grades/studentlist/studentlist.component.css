@@ -1,0 +1,14 @@
+.pending {
+    color: rgb(251, 222, 0);
+}
+
+.dropdown-content {
+    display: block;
+    position: absolute; /* or relative, depending on your layout */
+    background-color: white;
+    border: 1px solid #ccc;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1;
+    margin-top: 5px; /* Adjust as needed */
+    padding: 10px; /* Adjust as needed */
+}

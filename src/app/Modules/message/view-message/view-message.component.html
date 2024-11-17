@@ -1,0 +1,80 @@
+<div class="container-fluid h-100">
+    <div class=" row h-100 messenger-container">
+         <!-- Sidebar -->
+         <div class="col-12 col-md-3 col-lg-2 p-0 sidebar container">
+             <div class="container mb-2 d-flex justify-content-between align-items-center">
+                 <p class="h4 m-0">Chats</p>
+                 <button type="button" class="btn" style="border-radius: 50%; border: none; outline: none; background-color: rgb(236, 233, 233);">
+                    <i class="bi bi-pencil-square" ></i>                 </button>
+                 <!-- <button mat-button (click)="openDialog()" class="btn btn-primary" type="button"> <i class="fa-solid fa-plus"></i> Add Announcement
+                 </button> -->
+             </div>
+             <div class="container mb-3 mt-3">
+                 <div class="input-group">
+                     <input type="text" class="form-control" placeholder="Search chats" aria-label="Search chats" style="border-radius: 20px;">
+                 </div>
+             </div>
+ 
+             <!-- List of Users -->
+             <div class="user-list-item">
+                 <img src="assets/arj.jpg" alt="User" class="rounded-circle me-1" width="40" height="40">
+                 <span> Arjay Subido</span>
+             </div>
+             <div class="user-list-item">
+                 <img src="assets/mik.jpg" alt="User" class="rounded-circle me-1" width="40" height="40">
+                 <span> Mario "Miko" Ofiaza III</span>
+             </div>
+             <div class="user-list-item">
+                 <img src="assets/gl.jpg" alt="User" class="rounded-circle me-1" width="40" height="40">
+                 <span> Glenson Lozada</span>
+             </div>
+             <div class="user-list-item">
+                 <img src="assets/jo.jpg" alt="User" class="rounded-circle me-1" width="40" height="40">
+                 <span> Jhonnel Manaois</span>
+             </div>
+             <div class="user-list-item">
+                 <img src="assets/dio.jpg" alt="User" class="rounded-circle me-1" width="40" height="40">
+                 <span> Dionece Collano</span>
+             </div>
+         </div>
+ 
+         <!-- Main Content -->
+         <div class="col-12 col-md-9 col-lg-10 p-0 main-content">
+             <!-- Chat Header -->
+             <div class="chat-header d-flex align-items-center">
+                 <img src="assets/mik.jpg" alt="User" class="rounded-circle" width="40" height="40">
+                 <span class="ms-2" style="font-weight:500;">Mario "Miko" Ofiaza III</span>
+             </div>
+ 
+             <!-- Chat Area -->
+             <div class="chat-area">
+                 <div class="message received">
+                     <img src="assets/mik.jpg" alt="User" class="rounded-circle" width="40" height="40">
+                     <div class="message-content ms-2">Good Day Sir</div>
+                 </div>
+                 <div class="message sent">
+                     <div class="message-content">yes?</div>
+                 </div>
+                 <div class="message received">
+                     <img src="assets/mik.jpg" alt="User" class="rounded-circle" width="40" height="40">
+                     <div class="message-content ms-2">May Class po ?</div>
+                 </div>
+                 <div class="message received">
+                     <img src="assets/mik.jpg" alt="User" class="rounded-circle" width="40" height="40">
+                     <div class="message-content ms-2">HAHAHAHHA</div>
+                 </div>
+                 <div class="message sent">
+                     <div class="message-content">Wait for the announcement! tigas ng ulo !</div>
+                 </div>
+             </div>
+ 
+             <!-- Chat Footer -->
+             <div class="chat-footer d-flex">
+                 <input type="text" class="form-control" placeholder="Type a message">
+                 <button class="btn btn-primary ml-2 ms-2">
+                     <span class="material-icons">send</span>
+                 </button>
+             </div>
+         </div>
+     </div>
+ </div>

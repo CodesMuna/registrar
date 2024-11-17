@@ -63,20 +63,3 @@ body, html {
 .user-list-item:hover {
     background-color: #f8f9fa;
 }
-
-.scrollable-container {
-    max-height: calc(100vh - 200px); /* Adjust this value based on your layout */
-    overflow-y: auto;  /* Enable vertical scrolling */
-
-}
-
-/* Optional: Style for user list items */
-.user-list-item {
-    align-items: center; /* Center items vertically */
-    padding: 5px; /* Add some padding */
-    cursor: pointer; /* Change cursor to pointer on hover */
-}
-
-.user-list-item:hover {
-    background-color: #f0f0f0; /* Change background on hover */
-}

@@ -1,17 +1,24 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { PortalService } from '../../../portal.service';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { SearchFilterPipe } from '../../../search-filter.pipe';
+import { ChangeDetectorRef } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { PortalService } from '../../../portal.service';
 
 @Component({
   selector: 'app-view',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, SearchFilterPipe,],
+  imports: [FormsModule, ReactiveFormsModule,CommonModule],
   templateUrl: './view.component.html',
   styleUrl: './view.component.css'
 })
 export class ViewComponent implements OnInit{
+  @ViewChild('messageInput') messageInput!: ElementRef;
+
+  adjustInputHeight(input: HTMLTextAreaElement) {
+    input.style.height = 'auto'; // Reset height to auto before calculation
+    input.style.height = `${input.scrollHeight}px`; // Set the height to match the scroll height
+  }
 
   convo: any;
   sid: any;
@@ -26,8 +33,14 @@ export class ViewComponent implements OnInit{
 
   constructor(private conn: PortalService,
     private aroute: ActivatedRoute,
-    private route: Router
+    private route: Router,
+    private cdRef: ChangeDetectorRef
   ) { }
+
+  toggleTimeDisplay(message: any) {
+    // Toggle `showTime` for the clicked message
+    message.showTime = !message.showTime;
+  }
 
   ngOnInit(): void {
     const uid = localStorage.getItem('admin_id')
@@ -36,17 +49,19 @@ export class ViewComponent implements OnInit{
       this.sid = sid;
       this.uid = uid;
       this.msgForm.get('message_reciever')?.setValue(this.sid);
-      // this.msgForm.get('message_sender')?.setValue(1);
       this.getConvo(sid, uid);
-    });
+  });
   }
+  
 
-  getConvo(sid: any, uid: any){
+  getConvo(sid: any, uid: any) {
+    console.log("Fetching conversation with sid:", sid, "and uid:", uid);
     this.conn.getConvo(sid, uid).subscribe((result: any) => {
-      console.log(result);
-      this.convo = result;
-    })
-  }
+        console.log("Received conversation:", result.user); // Check if data is here
+        this.convo = result; // Assign API response to 'convo'
+        this.cdRef.detectChanges();
+    });
+}
 
   sendMessage(){
     console.log(this.msgForm.value);

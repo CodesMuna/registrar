@@ -1,35 +1,49 @@
 <div class="container-fluid h-100">
-  <div class=" row h-100 messenger-container">
-       <!-- Sidebar -->
-       <div class="col-12 col-md-3 col-lg-2 p-0 sidebar container">
-           <div class="container mb-2 d-flex justify-content-between align-items-center">
-               <p class="h4 m-0">Chats</p>
-               <button style="border-radius: 50%; border: none; outline: none; background-color: rgb(236, 233, 233);">
-                   <i class="fa-solid fa-pen-to-square"></i>
-               </button>
-               <!-- <button mat-button (click)="openDialog()" class="btn btn-primary" type="button"> <i class="fa-solid fa-plus"></i> Add Announcement
-               </button> -->
-           </div>
-           <div class="container mb-3 mt-3">
-               <div class="input-group">
-                   <input type="text" [(ngModel)]="keyword" class="form-control" placeholder="Search chats" aria-label="Search chats" style="border-radius: 20px;">
-               </div>
-           </div>
-           <input type="hidden"  [(ngModel)]="uid">
-           <!-- List of Users -->
-            @for(msg of messages | searchFilter: keyword; track msg.message_id){
-                <div class="user-list-item" [routerLink]="['/main/message/messagepage/messages/view/' + msg.message_sender]" routerLinkActive="active-link">
-                    <img src="st.jpg" alt="User" class="rounded-circle me-1" width="40" height="40">
-                    <span>{{msg.sender_name}}<br></span>
-                    <abbr title="">{{msg.message}}</abbr>
-                </div>
-            }
-       </div>
-
-       <!-- Main Content -->
-       <div class="col-12 col-md-9 col-lg-10 p-0 main-content">
-           <!-- Chat Header -->
-           <router-outlet></router-outlet>
-       </div>
-   </div>
-</div>
+    <div class="row h-100 messenger-container">
+         <!-- Sidebar -->
+         <div class="col-12 col-md-3 col-lg-2 p-0 sidebar container">
+             <div class="container mb-2 d-flex justify-content-between align-items-center">
+                 <p class="h4 m-0">Chats</p>
+                 <button style="border-radius: 50%; border: none; outline: none; background-color: rgb(236, 233, 233);">
+                     <i class="fa-solid fa-pen-to-square"></i>
+                 </button>
+             </div>
+             <div class="container mb-3 mt-3">
+                 <div class="input-group">
+                  @if(inputClicked){
+                      <button mat-icon-button aria-label="Example icon button with a vertical three dot icon" (click)="onBackClick()">
+                          <mat-icon>arrow_back</mat-icon>
+                      </button>
+                  }   
+                      <input type="text" [(ngModel)]="keyword" (click)="onInputClick()" class="form-control" placeholder="Search" aria-label="Search chats" style="border-radius: 20px;">
+                 </div>
+             </div>
+             <input type="hidden"  [(ngModel)]="uid">
+             <div class="scrollable-container">
+                 <!-- List of Users -->
+                 @if(keyword || inputClicked){
+                     @for(sp of stupar | searchFilter: keyword; track sp){
+                         <div class="user-list-item" [routerLink]="['/main/message/messagepage/messages/view/' + sp.account_id]" routerLinkActive="active-link">
+                             <img src="st.jpg" alt="User " class="rounded-circle me-1" width="40" height="40">
+                             <span>{{sp.account_name}}<br></span>
+                         </div>
+                     }
+                 } @else if(messages && inputClicked == false) {
+                     @for(msg of messages; track msg.message_id){
+                         <div class="user-list-item" [routerLink]="['/main/message/messagepage/messages/view/' + msg.message_sender]" routerLinkActive="active-link">
+                             <img src="st.jpg" alt="User " class="rounded-circle me-1" width="40" height="40">
+                             <span>{{msg.sender_name}}<br></span>
+                             <abbr title="">{{msg.message}}</abbr>
+                         </div>
+                     }
+                 }
+             </div>
+         </div>
+  
+         <!-- Main Content -->
+         <div class="col-12 col-md-9 col-lg-10 p-0 main-content">
+             <!-- Chat Header -->
+             <router-outlet></router-outlet>
+         </div>
+     </div>
+  </div>

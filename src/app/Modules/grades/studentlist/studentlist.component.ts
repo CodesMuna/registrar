@@ -95,60 +95,68 @@ export class StudentlistComponent implements OnInit{
     }
 }
 
+  isDropdownVisible: boolean = false;
 
-
-getFilteredRosters() {
-  const params: any = {
-    gradelevel: this.selectedLevel,
-    section: this.selectedSection,
-    subject: this.selectedSubject
-  };
-
-  console.log('Selected Subject:', this.selectedSubject);
-
-  if (this.selectedLevel === '11' || this.selectedLevel === '12') {
-    params.strand = this.selectedStrand;
+  toggleDropdown() {
+    this.isDropdownVisible = !this.isDropdownVisible;
   }
 
-  if (this.selectedGender === 'Male' || this.selectedGender === 'Female') {
-    params.gender = this.selectedGender;
+  getFilteredRosters() {
+    const params: any = {
+      gradelevel: this.selectedLevel,
+      section: this.selectedSection,
+      subject: this.selectedSubject
+    };
+
+    console.log('Selected Subject:', this.selectedSubject);
+
+    if (this.selectedLevel === '11' || this.selectedLevel === '12') {
+      params.strand = this.selectedStrand;
+    }
+
+    if (this.selectedGender === 'Male' || this.selectedGender === 'Female') {
+      params.gender = this.selectedGender;
+    }
+
+    this.conn.getClassGrades(params).subscribe((result: any) => {
+      this.rosters = result;
+      this.maleStudents = result.filter((student: any) => student.gender === 'Male').length;
+      this.femaleStudents = result.filter((student: any) => student.gender === 'Female').length;
+      this.totalStudents = result.length;
+      this.getClassId();
+      console.log(this.rosters);
+    });
   }
 
-  this.conn.getClassGrades(params).subscribe((result: any) => {
-    this.rosters = result;
-    this.maleStudents = result.filter((student: any) => student.gender === 'Male').length;
-    this.femaleStudents = result.filter((student: any) => student.gender === 'Female').length;
-    this.totalStudents = result.length;
-    this.getClassId();
-    console.log(this.rosters);
-  });
-}
-
-getClassId() {
-  if (this.classes && this.classes.length > 0) {
-    const classInfo = this.classes.find((classInfo: any) => classInfo.section_name === this.selectedSection && classInfo.grade_level === this.selectedLevel);
-    if (classInfo) {
-      this.classId = classInfo.class_id;
+  getClassId() {
+    if (this.classes && this.classes.length > 0) {
+      const classInfo = this.classes.find((classInfo: any) => classInfo.section_name === this.selectedSection && classInfo.grade_level === this.selectedLevel);
+      if (classInfo) {
+        this.classId = classInfo.class_id;
+      }
     }
   }
-}
 
-updateRosters() {
-  this.getFilteredRosters();
-  this.getClassId();
-}
+  updateRosters() {
+    this.getFilteredRosters();
+    this.getClassId();
+  }
 
-gradeLevelChange(event: any) {
-  this.selectedLevel = event.target.value;
-  this.getClassId();
-}
+  gradeLevelChange(event: any) {
+    this.selectedLevel = event.target.value;
+    this.getClassId();
+  }
 
-  // getAllEnrollments(): void {
-  //   this.conn.getAllEnrollments().subscribe((result: any) => {
-  //     this.enrollments = result;
-  //     // this.enrollments.forEach((enrollment:any) => {
-  //     //   enrollment.student = enrollment.student.fname + ' ' + enrollment.student.mname + ' ' + enrollment.student.lname;
-  //     // });
-  //   })
-  // }
+  permit(gid: any){
+    this.conn.permit(gid).subscribe((result: any) => {
+      console.log(result)
+    })
+  }
+
+  decline(gid: any){
+    this.conn.decline(gid).subscribe((result: any) => {
+      console.log(result)
+    })
+  }
+ 
 }

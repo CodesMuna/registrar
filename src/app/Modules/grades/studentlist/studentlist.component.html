@@ -76,21 +76,81 @@
                 <thead class="table">
                   <tr>
                     <th scope="col">Names</th>
-                    <th>1st Grading</th>
-                    <th>2nd Grading</th>
-                    <th>3rd Grading</th>
-                    <th>4th Grading</th>
+                    <th class="text-center">1st Grading</th>
+                    <th class="text-center">2nd Grading</th>
+                    <th class="text-center">3rd Grading</th>
+                    <th class="text-center">4th Grading</th>
                   </tr>
                 </thead>
                 <tbody class="table-group-divider">
-                  @for(roster of rosters | searchFilter: keyword; track roster){
-                      <tr [routerLink]="['/main/grades/gradespage/studentgrades/' + roster.LRN + '/' + roster.school_year]">
-                        <th scope="row">{{roster.student_name}}</th>
-                        <!-- <td>{{roster.contact_no}}</td> -->
-                         <td>{{roster.grade_Q1}}</td>
-                         <td>{{roster.grade_Q2}}</td>
-                         <td>{{roster.grade_Q3}}</td>
-                         <td>{{roster.grade_Q4}}</td>
+                  @for(roster of rosters ; track roster){
+                      <tr >
+                        
+                          <th scope="row" [routerLink]="['/main/grades/gradespage/studentgrades/' + roster.LRN + '/' + roster.school_year]">{{roster.student_name}}</th>
+                          @if(roster.permission_Q1 == null || roster.permission_Q1 == 'Permitted'){
+                           <td class="text-center">{{roster.grade_Q1}}</td>
+                          } @else if(roster.permission_Q1 == 'Pending') {
+                            <td class="text-center">{{roster.grade_Q1}} 
+                              <i class="fa fa-exclamation-circle pending" aria-hidden="true" (click)="toggleDropdown()"></i>
+                              <div *ngIf="isDropdownVisible" class="dropdown-content">
+                                <tr>
+                                  <td (click)="permit(roster.grade_id_Q1)">Permit</td>
+                                </tr>
+                                <tr>
+                                  <td (click)="decline(roster.grade_id_Q1)">Decline</td>
+                                </tr>
+                              </div>
+                            </td>
+                            
+                          }
+                          @if(roster.permission_Q2 == null || roster.permission_Q2 == 'Permitted'){
+                            <td class="text-center">{{roster.grade_Q2}}</td>
+                           } @else if(roster.permission_Q2 == 'Pending') {
+                            <td class="text-center">{{roster.grade_Q2}} 
+                              <i class="fa fa-exclamation-circle pending" aria-hidden="true" (click)="toggleDropdown()"></i>
+                              <div *ngIf="isDropdownVisible" class="dropdown-content">
+                                <tr>
+                                  <td (click)="permit(roster.grade_id_Q2)">Permit</td>
+                                </tr>
+                                <tr>
+                                  <td (click)="decline(roster.grade_id_Q2)">Decline</td>
+                                </tr>
+                              </div>
+                            </td>
+                           }
+                           @if(roster.permission_Q3 == null || roster.permission_Q3 == 'Permitted'){
+                            <td class="text-center">{{roster.grade_Q3}}</td>
+                           } @else if(roster.permission_Q3 == 'Pending') {
+                            <td class="text-center">{{roster.grade_Q3}} 
+                              <i class="fa fa-exclamation-circle pending" aria-hidden="true" (click)="toggleDropdown()"></i>
+                              <div *ngIf="isDropdownVisible" class="dropdown-content">
+                                <tr>
+                                  <td (click)="permit(roster.grade_id_Q3)">Permit</td>
+                                </tr>
+                                <tr>
+                                  <td (click)="decline(roster.grade_id_Q3)">Decline</td>
+                                </tr>
+                              </div>
+                            </td>
+                           }
+                           @if(roster.permission_Q4 == null || roster.permission_Q4 == 'Permitted'){
+                            <td class="text-center">{{roster.grade_Q4}}</td>
+                           } @else if(roster.permission_Q4 == 'Pending') {
+                            <td class="text-center">{{roster.grade_Q4}} 
+                              <i class="fa fa-exclamation-circle pending" aria-hidden="true" (click)="toggleDropdown()"></i>
+                              <div *ngIf="isDropdownVisible" class="dropdown-content">
+                                <tr>
+                                  <td (click)="permit(roster.grade_id_Q4)">Permit</td>
+                                </tr>
+                                <tr>
+                                  <td (click)="decline(roster.grade_id_Q4)">Decline</td>
+                                </tr>
+                              </div>
+                            </td>
+                           }
+                          
+                        
+        
                       </tr>
                     }
                 </tbody>

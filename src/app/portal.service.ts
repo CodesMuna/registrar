@@ -150,7 +150,19 @@ export class PortalService {
     return this.http.get(this.url + 'getGrades/' + lrn + '/' + syr)
   }
 
+  permit(gid: any){
+    return this.http.post(this.url + 'permit', { gid } );
+  }
+
+  decline(gid: any){
+    return this.http.post(this.url + 'decline', { gid } );
+  }
+
   //Message Service
+
+  getStudentParents(){
+    return this.http.get(this.url + 'getStudentParents');
+  }
 
   getMessages(uid: any){
     return this.http.get(this.url + 'getMessages', {params: {uid: uid}});
