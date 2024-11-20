@@ -7,11 +7,12 @@ import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
+import { SlicePipe } from '@angular/common';
 
 @Component({
   selector: 'app-send',
   standalone: true,
-  imports: [ViewComponent, RouterOutlet, RouterModule, SearchFilterPipe, FormsModule, MatButtonModule, MatDividerModule, MatIconModule],
+  imports: [ViewComponent, RouterOutlet, RouterModule, SearchFilterPipe, FormsModule, MatButtonModule, MatDividerModule, MatIconModule, SlicePipe],
   templateUrl: './send.component.html',
   styleUrl: './send.component.css'
 })
@@ -49,14 +50,14 @@ export class SendComponent implements OnInit{
   getMessages(){
     console.log(this.uid)
     this.conn.getMessages(this.uid).subscribe((result: any) => {
-      // console.log(result)
+      console.log(result)
       this.messages = result; 
     })
   }
 
   getStudPar(){
     this.conn.getStudentParents().subscribe((result: any) => {
-      console.log(result)
+      // console.log(result)
       this.stupar = result; 
     })
   }

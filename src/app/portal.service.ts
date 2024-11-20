@@ -118,11 +118,17 @@ export class PortalService {
     return this.http.post(this.url + 'addStudent', { cid: classIds, lrn });
   }
 
-  removeStudent(rid: any, classIds: any[]) {
+  removeStudent(lrn: any) {
     return this.http.delete(this.url + 'removeStudent', {
-        body: { rid, cid: classIds } // Correctly include rid and cid in the body
+        body: { lrn } // Correctly include rid and cid in the body
     });
 }
+
+//   removeStudent(rid: any, classIds: any[]) {
+//     return this.http.delete(this.url + 'removeStudent', {
+//         body: { rid, cid: classIds } // Correctly include rid and cid in the body
+//     });
+// }
 
   // addStudent(cid: any, lrn: any){
   //   return this.http.post(this.url + 'addStudent', {cid: cid, lrn: lrn});

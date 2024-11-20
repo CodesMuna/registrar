@@ -100,15 +100,13 @@ getEnrolees(gradeLevel: any) {
     });
   }
 
-  removeStudent(rid: any) {
-    const classIds = this.classIds; // Assuming classIds is an array of IDs
-    console.log('Removing student with LRN:', rid, 'from classes:', classIds); // Log the data
-    this.conn.removeStudent(rid, classIds).subscribe((result: any) => {
+  removeStudent(lrn: string) {
+    this.conn.removeStudent(lrn).subscribe((result: any) => {
         console.log(result);
-        this.getRosterInfo(); // Get roster info for the first class ID
+        this.getRosterInfo(); // Refresh the roster info
         this.getEnrolees(this.classDetails[0].grade_level); // Refresh the enrolees
     }, error => {
-        console.error('Error removing students:', error);
+        console.error('Error removing student:', error);
     });
 }
   

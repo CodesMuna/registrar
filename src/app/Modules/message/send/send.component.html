@@ -33,7 +33,7 @@
                          <div class="user-list-item" [routerLink]="['/main/message/messagepage/messages/view/' + msg.message_sender]" routerLinkActive="active-link">
                              <img src="st.jpg" alt="User " class="rounded-circle me-1" width="40" height="40">
                              <span>{{msg.sender_name}}<br></span>
-                             <abbr title="">{{msg.message}}</abbr>
+                             <p title="{{msg.message}}">{{ msg.message.length > 30 ? (msg.message | slice:0:30) + '...' : msg.message }}</p>
                          </div>
                      }
                  }

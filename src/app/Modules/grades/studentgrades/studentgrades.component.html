@@ -1,67 +1,50 @@
 <div class="container">
     <h2>{{student[0].student.full_name}}'s Grades</h2>
     <table class="responsive-table">
-        <thead>
-            <tr>
-                <th>Subject</th>
-                <th>1st Q</th>
-                <th>2nd Q</th>
-                <th>3rd Q</th>
-                <th>4th Q</th>
-                <!-- <th>Final</th> -->
-            </tr>
-        </thead>
-        <tbody>
-            @for (grade of grades; track grade.grade_id){
-                <tr>
-                    <td data-label="Subject">{{ grade.subject }}</td>
-                    <td data-label="1st Q">{{ grade['1st Quarter'] }}</td>
-                    <td data-label="2nd Q">{{ grade['2nd Quarter'] }}</td>
-                    <td data-label="3rd Q">{{ grade['3rd Quarter'] }}</td>
-                    <td data-label="4th Q">{{ grade['4th Quarter'] }}</td>
-                    <!-- <td data-label="Final">91</td> -->
-                </tr>
-            }          
-            <!-- <tr>
-                <td data-label="Subject">English</td>
-                <td data-label="1st Q">88</td>
-                <td data-label="2nd Q">85</td>
-                <td data-label="3rd Q">87</td>
-                <td data-label="4th Q">90</td>
-                <td data-label="Final">88</td>
-            </tr>
-            <tr>
-                <td data-label="Subject">Science</td>
-                <td data-label="1st Q">92</td>
-                <td data-label="2nd Q">91</td>
-                <td data-label="3rd Q">93</td>
-                <td data-label="4th Q">94</td>
-                <td data-label="Final">93</td>
-            </tr>
-            <tr>
-                <td data-label="Subject">History</td>
-                <td data-label="1st Q">85</td>
-                <td data-label="2nd Q">87</td>
-                <td data-label="3rd Q">88</td>
-                <td data-label="4th Q">86</td>
-                <td data-label="Final">87</td>
-            </tr>
-            <tr>
-                <td data-label="Subject">PE</td>
-                <td data-label="1st Q">95</td>
-                <td data-label="2nd Q">97</td>
-                <td data-label="3rd Q">96</td>
-                <td data-label="4th Q">98</td>
-                <td data-label="Final">97</td>
-            </tr> -->
-            <!-- <tr>
-                <td data-label="Subject"><strong>Avg</strong></td>
-                <td data-label="1st Q"><strong>90</strong></td>
-                <td data-label="2nd Q"><strong>90.4</strong></td>
-                <td data-label="3rd Q"><strong>90.6</strong></td>
-                <td data-label="4th Q"><strong>92.2</strong></td>
-                <td data-label="Final"><strong>90.8</strong></td>
-            </tr> -->
-        </tbody>
+            @if(student[0].student.grade_level >= 7 && student[0].student.grade_level <= 10){
+                <thead>
+                    <tr>
+                        <th>Subject</th>
+                        <th>1st Q</th>
+                        <th>2nd Q</th>
+                        <th>3rd Q</th>
+                        <th>4th Q</th>
+                        <!-- <th>Final</th> -->
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (grade of grades; track grade){
+                        <tr>
+                            <td data-label="Subject">{{ grade.subject }}</td>
+                            <td data-label="1st Q">{{ grade['1st Quarter'] !== null ? grade['1st Quarter'] : 'N/A' }}</td>
+                            <td data-label="2nd Q">{{ grade['2nd Quarter'] !== null ? grade['2nd Quarter'] : 'N/A' }}</td>
+                            <td data-label="3rd Q">{{ grade['3rd Quarter'] !== null ? grade['3rd Quarter'] : 'N/A' }}</td>
+                            <td data-label="4th Q">{{ grade['4th Quarter'] !== null ? grade['4th Quarter'] : 'N/A' }}</td>
+                            <!-- <td data-label="Final">91</td> -->
+                        </tr>
+                    }          
+                </tbody>
+            } @else if(student[0].student.grade_level == 11 || student[0].student.grade_level == 12 ) {
+                <thead>
+                    <th>Subject</th>
+                    <th>Midterm</th>
+                    <th>Final</th>
+                    <th>Final Rating</th>
+                </thead>
+                <tbody>
+                    @for (grade of grades; track grade){
+                        <tr>
+                            <td data-label="Subject">{{ grade.subject }}</td>
+                            <td data-label="Midterm">{{ grade['Midterm'] !== null ? grade['Midterm'] : 'N/A'  }}</td>
+                            <td data-label="Final">{{ grade['Final'] !== null ? grade['Final'] : 'N/A' }}</td>
+                            <td data-label="Final Rating">Avarage</td>
+                            <!-- <td data-label="Final">91</td> -->
+                        </tr>
+                    }          
+                </tbody>
+            }
+            
+        
+        
     </table>
 </div>
