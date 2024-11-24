@@ -18,6 +18,7 @@ import { Router, RouterModule } from '@angular/router';
 })
 export class InquiryComponent implements OnInit{
   inquries: any;
+  uid: any;
   
   enrollments: any;
   totalEnrollments: any;
@@ -29,12 +30,14 @@ export class InquiryComponent implements OnInit{
   ) { }
 
   ngOnInit(): void {
+    this.uid = localStorage.getItem('admin_id');
+    console.log(this.uid);
     this.getInquiries();
     this.getEnrollments();
   }
 
   getInquiries(){
-    this.conn.getInquiries().subscribe((result: any) => {
+    this.conn.getInquiries(this.uid).subscribe((result: any) => {
       this.inquries = result;
       this.inquries.forEach((inquiry:any) => {
         console.log(inquiry);

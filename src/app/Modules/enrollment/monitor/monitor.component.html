@@ -39,7 +39,9 @@
           </thead>
           <tbody class="table-group-divider">
             @for(enrollment of getFilteredEnrollments() | searchFilter: keyword; track enrollment){
-              @if(enrollment.payment_approval ==  null){
+              @if(enrollment.date_register == null){              
+              }	
+              @else if(enrollment.payment_approval == null){
                 <tr [routerLink]="['/main/enrollment/enrollmentpage/approval/' + enrollment.enrol_id]">
                   <th scope="row">{{ enrollment.full_name }}</th>
                   <td class="text-center"> 
@@ -74,9 +76,9 @@
                   </td>
                 </tr>
               }
-              @else if(enrollment.date_register == null && enrollment.regapproval_date ==  null && enrollment.payment_approval ==  null){          
+              <!-- @else if(enrollment.date_register == null && enrollment.regapproval_date ==  null && enrollment.payment_approval ==  null){          
                 
-              }
+              } -->
               @else {
                 <tr [routerLink]="['/main/enrollment/enrollmentpage/approval/' + enrollment.enrol_id]">
                   <th scope="row">{{ enrollment.full_name }}</th>

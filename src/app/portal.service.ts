@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 @Injectable({
@@ -10,6 +10,8 @@ export class PortalService {
 
   private url = 'http://localhost:8000/api/';
   token = localStorage.getItem('token')
+  private adminPicSubject = new BehaviorSubject<string | null>(null); // This will store the admin image URL
+  adminPic$ = this.adminPicSubject.asObservable();
 
   constructor(private http: HttpClient) { }
 
@@ -29,8 +31,8 @@ export class PortalService {
 
   //
 
-  getInquiries(){
-    return this.http.get(this.url + 'getInquiries')
+  getInquiries(uid: any){
+    return this.http.get(this.url + 'getInquiries', {params: {uid: uid}})
   }
 
   //Enrollment Service
@@ -66,6 +68,18 @@ export class PortalService {
 
   getSections(){
     return this.http.get(this.url + 'getSections')
+  }
+
+  getSubjects(gradeLevel: string, strand: any){
+    return this.http.get(`${this.url}getSubjects`, { params: { gradeLevel, strand } })
+  }
+
+  // getSectionsByGradeLevel(gradeLevel: string) {
+  //   return this.http.get(`${this.url}getSections`, { params: { gradeLevel } });
+  // }
+
+  getSectionsByGradeLevel(gradeLevel: string, strand: any) {
+    return this.http.get(`${this.url}getSections`, { params: { gradeLevel, strand } });
   }
 
   //Roster Service
@@ -182,6 +196,14 @@ export class PortalService {
     return this.http.post(this.url + 'sendMessage', mdata );
   }
 
+  getRecipients(): Observable<any[]> {
+    return this.http.get<any[]>(this.url + 'getrecepeints');
+  }
+
+  composeMessage(messageData: any): Observable<any> {
+    return this.http.post(this.url + 'composemessage', messageData);
+  }
+
 
   // account 
   update(adminId: number, oldPassword: string, newData: any): Observable<any> {
@@ -190,5 +212,11 @@ export class PortalService {
       oldPassword: oldPassword,
       ...newData
     });
+  }
+  uploadImage(formData: FormData): Observable<any> {
+    return this.http.post('http://localhost:8000/api/upload-image', formData);
+  }
+  updateAdminPic(newImageUrl: string) {
+    this.adminPicSubject.next(newImageUrl); // Emit new image URL
   }
 }

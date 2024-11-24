@@ -23,7 +23,7 @@ export class ViewComponent implements OnInit{
   convo: any;
   sid: any;
   uid: any;
-  
+  private intervalId: any;
 
   msgForm = new FormGroup({
     message_sender: new FormControl(localStorage.getItem('admin_id')),
@@ -50,6 +50,10 @@ export class ViewComponent implements OnInit{
       this.uid = uid;
       this.msgForm.get('message_reciever')?.setValue(this.sid);
       this.getConvo(sid, uid);
+
+      this.intervalId = setInterval(() => {
+        this.getConvo(sid, uid);
+      }, 5000);
   });
   }
   
@@ -57,7 +61,7 @@ export class ViewComponent implements OnInit{
   getConvo(sid: any, uid: any) {
     console.log("Fetching conversation with sid:", sid, "and uid:", uid);
     this.conn.getConvo(sid, uid).subscribe((result: any) => {
-        console.log("Received conversation:", result.user); // Check if data is here
+        console.log("Received conversation:", result); // Check if data is here
         this.convo = result; // Assign API response to 'convo'
         this.cdRef.detectChanges();
     });

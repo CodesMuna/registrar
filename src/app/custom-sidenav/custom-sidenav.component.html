@@ -1,8 +1,9 @@
 <div class="sidenav-header">
   
-  <img [width]="profilePicSize()" [height]="profilePicSize()" src="academy.jpg" alt=""> 
+  <img [width]="profilePicSize()" [height]="profilePicSize()" [src]="adminPic" alt=""> 
     <div class="header-text" [class.hide-header-text]="sideNavCollapsed()">
-      <h2>Registrar</h2>
+      <h2>{{ role }}</h2>
+      <p>{{ lname }} {{ fname }}</p> 
     </div>  
 </div>
 <mat-nav-list>

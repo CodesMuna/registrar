@@ -8,6 +8,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { SlicePipe } from '@angular/common';
+import { ReplyComponent } from '../reply/reply.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-send',
@@ -28,13 +30,25 @@ export class SendComponent implements OnInit{
 
   constructor(private conn: PortalService,
     private aroute: ActivatedRoute,
-    private route: Router
+    private route: Router,
+    private dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
     this.uid = localStorage.getItem('admin_id')
     this.getMessages()
     this.getStudPar()
+  }
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(ReplyComponent, {
+      width:"500px",
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      // this.messages.unshift(result);
+      this.getMessages();
+    });
   }
 
   onInputClick() {

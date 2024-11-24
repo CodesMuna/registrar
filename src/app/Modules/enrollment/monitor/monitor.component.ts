@@ -33,22 +33,27 @@ export class MonitorComponent implements OnInit{
   selectedProgress: string = 'All';
 
   ngOnInit(): void {
-    this.getEnrollments()
-  }
-
-  constructor(private conn: PortalService,
-    private route: Router,
-  ) { }
-
-  getEnrollments(): void {
     this.conn.getEnrollments().subscribe((result: any) => {
       this.enrollments = result;
       // this.enrollments.forEach((enrollment:any) => {
         // console.log(enrollment);
       // });
     })
-    
   }
+
+  constructor(private conn: PortalService,
+    private route: Router,
+  ) { }
+
+  // getEnrollments(): void {
+  //   this.conn.getEnrollments().subscribe((result: any) => {
+  //     this.enrollments = result;
+  //     // this.enrollments.forEach((enrollment:any) => {
+  //       // console.log(enrollment);
+  //     // });
+  //   })
+    
+  // }
 
   getFilteredEnrollments() {
     switch (this.selectedProgress) {

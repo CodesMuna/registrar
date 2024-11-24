@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { PortalService } from '../portal.service';
+import Swal from 'sweetalert2'; 
 import { inject } from '@angular/core';
 
 @Component({
@@ -32,6 +33,46 @@ export class LoginComponent implements OnInit{
     password: new FormControl(null)
   })
 
+  login() {
+    this.conn.login(this.loginForm.value).subscribe(
+      (result: any) => {
+        if (result.token != null) {
+          localStorage.setItem('token', result.token);
+          localStorage.setItem('admin_id', result.admin.admin_id);
+
+          // image get
+          const user = result.admin;
+          if (user && user.admin_pic) {
+            if (!user.admin_pic.startsWith('http://localhost:8000')) {
+              user.admin_pic = `http://localhost:8000/assets/adminPic/${user.admin_pic}`;
+            }
+          }
+          localStorage.setItem('user', JSON.stringify(user));
+          
+          console.log('Token stored:', result.token);
+          this.navigateToMainPage();
+        }
+        else{
+          Swal.fire({
+            icon: "error",
+            title: "Something went wrong!",
+            text: "Invalid Email or Password",  
+          });
+        }
+        
+        
+        console.log(result);
+      },
+      (error) => {
+        Swal.fire({
+          icon: "error",
+          title: "Something went wrong!",
+          text: "Invalid Email or Password",  
+        });
+      }
+    );
+}
+
   onSubmit() {
     this.conn.login(this.loginForm.value).subscribe(
       (result: any) => {
@@ -39,6 +80,7 @@ export class LoginComponent implements OnInit{
           localStorage.setItem('token', result.token);
           localStorage.setItem('admin_id', result.admin.admin_id);
           // console.log(result)
+          
           this.route.navigate(['/main']);
         }
       },
@@ -51,5 +93,11 @@ export class LoginComponent implements OnInit{
     );
     
   }
+
+  navigateToMainPage() {
+    console.log('Router:', this.route); // Check if router is defined
+    this.route.navigate(['/main']);
+    // window.location.reload()
+    }
 
 }

@@ -1,1 +1,31 @@
-<p>reply works!</p>
+<form class="example-form" [formGroup]="msgForm">
+    <h1><strong>Compose New Message</strong></h1>
+    <mat-form-field class="example-full-width mt-3">
+        <mat-label>Send Message to:</mat-label>
+        <input type="text" placeholder="Send to..." aria-label="Number" matInput [formControl]="myControl"
+            [matAutocomplete]="auto">
+
+        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete"
+            (optionSelected)="onOptionSelected($event.option.value)">
+            <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                {{ option.receiver_name }}
+            </mat-option>
+        </mat-autocomplete>
+    </mat-form-field>
+    <input type="hidden" formControlName="message_reciever" class="form-control" placeholder="Receiver ID" readonly>
+    <mat-form-field class="example-full-width">
+        <mat-label>Message:</mat-label>
+        <textarea formControlName="message" matInput></textarea>
+    </mat-form-field>
+
+    <mat-dialog-actions
+        style="display: flex; justify-content: flex-end; padding: 16px; margin-top: -30px; text-transform: uppercase; font-weight: 500;">
+        <button mat-button (click)="onNoClick()" style="font-size: 14px; padding: 8px 16px;">Cancel</button>
+
+        <button mat-button (click)="submit();$event.preventDefault()" class="ms-3"
+            style="font-size: 14px; padding: 8px 16px; background-color: #3f51b5; color: white;"
+            onmouseover="this.style.backgroundColor='#2c387e';"
+            onmouseout="this.style.backgroundColor='#3f51b5';">Send</button>
+    </mat-dialog-actions>
+
+</form>

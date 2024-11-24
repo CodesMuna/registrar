@@ -1,4 +1,4 @@
-import { Component, computed, signal } from '@angular/core';
+import { Component, computed, OnInit, signal } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import { CommonModule } from '@angular/common';
@@ -18,19 +18,36 @@ import { PortalService } from '../portal.service';
   templateUrl: './registrarpage.component.html',
   styleUrl: './registrarpage.component.css'
 })
-export class RegistrarpageComponent {
+export class RegistrarpageComponent implements OnInit{
 
   collapsed = signal(false);
+  isSmallScreen = false;
   sidenavMode = signal('side');
 
   sidenavWidth = computed(() => this.collapsed() ? '65px' : '250px');
   menunavWidth = computed(() => this.collapsed() ? '65px' : '450px');
+
+  adminPic: string | null = null;
 
   constructor(
     private conn: PortalService,
     private route: Router
     ) { }
 
+  ngOnInit() {
+    // Subscribe to the adminPic$ observable to get the image URL
+    this.conn.adminPic$.subscribe((newImageUrl) => {
+      if (newImageUrl) {
+        this.adminPic = newImageUrl; // Update the component's admin picture
+      }
+    });
+  
+    // Optionally, initialize with the image from localStorage
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    if (user && user.admin_pic) {
+      this.adminPic = user.admin_pic;
+    }
+  }
 
   logout(){
     this.conn.logout()
