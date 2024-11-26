@@ -41,7 +41,7 @@ export class RosterComponent implements OnInit{
   rosters: any;
   filteredRosters: any;
   classId: any;
-  classes: any;
+  classes: any[] = [];
 
   totalStudents:any;
   maleStudents:any;
@@ -57,10 +57,13 @@ export class RosterComponent implements OnInit{
   ngOnInit(): void {
     this.aroute.params.subscribe(params => {
       const classIds = params['classIds'].split(',');
-      console.log(classIds);
+      this.classIds = classIds;
+      console.log('Retrieved Class Ids', classIds);
     });
+    // console.log('Retrieved Class Ids', this.classIds);
 
     this.conn.getClasses().subscribe((result: any) => {
+      this.classes = result;
       const uniqueGradeLevels = Array.from(new Set(result.map((lvl: any) => lvl.grade_level)));
       const uniqueStrands = Array.from(new Set(result.map((strnd: any) => strnd.strand)));
       const uniqueSections = Array.from(new Set(result.map((sect: any) => sect.section_name))).map((x) => x as string);
@@ -77,9 +80,9 @@ export class RosterComponent implements OnInit{
         this.selectedSection = this.sections[0];
       }
 
-      console.log(this.selectedLevel)
-      console.log(this.selectedSection)
-      console.log(this.selectedStrand)
+      // console.log(this.selectedLevel)
+      // console.log(this.selectedSection)
+      // console.log(this.selectedStrand)
     });
   }
 
@@ -162,8 +165,6 @@ getFilteredRosters() {
   });
 }
 
-
-
   getClassId() {
     if (this.classes && this.classes.length > 0) {
       const classInfo = this.classes.find((classInfo: any) => classInfo.section_name === this.selectedSection && classInfo.grade_level === this.selectedLevel);
@@ -176,25 +177,29 @@ getFilteredRosters() {
 
 // In roster.component.ts
   addtoRoster() {
-  // Check if there is an existing roster
- 
-    const filteredClassIds = this.classes
-          .filter((classInfo: any) => 
-              classInfo.grade_level === this.selectedLevel &&
-              classInfo.section_name === this.selectedSection &&
-              (this.selectedLevel === '11' || this.selectedLevel === '12' ? classInfo.strand === this.selectedStrand : true)
-          )
-          .map((classInfo: any) => classInfo.class_id);
+    if (!this.classes || this.classes.length === 0) {
+        console.error('Classes are not loaded or empty.');
+        alert('Classes are not loaded or empty.');
+        return; // Exit the function early
+    }
 
-          if (filteredClassIds.length > 0) {
-            this.conn.createRoster(filteredClassIds).subscribe((result: any) => {
-                console.log(result);
-                this.route.navigate(['/main/enrollment/enrollmentpage/rostering/', filteredClassIds.join(',')]);
-            });
-        } else {
-            console.error('No matching class IDs available to add to roster.');
-            alert('No matching classes available to add to the roster.');
-        }
+    const filteredClassIds = this.classes
+        .filter((classInfo: any) => 
+            classInfo.grade_level === this.selectedLevel &&
+            classInfo.section_name === this.selectedSection &&
+            (this.selectedLevel === '11' || this.selectedLevel === '12' ? classInfo.strand === this.selectedStrand : true)
+        )
+        .map((classInfo: any) => classInfo.class_id);
+
+    if (filteredClassIds.length > 0) {
+        this.conn.createRoster(filteredClassIds).subscribe((result: any) => {
+            console.log(result);
+            this.route.navigate(['/main/enrollment/enrollmentpage/rostering/', filteredClassIds.join(',')]);
+        });
+    } else {
+        console.error('No matching class IDs available to add to roster.');
+        alert('No matching classes available to add to the roster.');
+    }
   }
 
   populateClassIds() {

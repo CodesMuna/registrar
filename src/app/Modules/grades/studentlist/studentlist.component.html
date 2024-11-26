@@ -88,9 +88,9 @@
                         <!-- @if(roster.grade_level >= 7 && roster.grade_level <= 10){ -->
                           <tr>
                               <th scope="row" [routerLink]="['/main/grades/gradespage/studentgrades/' + roster.LRN + '/' + roster.school_year]">{{roster.student_name}}</th>
-                              @if(roster.permission_Q1 == null || roster.permission_Q1 == 'Permitted'){
+                              @if(roster.permission_Q1 == null || roster.permission_Q1 == 'permitted'){
                                <td class="text-center">{{roster.grade_Q1}}</td>
-                              } @else if(roster.permission_Q1 == 'Pending') {
+                              } @else if(roster.permission_Q1 == 'pending') {
                                 <td class="text-center">{{roster.grade_Q1}} 
                                   <i class="fa fa-exclamation-circle pending" aria-hidden="true" (click)="toggleDropdown()"></i>
                                   <div *ngIf="isDropdownVisible" class="dropdown-content">
@@ -106,7 +106,7 @@
                               }
                               @if(roster.permission_Q2 == null || roster.permission_Q2 == 'Permitted'){
                                 <td class="text-center">{{roster.grade_Q2}}</td>
-                               } @else if(roster.permission_Q2 == 'Pending') {
+                               } @else if(roster.permission_Q2 == 'pending') {
                                 <td class="text-center">{{roster.grade_Q2}} 
                                   <i class="fa fa-exclamation-circle pending" aria-hidden="true" (click)="toggleDropdown()"></i>
                                   <div *ngIf="isDropdownVisible" class="dropdown-content">
@@ -121,7 +121,7 @@
                                }
                                @if(roster.permission_Q3 == null || roster.permission_Q3 == 'Permitted'){
                                 <td class="text-center">{{roster.grade_Q3}}</td>
-                               } @else if(roster.permission_Q3 == 'Pending') {
+                               } @else if(roster.permission_Q3 == 'pending') {
                                 <td class="text-center">{{roster.grade_Q3}} 
                                   <i class="fa fa-exclamation-circle pending" aria-hidden="true" (click)="toggleDropdown()"></i>
                                   <div *ngIf="isDropdownVisible" class="dropdown-content">
@@ -136,7 +136,7 @@
                                }
                                @if(roster.permission_Q4 == null || roster.permission_Q4 == 'Permitted'){
                                 <td class="text-center">{{roster.grade_Q4}}</td>
-                               } @else if(roster.permission_Q4 == 'Pending') {
+                               } @else if(roster.permission_Q4 == 'pending') {
                                 <td class="text-center">{{roster.grade_Q4}} 
                                   <i class="fa fa-exclamation-circle pending" aria-hidden="true" (click)="toggleDropdown()"></i>
                                   <div *ngIf="isDropdownVisible" class="dropdown-content">

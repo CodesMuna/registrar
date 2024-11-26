@@ -1,19 +1,39 @@
+<!-- Inquiries loader -->
+
+
+<!-- Enrollments loader -->
+
+
+<!-- Rest of the template -->
 <div class="container mb-5 ms-1">
   <div class="row">
-    <div class="col-md-8">
-      <p class="h1">Good Morning, Registrar</p>
-      <p class="h5 ms-1">Monday <small class="text-body-secondary">August 19, 2024</small></p>
-      <!-- <ul>
-        @for(admin of admins; track admin){
-          <li>{{ admin.name }}</li>
-        }
-      </ul> -->
+    <div class="col-md-8"> <!-- Adjusted column size for more space -->
+      <div class="banner">
+        <div class="text-content">
+          <div class="date">{{ currentDate | date: 'EEEE, MMMM d, y' }}</div>
+          <h1 class="welcome-message">Welcome back, Registrar!</h1>
+          <p class="subtext">Always stay updated in your student portal</p>
+        </div>
+        <div class="illustration">
+          <!-- Placeholder for the 3D illustration -->
+          <img src="hmpic.png" alt="Illustration" class="img-fluid"> <!-- Added img-fluid for responsiveness -->
+        </div>
+      </div>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-4"> <!-- This column will take less space -->
       <div class="card bg-white p-3 enr" (click)="monitor()">
-        <h5 class="card-title">Total: {{totalEnrollments}}</h5>
-        <p class="card-text">Pending Enrollees: {{pendingEnrollees}}</p>
-        <p class="card-text">Officially Enrolled: {{officiallyEnrolled}}</p>
+        @if (isLoadingEnrollments){
+          <div class="loader">
+            <div class="spinner-border text-primary" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+            <p>Loading enrollments...</p>
+          </div>
+        } @else {
+          <h5 class="card-title">Total: {{totalEnrollments}}</h5>
+          <p class="card-text">Pending Enrollees: {{pendingEnrollees}}</p>
+          <p class="card-text">Officially Enrolled: {{officiallyEnrolled}}</p>
+        }
       </div>
     </div>
   </div>
@@ -38,13 +58,22 @@
           </tr>
         </thead>
         <tbody class="table-group-divider">
-          @for (inq of inquries; track inquries) {
-            <tr [routerLink]="['/main/message/messagepage/messages/view/' + inq.message_sender]">
-              <th scope="row">{{inq.sender_name}}</th>
-              <td class="text-body-secondary" colspan="3" title="{{inq.message}}">{{ inq.message.length > 30 ? (inq.message | slice:0:30) + '...' : inq.message }}</td>
-              <td class="text-center" >{{inq.message_date | date: 'MMMM dd, yyyy'}}</td>
-            </tr>
-          }
+          @if(isLoadingInquiries){
+            <div class="loader">
+              <div class="spinner-border text-primary" role="status">
+                <span class="sr-only">Loading...</span>
+              </div>
+              <p>Loading inquiries...</p>
+            </div>
+          } @else {
+            @for (inq of inquries; track inquries) {
+              <tr [routerLink]="['/main/message/messagepage/messages/view/' + inq.message_sender]">
+                <th scope="row">{{inq.sender_name}}</th>
+                <td class="text-body-secondary" colspan="3" title="{{inq.message}}">{{ inq.message.length > 30 ? (inq.message | slice:0:30) + '...' : inq.message }}</td>
+                <td class="text-center" >{{inq.message_date | date: 'MMMM dd, yyyy'}}</td>
+              </tr>
+            }
+          }     
         </tbody>
       </table>
     </div>

@@ -14,7 +14,7 @@ export const messageRoutes: Routes = [
                     {path: 'view/:sid', component: ViewComponent},
                 ]
             },
-            {path: 'reply', component: ReplyComponent},
+            // {path: 'reply', component: ReplyComponent},
             {path: '', redirectTo: 'messages', pathMatch: 'full'}
         ]
     },

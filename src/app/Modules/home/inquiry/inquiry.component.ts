@@ -19,11 +19,15 @@ import { Router, RouterModule } from '@angular/router';
 export class InquiryComponent implements OnInit{
   inquries: any;
   uid: any;
+  currentDate: Date = new Date();
   
   enrollments: any;
   totalEnrollments: any;
   pendingEnrollees: any;
   officiallyEnrolled: any;
+
+  isLoadingInquiries = true;
+  isLoadingEnrollments = true;
 
   constructor(private conn: PortalService,
     private route: Router,
@@ -42,6 +46,7 @@ export class InquiryComponent implements OnInit{
       this.inquries.forEach((inquiry:any) => {
         console.log(inquiry);
       });
+      this.isLoadingInquiries = false;
     })
   }
 
@@ -56,7 +61,10 @@ export class InquiryComponent implements OnInit{
       console.log(this.totalEnrollments)
       console.log(this.pendingEnrollees)
       console.log(this.officiallyEnrolled)
+
+      this.isLoadingEnrollments = false;
     })
+    
   }
 
   monitor(){

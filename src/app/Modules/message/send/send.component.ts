@@ -27,6 +27,8 @@ export class SendComponent implements OnInit{
   sid: any;
   uid: any;
   stupar: any;
+  private intervalId: any;
+  private currentSid: any; // Store the current SID
 
   constructor(private conn: PortalService,
     private aroute: ActivatedRoute,
@@ -36,6 +38,9 @@ export class SendComponent implements OnInit{
 
   ngOnInit(): void {
     this.uid = localStorage.getItem('admin_id')
+    // this.intervalId = setInterval(() => {
+    //   this.getMessages();
+    // }, 5000)
     this.getMessages()
     this.getStudPar()
   }
@@ -65,7 +70,17 @@ export class SendComponent implements OnInit{
     console.log(this.uid)
     this.conn.getMessages(this.uid).subscribe((result: any) => {
       console.log(result)
-      this.messages = result; 
+      const uniqueMessages = [];
+      const seenSenders = new Set();
+
+      for (const msg of result) {
+          if (!seenSenders.has(msg.sender_name)) {
+              seenSenders.add(msg.sender_name);
+              uniqueMessages.push(msg);
+          }
+      }
+
+      this.messages = uniqueMessages; // Assign filtered messages to 'messages'
     })
   }
 

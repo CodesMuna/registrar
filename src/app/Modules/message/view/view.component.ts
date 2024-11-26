@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ChangeDetectorRef } from '@angular/core';
@@ -12,7 +12,7 @@ import { PortalService } from '../../../portal.service';
   templateUrl: './view.component.html',
   styleUrl: './view.component.css'
 })
-export class ViewComponent implements OnInit{
+export class ViewComponent implements OnInit, OnDestroy{
   @ViewChild('messageInput') messageInput!: ElementRef;
 
   adjustInputHeight(input: HTMLTextAreaElement) {
@@ -24,6 +24,7 @@ export class ViewComponent implements OnInit{
   sid: any;
   uid: any;
   private intervalId: any;
+  private currentSid: any; // Store the current SID
 
   msgForm = new FormGroup({
     message_sender: new FormControl(localStorage.getItem('admin_id')),
@@ -49,21 +50,32 @@ export class ViewComponent implements OnInit{
       this.sid = sid;
       this.uid = uid;
       this.msgForm.get('message_reciever')?.setValue(this.sid);
-      this.getConvo(sid, uid);
+      // this.getConvo(sid, uid);
 
-      this.intervalId = setInterval(() => {
-        this.getConvo(sid, uid);
-      }, 5000);
+      // Only set up the interval if the SID has changed
+      if (this.currentSid !== this.sid) {
+        this.currentSid = this.sid; // Update current SID
+        this.intervalId = setInterval(() => {
+          this.getConvo(sid, uid);
+        }, 5000);
+      }
+
+      // Fetch the conversation for the first time
+      this.getConvo(sid, uid);
   });
   }
   
+  ngOnDestroy(): void {
+    // Clear the interval when the component is destroyed
+    clearInterval(this.intervalId);
+  }
 
   getConvo(sid: any, uid: any) {
     console.log("Fetching conversation with sid:", sid, "and uid:", uid);
     this.conn.getConvo(sid, uid).subscribe((result: any) => {
         console.log("Received conversation:", result); // Check if data is here
         this.convo = result; // Assign API response to 'convo'
-        this.cdRef.detectChanges();
+        // this.cdRef.detectChanges();
     });
 }
 
