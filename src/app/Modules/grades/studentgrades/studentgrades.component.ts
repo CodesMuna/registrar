@@ -39,10 +39,10 @@ export class StudentgradesComponent implements OnInit{
             this.grades = Object.keys(gradesData).map(key => {
                 return {
                     subject: key,
-                    '1st Quarter': gradesData[key]['1st Quarter'] || null,
-                    '2nd Quarter': gradesData[key]['2nd Quarter'] || null,
-                    '3rd Quarter': gradesData[key]['3rd Quarter'] || null,
-                    '4th Quarter': gradesData[key]['4th Quarter'] || null,
+                    'First Quarter': gradesData[key]['First Quarter'] || null,
+                    'Second Quarter': gradesData[key]['Second Quarter'] || null,
+                    'Third Quarter': gradesData[key]['Third Quarter'] || null,
+                    'Fourth Quarter': gradesData[key]['Fourth Quarter'] || null,
                     'Midterm': gradesData[key]['Midterm'] || null,
                     'Final': gradesData[key]['Final'] || null
                 };
