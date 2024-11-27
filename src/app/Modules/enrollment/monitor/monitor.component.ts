@@ -27,10 +27,11 @@ export class MonitorComponent implements OnInit{
     'Officially',
   ];
   
-
   enrollments: any;
   keyword: any;
   selectedProgress: string = 'All';
+
+  isLoadingEnrollments = true;
 
   ngOnInit(): void {
     this.conn.getEnrollments().subscribe((result: any) => {
@@ -38,6 +39,8 @@ export class MonitorComponent implements OnInit{
       // this.enrollments.forEach((enrollment:any) => {
         // console.log(enrollment);
       // });
+
+      this.isLoadingEnrollments = false;
     })
   }
 

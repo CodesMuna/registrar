@@ -53,7 +53,7 @@ export class ViewComponent implements OnInit, OnDestroy{
       // this.getConvo(sid, uid);
 
       // Only set up the interval if the SID has changed
-      if (this.currentSid !== this.sid) {
+      if (this.currentSid != this.sid) {
         this.currentSid = this.sid; // Update current SID
         this.intervalId = setInterval(() => {
           this.getConvo(sid, uid);
@@ -63,6 +63,10 @@ export class ViewComponent implements OnInit, OnDestroy{
       // Fetch the conversation for the first time
       this.getConvo(sid, uid);
   });
+  }
+
+  ngOnChanges(): void{
+    
   }
   
   ngOnDestroy(): void {

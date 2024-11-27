@@ -38,64 +38,74 @@
             </tr>
           </thead>
           <tbody class="table-group-divider">
-            @for(enrollment of getFilteredEnrollments() | searchFilter: keyword; track enrollment){
-              @if(enrollment.date_register == null){              
-              }	
-              @else if(enrollment.payment_approval == null){
-                <tr [routerLink]="['/main/enrollment/enrollmentpage/approval/' + enrollment.enrol_id]">
-                  <th scope="row">{{ enrollment.full_name }}</th>
-                  <td class="text-center"> 
-                    <i class="fa fa-check-circle" aria-hidden="true" style="color: green;"></i>
-                    {{ enrollment.date_register |date: 'MMMM dd, yyyy'}}
-                  </td>
-                  <td >
-                    <!-- <button mat-icon-button aria-label="Example icon button with a delete icon" [routerLink]="['/main/enrollment/enrollmentpage/approval/' + enrollment.enrol_id]">
-                      <mat-icon>approval</mat-icon>
-                    </button> -->
-                  </td>
-                  <td>
-
-                  </td>
-                </tr>
-              }	
-              @else if(enrollment.regapproval_date ==  null){          
-                <tr [routerLink]="['/main/enrollment/enrollmentpage/approval/' + enrollment.enrol_id]">
-                  <th scope="row">{{ enrollment.full_name }}</th>
-                  <td class="text-center"> 
-                    <i class="fa fa-check-circle" aria-hidden="true" style="color: green;"></i>
-                    {{ enrollment.date_register |date: 'MMMM dd, yyyy'}}
-                  </td>
-                  <td class="text-center"> 
-                    <i class="fa fa-check-circle" aria-hidden="true" style="color: green;"></i>
-                    {{ enrollment.payment_approval |date: 'MMMM dd, yyyy' }}
-                  </td>
-                  <td >
-                    <!-- <button mat-icon-button aria-label="Example icon button with a delete icon" [routerLink]="['/main/enrollment/enrollmentpage/approval/' + enrollment.enrol_id]">
-                      <mat-icon>approval</mat-icon>
-                    </button> -->
-                  </td>
-                </tr>
-              }
-              <!-- @else if(enrollment.date_register == null && enrollment.regapproval_date ==  null && enrollment.payment_approval ==  null){          
-                
-              } -->
-              @else {
-                <tr [routerLink]="['/main/enrollment/enrollmentpage/approval/' + enrollment.enrol_id]">
-                  <th scope="row">{{ enrollment.full_name }}</th>
-                  <td class="text-center"> 
-                    <i class="fa fa-check-circle" aria-hidden="true" style="color: green;"></i>
-                    {{ enrollment.date_register |date: 'MMMM dd, yyyy'}}
-                  </td>
-                  <td class="text-center"> 
-                    <i class="fa fa-check-circle" aria-hidden="true" style="color: green;"></i>
-                    {{ enrollment.payment_approval |date: 'MMMM dd, yyyy'}}
-                  </td>
-                  <td class="text-center"> 
-                    <i class="fa fa-check-circle" aria-hidden="true" style="color: green;"></i>
-                    {{ enrollment.regapproval_date |date: 'MMMM dd, yyyy'}}
-                  </td>
+            @if(isLoadingEnrollments){
+              <div class="loader">
+                <div class="spinner-border text-primary" role="status">
+                  <span class="sr-only">Loading...</span>
+                </div>
+                <p>Loading enrollments...</p>
+              </div>
+            } @else {
+              @for(enrollment of getFilteredEnrollments() | searchFilter: keyword; track enrollment){
+                @if(enrollment.date_register == null){              
+                }	
+                @else if(enrollment.payment_approval == null){
+                  <tr [routerLink]="['/main/enrollment/enrollmentpage/approval/' + enrollment.enrol_id]">
+                    <th scope="row">{{ enrollment.full_name }}</th>
+                    <td class="text-center"> 
+                      <i class="fa fa-check-circle" aria-hidden="true" style="color: green;"></i>
+                      {{ enrollment.date_register |date: 'MMMM dd, yyyy'}}
+                    </td>
+                    <td >
+                      <!-- <button mat-icon-button aria-label="Example icon button with a delete icon" [routerLink]="['/main/enrollment/enrollmentpage/approval/' + enrollment.enrol_id]">
+                        <mat-icon>approval</mat-icon>
+                      </button> -->
+                    </td>
+                    <td>
+  
+                    </td>
+                  </tr>
+                }	
+                @else if(enrollment.regapproval_date ==  null){          
+                  <tr [routerLink]="['/main/enrollment/enrollmentpage/approval/' + enrollment.enrol_id]">
+                    <th scope="row">{{ enrollment.full_name }}</th>
+                    <td class="text-center"> 
+                      <i class="fa fa-check-circle" aria-hidden="true" style="color: green;"></i>
+                      {{ enrollment.date_register |date: 'MMMM dd, yyyy'}}
+                    </td>
+                    <td class="text-center"> 
+                      <i class="fa fa-check-circle" aria-hidden="true" style="color: green;"></i>
+                      {{ enrollment.payment_approval |date: 'MMMM dd, yyyy' }}
+                    </td>
+                    <td >
+                      <!-- <button mat-icon-button aria-label="Example icon button with a delete icon" [routerLink]="['/main/enrollment/enrollmentpage/approval/' + enrollment.enrol_id]">
+                        <mat-icon>approval</mat-icon>
+                      </button> -->
+                    </td>
+                  </tr>
+                }
+                <!-- @else if(enrollment.date_register == null && enrollment.regapproval_date ==  null && enrollment.payment_approval ==  null){          
+                  
+                } -->
+                @else {
+                  <tr [routerLink]="['/main/enrollment/enrollmentpage/approval/' + enrollment.enrol_id]">
+                    <th scope="row">{{ enrollment.full_name }}</th>
+                    <td class="text-center"> 
+                      <i class="fa fa-check-circle" aria-hidden="true" style="color: green;"></i>
+                      {{ enrollment.date_register |date: 'MMMM dd, yyyy'}}
+                    </td>
+                    <td class="text-center"> 
+                      <i class="fa fa-check-circle" aria-hidden="true" style="color: green;"></i>
+                      {{ enrollment.payment_approval |date: 'MMMM dd, yyyy'}}
+                    </td>
+                    <td class="text-center"> 
+                      <i class="fa fa-check-circle" aria-hidden="true" style="color: green;"></i>
+                      {{ enrollment.regapproval_date |date: 'MMMM dd, yyyy'}}
+                    </td>
+                }
               }
             }
+           
           </tbody>
         </table>
       </div>
