@@ -46,20 +46,26 @@ body{
   border-color: #3ABEF9;
 }
 
-
-
-/* General Styles */
-canvas {
-  width: 100% !important;
-  height: auto !important;
-  background-color: #f1f9f5; /* Soft, light green background */
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Slightly increased shadow */
-  border: none;
-  transition: all 0.3s ease-in-out;
-  padding: 20px;
+.enrl{
+ cursor: pointer;
 }
 
+.notification-item {
+  cursor: pointer;
+  background-color: #e1f1fc;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease-in-out;
+}
+
+.enrl:hover {
+  background-color: #b9f1ff;
+  transform: translateY(-5px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* General Styles */
 h3 {
   font-size: 24px;
   font-weight: bold;
@@ -157,6 +163,7 @@ h3 {
 }
 
 .notification-item {
+  cursor: pointer;
   background-color: #e1f1fc;
   padding: 15px;
   border-radius: 8px;
@@ -202,7 +209,7 @@ h3 {
 .banner {
   display: flex;
   align-items: center;
-  background-color: #22bdff;
+  background-color: #003366;
   color: #ffffff;
   padding: 20px 40px;
   border-radius: 20px;

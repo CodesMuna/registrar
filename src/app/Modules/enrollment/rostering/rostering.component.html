@@ -1,116 +1,172 @@
-      <!-- Roster -->
+@if(isLoading){
+<div class="loader-overlay">
+  <div class="loader">
+    <div class="spinner-border text-primary" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+    <p>Processing...</p>
+  </div>
+</div>
+}
+<!-- Roster -->
+<div class="row">
+  <h3>
+    Grade {{ classDetails[0].grade_level }} {{ classDetails[0].strand }}
+    {{ classDetails[0].section_name }}
+  </h3>
+  <input type="text" value="{{ classDetails[0].grade_level }}" hidden />
+  <div class="col-md-6">
+    <div
+      class="container align-self-center p-3 bg-white rounded"
+      style="height: 550px; overflow-y: auto"
+    >
       <div class="row">
-        <h3>Grade {{ classDetails[0].grade_level }} {{ classDetails[0].strand }} {{ classDetails[0].section_name }}</h3>
-        <input type="text" value="{{ classDetails[0].grade_level }}" hidden>
-        <div class="col-md-6"> 
-            <div class="container align-self-center p-3 bg-white rounded" style="height: 550px; overflow-y: auto;">
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="d-flex align-items-center">
-                    <p class="h4 ms-2 text-start">Roster</p>
-                    <span style="margin-left: 100px;"><strong>Male:</strong> {{ maleStudents }}</span>
-                    <span class="ms-3" style="margin-left: 50px;"><strong>Female:</strong> {{ femaleStudents }}</span>
-                    <span class="ms-3" style="margin-left: 50px;"><strong>Total:</strong> {{ totalStudents }}</span>
-                    <i class="fa fa-search" aria-hidden="true" style="margin-left: 95px; margin-bottom: 50px; cursor: pointer;" (click)="showSearchRoster = !showSearchRoster"></i>
-                  </div>
-                </div>
-                @if(showSearchRoster){
-                  <input type="text" class="form-control search-input"  placeholder="Search Name" aria-label="Name" aria-describedby="basic-addon2" [(ngModel)]="roskey">
-                } 
-              <table class="table table-hover">
-                <thead class="table">
-                  <tr>
-                    <th scope="col"></th>
-                    <th></th>
-                    <th></th>
-                  </tr>
-                </thead>
-                <tbody class="table-group-divider">
-                  @if(isLoadingRoster){
-                    <tr>
-                      <td colspan="5" class="text-center">
-                        <div class="loader">
-                          <div class="spinner-border text-primary" role="status">
-                            <span class="sr-only">Loading...</span>
-                          </div>
-                          <p>Loading Roster...</p>
-                        </div>
-                      </td>
-                    </tr>
-                  } @else {
-                    @for(roster of rosterInfo | searchFilter: roskey ; track roster.roster_id){
-                      <tr>
-                        <td scope="row">{{roster.student_name}}</td>
-                        <td>{{roster.gender}}</td>
-                        <td class="text-body-secondary" colspan="3">
-                          <button mat-icon-button aria-label="Example icon button with a delete icon" class="" (click)="removeStudent(roster.LRN)">
-                              <mat-icon>person_remove</mat-icon>
-                            </button>
-                        </td>
-                      </tr> 
-                    }
-                  }
-                
-                </tbody>
-              </table>
-            </div>
+        <div class="col-md-6">
+          <div class="d-flex align-items-center">
+            <p class="h4 ms-2 text-start">Roster</p>
+            <span style="margin-left: 100px"
+              ><strong>Male:</strong> {{ maleStudents }}</span
+            >
+            <span class="ms-3" style="margin-left: 50px"
+              ><strong>Female:</strong> {{ femaleStudents }}</span
+            >
+            <span class="ms-3" style="margin-left: 50px"
+              ><strong>Total:</strong> {{ totalStudents }}</span
+            >
+            <i
+              class="fa fa-search"
+              aria-hidden="true"
+              style="margin-left: 95px; margin-bottom: 50px; cursor: pointer"
+              (click)="showSearchRoster = !showSearchRoster"
+            ></i>
           </div>
         </div>
-
-        <!-- Enrolees -->
-        <div class="col-md-6"> 
-          <div class="container align-self-center p-3 bg-white rounded" style="height: 550px; overflow-y: auto;">
-            <div class="row">
-              <div class="col-md-6">
-                <div class="d-flex align-items-center">
-                  <p class="h4 ms-2 text-start">Enrollees</p>
-                  <span style="margin-left: 100px;"><strong>Male:</strong> {{ maleEnrolees }}</span>
-                  <span style="margin-left: 50px;"><strong>Female:</strong> {{ femaleEnrolees }}</span>
-                  <span style="margin-left: 50px;"><strong>Total:</strong> {{ totalEnrolees }}</span>
-                  <i class="fa fa-search" aria-hidden="true" style="margin-left: 95px; margin-bottom: 50px; cursor: pointer;" (click)="showSearchEnrolees = !showSearchEnrolees"></i>
+        @if(showSearchRoster){
+        <input
+          type="text"
+          class="form-control search-input"
+          placeholder="Search Name"
+          aria-label="Name"
+          aria-describedby="basic-addon2"
+          [(ngModel)]="roskey"
+        />
+        }
+        <table class="table table-hover">
+          <thead class="table">
+            <tr>
+              <th scope="col"></th>
+              <th></th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody class="table-group-divider">
+            @if(isLoadingRoster){
+            <tr>
+              <td colspan="5" class="text-center">
+                <div class="loader">
+                  <div class="spinner-border text-primary" role="status">
+                    <span class="sr-only">Loading...</span>
+                  </div>
+                  <p>Loading Roster...</p>
                 </div>
-              </div>
-              @if(showSearchEnrolees){
-                <input type="text" class="form-control search-input"  placeholder="Search Name" aria-label="Name" aria-describedby="basic-addon2" [(ngModel)]="enkey">
-              }  
-            <table class="table table-hover">
-              <thead class="table">
-                <tr>
-                  <th scope="col"></th>
-                  <th></th>
-                </tr>
-              </thead>
-                <tbody class="table-group-divider">
-                  @if(isLoadingEnrolles){
-                    <tr>
-                      <td colspan="5" class="text-center">
-                        <div class="loader">
-                          <div class="spinner-border text-primary" role="status">
-                            <span class="sr-only">Loading...</span>
-                          </div>
-                          <p>Loading Enrollees...</p>
-                        </div>
-                      </td>
-                    </tr>
-                  } @else {
-                    @for(enrls of enrolees | searchFilter: enkey ; track enrls.LRN){
-                      <tr (click)="addStudent(enrls.LRN)" class="pointer">
-                        <td scope="row">{{enrls.student_name}}</td>
-                        <td>{{enrls.gender}}</td>
-                      </tr>
-                    }
-                  }
-                 
-                  <!-- @for(enrls of enrolees | searchFilter: enkey ; track enrls.LRN){
+              </td>
+            </tr>
+            } @else { @for(roster of rosterInfo | searchFilter: roskey ; track
+            roster.roster_id){
+            <tr>
+              <td scope="row">{{ roster.student_name }}</td>
+              <td>{{ roster.gender }}</td>
+              <td class="text-body-secondary" colspan="3">
+                <button
+                  mat-icon-button
+                  aria-label="Example icon button with a delete icon"
+                  class=""
+                  (click)="removeStudent(roster.LRN)"
+                >
+                  <mat-icon>person_remove</mat-icon>
+                </button>
+              </td>
+            </tr>
+            } }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Enrolees -->
+  <div class="col-md-6">
+    <div
+      class="container align-self-center p-3 bg-white rounded"
+      style="height: 550px; overflow-y: auto"
+    >
+      <div class="row">
+        <div class="col-md-6">
+          <div class="d-flex align-items-center">
+            <p class="h4 ms-2 text-start">Enrollees</p>
+            <span style="margin-left: 100px"
+              ><strong>Male:</strong> {{ maleEnrolees }}</span
+            >
+            <span style="margin-left: 50px"
+              ><strong>Female:</strong> {{ femaleEnrolees }}</span
+            >
+            <span style="margin-left: 50px"
+              ><strong>Total:</strong> {{ totalEnrolees }}</span
+            >
+            <i
+              class="fa fa-search"
+              aria-hidden="true"
+              style="margin-left: 95px; margin-bottom: 50px; cursor: pointer"
+              (click)="showSearchEnrolees = !showSearchEnrolees"
+            ></i>
+          </div>
+        </div>
+        @if(showSearchEnrolees){
+        <input
+          type="text"
+          class="form-control search-input"
+          placeholder="Search Name"
+          aria-label="Name"
+          aria-describedby="basic-addon2"
+          [(ngModel)]="enkey"
+        />
+        }
+        <table class="table table-hover">
+          <thead class="table">
+            <tr>
+              <th scope="col"></th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody class="table-group-divider">
+            @if(isLoadingEnrolles){
+            <tr>
+              <td colspan="5" class="text-center">
+                <div class="loader">
+                  <div class="spinner-border text-primary" role="status">
+                    <span class="sr-only">Loading...</span>
+                  </div>
+                  <p>Loading Enrollees...</p>
+                </div>
+              </td>
+            </tr>
+            } @else { @for(enrls of enrolees | searchFilter: enkey ; track
+            enrls.LRN){
+            <tr (click)="addStudent(enrls.LRN)" class="pointer">
+              <td scope="row">{{ enrls.student_name }}</td>
+              <td>{{ enrls.gender }}</td>
+            </tr>
+            } }
+
+            <!-- @for(enrls of enrolees | searchFilter: enkey ; track enrls.LRN){
                     <tr>
                       <td scope="row">{{enrls.student_name}}</td>
                       <td>{{enrls.gender}}</td>
                     </tr>
                   } -->
-                </tbody>
-            </table>
-          </div>
-        </div>
+          </tbody>
+        </table>
       </div>
-        
-
+    </div>
+  </div>
+</div>

@@ -43,6 +43,8 @@ export class RosteringComponent implements OnInit{
   isLoadingRoster = true;
   isLoadingEnrolles = true;
 
+  isLoading = false;
+
   lvlform = new FormControl({
     gradelevel: new FormControl(null)
   })
@@ -95,23 +97,29 @@ getEnrolees(gradeLevel: any) {
 }
 
   addStudent(lrn: any) {
+    this.isLoading = true;
     const classIds = this.classIds; // Assuming classIds is an array of IDs
     this.conn.addStudent(classIds, lrn).subscribe((result: any) => {
         console.log(result);
         this.getRosterInfo(); // Get roster info for the first class ID
         this.getEnrolees(this.classDetails[0].grade_level); // Refresh the enrolees
+        this.isLoading = false
     }, error => {
         console.error('Error adding students:', error);
+        this.isLoading = false
     });
   }
 
   removeStudent(lrn: string) {
+    this.isLoading = true
     this.conn.removeStudent(lrn).subscribe((result: any) => {
         console.log(result);
         this.getRosterInfo(); // Refresh the roster info
         this.getEnrolees(this.classDetails[0].grade_level); // Refresh the enrolees
+        this.isLoading = false
     }, error => {
         console.error('Error removing student:', error);
+        this.isLoading = false
     });
 }
   
