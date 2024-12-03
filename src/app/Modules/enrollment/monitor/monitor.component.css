@@ -26,3 +26,9 @@
       transform: rotate(360deg);
     }
   }
+
+  .scrollable-container {
+    max-height: calc(100vh - 400px); /* Adjust based on your layout */
+    overflow-y: scroll; /* Enable scrolling */
+    -ms-overflow-style: none; /* For Internet Explorer and Edge */
+}

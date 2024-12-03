@@ -16,10 +16,10 @@
                     @for (grade of grades; track grade){
                         <tr>
                             <td data-label="Subject">{{ grade.subject }}</td>
-                            <td data-label="1st Q">{{ grade['First Quarter'] !== null ? grade['First Quarter'] : 'N/A' }}</td>
-                            <td data-label="2nd Q">{{ grade['Second Quarter'] !== null ? grade['Second Quarter'] : 'N/A' }}</td>
-                            <td data-label="3rd Q">{{ grade['Third Quarter'] !== null ? grade['Third Quarter'] : 'N/A' }}</td>
-                            <td data-label="4th Q">{{ grade['Fourth Quarter'] !== null ? grade['Fourth Quarter'] : 'N/A' }}</td>
+                            <td data-label="1st Q">{{ grade['First Quarter'] !== null ? grade['First Quarter'] : '' }}</td>
+                            <td data-label="2nd Q">{{ grade['Second Quarter'] !== null ? grade['Second Quarter'] : '' }}</td>
+                            <td data-label="3rd Q">{{ grade['Third Quarter'] !== null ? grade['Third Quarter'] : '' }}</td>
+                            <td data-label="4th Q">{{ grade['Fourth Quarter'] !== null ? grade['Fourth Quarter'] : '' }}</td>
                             <!-- <td data-label="Final">91</td> -->
                         </tr>
                     }          
@@ -35,8 +35,8 @@
                     @for (grade of grades; track grade){
                         <tr>
                             <td data-label="Subject">{{ grade.subject }}</td>
-                            <td data-label="Midterm">{{ grade['Midterm'] !== null ? grade['Midterm'] : 'N/A'  }}</td>
-                            <td data-label="Final">{{ grade['Final'] !== null ? grade['Final'] : 'N/A' }}</td>
+                            <td data-label="Midterm">{{ grade['Midterm'] !== null ? grade['Midterm'] : ''  }}</td>
+                            <td data-label="Final">{{ grade['Final'] !== null ? grade['Final'] : '' }}</td>
                             <td data-label="Final Rating">Avarage</td>
                             <!-- <td data-label="Final">91</td> -->
                         </tr>

@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
-import {FormsModule} from '@angular/forms';
+import {FormControl, FormGroup, FormsModule} from '@angular/forms';
 import {MatCardModule} from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTabsModule } from '@angular/material/tabs';
@@ -35,6 +35,19 @@ export class ApprovalComponent implements OnInit{
   enrolinfo: any;
   eid: any;
   studentInfo: any;
+
+  studentForm = new FormGroup({
+    LRN: new FormControl('',),
+    fname: new FormControl(''),
+    mname: new FormControl(''),
+    lname: new FormControl(''),
+    email: new FormControl(''),
+    address: new FormControl(''),
+    oldPassword: new FormControl(null),
+    newPassword: new FormControl(''),
+    newPassword_confirmation: new FormControl(''),
+    role: new FormControl(''),
+  })
 
   constructor(private conn: PortalService,
     private aroute: ActivatedRoute,

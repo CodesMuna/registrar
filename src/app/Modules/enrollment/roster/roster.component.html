@@ -55,7 +55,7 @@
                     <p class="h4 ms-2 text-start">Grade {{selectedLevel}} {{selectedStrand}} {{selectedSection}} Roster </p>
                   }     
                   @if(rosters){
-                    <div class="btn-group ms-2">
+                    <div class="btn-group mb-3">
                       <button mat-icon-button aria-label="Example icon button with a delete icon" (click)="addtoRoster()">
                         <mat-icon>group_add</mat-icon>
                       </button>
@@ -80,17 +80,44 @@
                   <tr>
                     <th scope="col"></th>
                     <th></th>
-                    <th></th>
+                    <!-- <th></th> -->
                   </tr>
                 </thead>
                 <tbody class="table-group-divider">
-                  @for(roster of getUniqueRosters() | searchFilter: keyword; track roster.roster_id){
-                      <tr>
-                        <th scope="row">{{roster.student_name}}</th>
-                        <td>{{roster.contact_no}}</td>
-                        
-                      </tr>
+                  @if(isLoadingRoster){
+                    <tr>
+                      <td colspan="5" class="text-center">
+                        <div class="loader">
+                          <div class="spinner-border text-primary" role="status">
+                            <span class="sr-only">Loading...</span>
+                          </div>
+                          <p>Loading Roster...</p>
+                        </div>
+                      </td>
+                    </tr>
+                  } @else {
+                    @for(roster of getUniqueRosters() | searchFilter: keyword; track roster.roster_id){
+                      @if(roster.length == 0){
+                        <tr>
+                          <td colspan="5" class="text-center">
+                            <div class="">
+                              <div class="" role="">
+                                <!-- <span class="">Loading...</span> -->
+                              </div>
+                              <p>No Students Found</p>
+                            </div>
+                          </td>
+                        </tr>
+                      } @else {
+                        <tr>
+                          <th scope="row">{{roster.student_name}}</th>
+                          <td>{{roster.contact_no}}</td>
+                          
+                        </tr>
+                      }
+                    
                     }
+                  }       
                 </tbody>
               </table>
             </div>

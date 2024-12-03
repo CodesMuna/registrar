@@ -49,6 +49,8 @@ export class RosterComponent implements OnInit{
 
   classIds: any[] = [];
 
+  isLoadingRoster = true;
+
   constructor(private conn: PortalService,
     private aroute: ActivatedRoute,
     private route: Router,
@@ -56,35 +58,33 @@ export class RosterComponent implements OnInit{
   
   ngOnInit(): void {
     this.aroute.params.subscribe(params => {
-      const classIds = params['classIds'].split(',');
-      this.classIds = classIds;
-      console.log('Retrieved Class Ids', classIds);
+        const classIds = params['classIds'].split(',');
+        this.classIds = classIds;
+        console.log('Retrieved Class Ids', classIds);
     });
-    // console.log('Retrieved Class Ids', this.classIds);
 
     this.conn.getClasses().subscribe((result: any) => {
-      this.classes = result;
-      const uniqueGradeLevels = Array.from(new Set(result.map((lvl: any) => lvl.grade_level)));
-      const uniqueStrands = Array.from(new Set(result.map((strnd: any) => strnd.strand)));
-      const uniqueSections = Array.from(new Set(result.map((sect: any) => sect.section_name))).map((x) => x as string);
-      
-      this.gradelevel = uniqueGradeLevels;
-      this.strands = uniqueStrands;
-      this.sections = uniqueSections;
+        this.classes = result;
 
-      if (this.gradelevel.length > 0) {
-        this.selectedLevel = this.gradelevel[0];
-        this.getSections(this.selectedLevel, this.selectedStrand); // Get sections for the default selected level
-      }
-      if (this.gradelevel.length > 0) {
-        this.selectedSection = this.sections[0];
-      }
+        // Get unique grade levels and sort them in ascending order
+        const uniqueGradeLevels = Array.from(new Set(result.map((lvl: any) => lvl.grade_level))).sort((a: any, b: any) => a - b);
+        
+        const uniqueStrands = Array.from(new Set(result.map((strnd: any) => strnd.strand)));
+        const uniqueSections = Array.from(new Set(result.map((sect: any) => sect.section_name))).map((x) => x as string);
+        
+        this.gradelevel = uniqueGradeLevels;
+        this.strands = uniqueStrands;
+        this.sections = uniqueSections;
 
-      // console.log(this.selectedLevel)
-      // console.log(this.selectedSection)
-      // console.log(this.selectedStrand)
+        if (this.gradelevel.length > 0) {
+            this.selectedLevel = this.gradelevel[0];
+            this.getSections(this.selectedLevel, this.selectedStrand); // Get sections for the default selected level
+        }
+        if (this.gradelevel.length > 0) {
+            this.selectedSection = this.sections[0];
+        }
     });
-  }
+}
 
   getSections(gradeLevel: string, strand: any) {
     this.conn.getSectionsByGradeLevel(gradeLevel, strand).subscribe((result: any) => {
@@ -162,6 +162,8 @@ getFilteredRosters() {
    
     this.getClassId();
     console.log(this.rosters);
+
+    this.isLoadingRoster = false;
   });
 }
 
@@ -192,11 +194,12 @@ getFilteredRosters() {
         .map((classInfo: any) => classInfo.class_id);
 
     if (filteredClassIds.length > 0) {
-        this.conn.createRoster(filteredClassIds).subscribe((result: any) => {
-            console.log(result);
+        // this.conn.createRoster(filteredClassIds).subscribe((result: any) => {
+        //     console.log(result);
             this.route.navigate(['/main/enrollment/enrollmentpage/rostering/', filteredClassIds.join(',')]);
-        });
-    } else {
+        // });
+    } 
+    else {
         console.error('No matching class IDs available to add to roster.');
         alert('No matching classes available to add to the roster.');
     }

@@ -17,7 +17,7 @@ import { Router, RouterModule } from '@angular/router';
   styleUrl: './inquiry.component.css'
 })
 export class InquiryComponent implements OnInit{
-  inquries: any;
+  inquiries: any;
   uid: any;
   currentDate: Date = new Date();
   
@@ -42,9 +42,21 @@ export class InquiryComponent implements OnInit{
 
   getInquiries(){
     this.conn.getInquiries(this.uid).subscribe((result: any) => {
-      this.inquries = result;
-      this.inquries.forEach((inquiry:any) => {
+      this.inquiries = result;
+      this.inquiries.forEach((inquiry:any) => {
         console.log(inquiry);
+
+        const uniqueMessages = [];
+        const seenSenders = new Set();
+  
+        for (const msg of result) {
+            if (!seenSenders.has(msg.sender_name)) {
+                seenSenders.add(msg.sender_name);
+                uniqueMessages.push(msg);
+            }
+        }
+  
+        this.inquiries = uniqueMessages;
       });
       this.isLoadingInquiries = false;
     })

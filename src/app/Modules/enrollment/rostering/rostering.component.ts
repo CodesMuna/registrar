@@ -40,6 +40,9 @@ export class RosteringComponent implements OnInit{
   classIds: any;
   classDetails: any[] = [];
 
+  isLoadingRoster = true;
+  isLoadingEnrolles = true;
+
   lvlform = new FormControl({
     gradelevel: new FormControl(null)
   })
@@ -86,6 +89,8 @@ getEnrolees(gradeLevel: any) {
         this.maleEnrolees = result.filter((enrolee: any) => enrolee.gender === 'Male').length;
         this.femaleEnrolees = result.filter((enrolee: any) => enrolee.gender === 'Female').length;
         this.totalEnrolees = result.length;
+
+        this.isLoadingEnrolles = false;
     });
 }
 
@@ -128,6 +133,9 @@ getEnrolees(gradeLevel: any) {
         this.maleStudents = this.rosterInfo.filter((student: any) => student.gender === 'Male').length;
         this.femaleStudents = this.rosterInfo.filter((student: any) => student.gender === 'Female').length;
         this.totalStudents = this.rosterInfo.length; // Update total students count
+
+        this.isLoadingRoster = false;
+
     }, error => {
         console.error('Error fetching roster info:', error);
     });

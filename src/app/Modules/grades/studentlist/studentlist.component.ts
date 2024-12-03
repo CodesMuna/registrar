@@ -49,6 +49,11 @@ export class StudentlistComponent implements OnInit{
   enrollments: any;
 
   showSearchRoster = false;
+  dropdownVisibility: { [key: string]: boolean } = {};
+
+  isLoadingRosterGrade = true;
+
+  private intervalId: any;
 
   // ngOnInit(): void {
   //   this.getAllEnrollments()
@@ -60,9 +65,10 @@ export class StudentlistComponent implements OnInit{
 
   ngOnInit(): void {
     this.conn.getClasses().subscribe((result: any) => {
-        const uniqueGradeLevels = Array.from(new Set(result.map((lvl: any) => lvl.grade_level)));
+      const uniqueGradeLevels = Array.from(new Set(result.map((lvl: any) => lvl.grade_level))).sort((a: any, b: any) => a - b);
         const uniqueStrands = Array.from(new Set(result.map((strnd: any) => strnd.strand)));
         const uniqueSections = Array.from(new Set(result.map((sect: any) => sect.section_name))).map((x) => x as string);
+        
         
         this.gradelevel = uniqueGradeLevels;
         this.strands = uniqueStrands;
@@ -83,8 +89,15 @@ export class StudentlistComponent implements OnInit{
 
         this.getFilteredRosters(); 
         this.getClassId();
+
+        // this.intervalId = setInterval(() => {
+        //       this.getFilteredRosters();
+        //     }, 1000);
     });
 }
+  getClasses() {
+    throw new Error('Method not implemented.');
+  }
 
   getSections(gradeLevel: string, strand: any) {
     this.conn.getSectionsByGradeLevel(gradeLevel, strand).subscribe((result: any) => {
@@ -154,8 +167,9 @@ export class StudentlistComponent implements OnInit{
 
   isDropdownVisible: boolean = false;
 
-  toggleDropdown() {
-    this.isDropdownVisible = !this.isDropdownVisible;
+  toggleDropdown(rosterId: string) {
+    // Toggle the visibility for a specific roster item
+    this.dropdownVisibility[rosterId] = !this.dropdownVisibility[rosterId];
   }
 
   getFilteredRosters() {
@@ -182,6 +196,9 @@ export class StudentlistComponent implements OnInit{
       this.totalStudents = result.length;
       this.getClassId();
       // console.log(this.rosters);
+
+    this.isLoadingRosterGrade = false;
+
     });
   }
 
@@ -202,12 +219,22 @@ export class StudentlistComponent implements OnInit{
   permit(gid: any){
     this.conn.permit(gid).subscribe((result: any) => {
       console.log(result)
+
+      this.dropdownVisibility[gid] = false;
+
+      this.getFilteredRosters();
+      this.getClassId();
     })
   }
 
   decline(gid: any){
     this.conn.decline(gid).subscribe((result: any) => {
       console.log(result)
+
+      this.dropdownVisibility[gid] = false;
+
+      this.getFilteredRosters();
+      this.getClassId();
     })
   }
  

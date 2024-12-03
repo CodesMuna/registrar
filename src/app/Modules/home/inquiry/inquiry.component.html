@@ -1,81 +1,77 @@
-<!-- Inquiries loader -->
-
-
-<!-- Enrollments loader -->
-
-
-<!-- Rest of the template -->
-<div class="container mb-5 ms-1">
-  <div class="row">
-    <div class="col-md-8"> <!-- Adjusted column size for more space -->
-      <div class="banner">
-        <div class="text-content">
-          <div class="date">{{ currentDate | date: 'EEEE, MMMM d, y' }}</div>
-          <h1 class="welcome-message">Welcome back, Registrar!</h1>
-          <p class="subtext">Always stay updated in your student portal</p>
-        </div>
-        <div class="illustration">
-          <!-- Placeholder for the 3D illustration -->
-          <img src="hmpic.png" alt="Illustration" class="img-fluid"> <!-- Added img-fluid for responsiveness -->
-        </div>
-      </div>
+<div class="container">
+  <div class="banner">
+    <div class="text-content">
+      <div class="date">{{ currentDate | date: 'EEEE, MMMM d, y' }}</div>
+      <h1 class="welcome-message" style="font-family: Poppins;">Welcome back, Registrar!</h1>
+      <!-- <p class="subtext">Always stay updated in your student portal</p> -->
     </div>
-    <div class="col-md-4"> <!-- This column will take less space -->
-      <div class="card bg-white p-3 enr" (click)="monitor()">
-        @if (isLoadingEnrollments){
-          <div class="loader">
-            <div class="spinner-border text-primary" role="status">
-              <span class="sr-only">Loading...</span>
-            </div>
-            <p>Loading enrollments...</p>
-          </div>
-        } @else {
-          <h5 class="card-title">Total: {{totalEnrollments}}</h5>
-          <p class="card-text">Pending Enrollees: {{pendingEnrollees}}</p>
-          <p class="card-text">Officially Enrolled: {{officiallyEnrolled}}</p>
-        }
-      </div>
+    <div class="illustration">
+      <!-- Placeholder for the 3D illustration -->
+      <img src="aaa.png " alt="Illustration">
     </div>
   </div>
-</div>
 
-
-
-<!-- Table of Inquiries -->
-
-<p class="container h4 ms-2 text-start">Recent Inquiries</p>
-<div class="container align-self-center p-3 bg-white rounded" >
-  <div class="row">
-    <div class="col-md-12">
-      <table class="table table-hover">
-        <thead class="table">
-          <tr>
-            <th scope="col">Sender</th>
-            <th scope="col">Message</th>
-            <th scope="col"></th>
-            <th scope="col"></th>
-            <th class="text-center" scope="col">Date</th>
-          </tr>
-        </thead>
-        <tbody class="table-group-divider">
-          @if(isLoadingInquiries){
-            <div class="loader">
-              <div class="spinner-border text-primary" role="status">
-                <span class="sr-only">Loading...</span>
+  <!-- chart and card -->
+   
+  <div class="row mt-4">
+    <div class="  dash-col">
+      <h3>Recent Inquiries</h3>
+      <div class="card">
+        <div class="card-body-notif">
+          <div class="notification-list">
+            <!-- Notification 1 -->
+             @if(isLoadingInquiries){
+              <div class="loader">
+                <div class="spinner-border text-primary" role="status">
+                  <span class="sr-only">Loading...</span>
+                </div>
+                <p>Loading Inquiries...</p>
               </div>
-              <p>Loading inquiries...</p>
-            </div>
-          } @else {
-            @for (inq of inquries; track inquries) {
-              <tr [routerLink]="['/main/message/messagepage/messages/view/' + inq.message_sender]">
-                <th scope="row">{{inq.sender_name}}</th>
-                <td class="text-body-secondary" colspan="3" title="{{inq.message}}">{{ inq.message.length > 30 ? (inq.message | slice:0:30) + '...' : inq.message }}</td>
-                <td class="text-center" >{{inq.message_date | date: 'MMMM dd, yyyy'}}</td>
-              </tr>
-            }
-          }     
-        </tbody>
-      </table>
+             } @else {
+              @for (inq of inquiries; track $index) {
+                <div class="notification-item" [routerLink]="['/main/message/messagepage/messages/view/' + inq.message_sender]">
+                  <div class="notification-header">
+                    <div class="sender-name">{{ inq.sender_name }}</div>
+                    <div class="notification-date">{{ inq.message_date | date: 'MMMM dd, yyyy' }}</div>
+                  </div>
+                  <div class="notification-message"> {{ inq.message }}</div>
+                </div>
+              }
+             }
+             
+          </div>
+        </div>
+      </div>
     </div>
+        <!-- Enrollment -->              
+      
+        <div class="  inq-col">
+          <h3>Enrollment Summary</h3>
+          <div class="card enrl" (click)="monitor()">
+            <div class="card-body-notif" >
+              <div class="notification-list">
+                <!-- Notification 1 -->
+                @if (isLoadingEnrollments){
+                  <div class="loader">
+                    <div class="spinner-border text-primary" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                    <p>Loading enrollments...</p>
+                  </div>
+                } @else {
+                  <h5 class="card-title">Total: {{totalEnrollments}}</h5>
+                  <p class="card-text">Pending Enrollees: {{pendingEnrollees}}</p>
+                  <p class="card-text">Officially Enrolled: {{officiallyEnrolled}}</p>
+                }
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        
   </div>
 </div>
+
+ 
+
+

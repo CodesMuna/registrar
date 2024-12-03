@@ -7,7 +7,7 @@
     [activated]="rla.isActive">
     <mat-icon matListItemIcon [fontSet]="rla.isActive ? 'material-icons' : 'material-icons-outlined'"  matTooltip="{{item().label}}">{{item().icon}}</mat-icon>
     @if (!collapsed()) {
-        <span matListItemTitle>{{item().label}}</span>
+        <span matListItemTitle style="font-family: Poppins; font-weight: 600;">{{item().label}}</span>
     }
     @if(item().subItems){
         <span matListItemMeta>
