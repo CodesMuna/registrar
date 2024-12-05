@@ -100,24 +100,24 @@
       class="container align-self-center p-3 bg-white rounded"
       style="height: 550px; overflow-y: auto"
     >
-      <div class="row">
-        <div class="col-md-6">
-          <div class="d-flex align-items-center">
-            <p class="h4 ms-2 text-start">Enrollees</p>
-            <span style="margin-left: 100px"
+    <div class="row">
+      <div class="col-md-6">
+        <div class="d-flex align-items-center">
+          <p class="h4 ms-2 text-start">Enrollees</p>
+           <span style="margin-left: 100px"
               ><strong>Male:</strong> {{ maleEnrolees }}</span
             >
-            <span style="margin-left: 50px"
+            <span class="ms-3" style="margin-left: 50px"
               ><strong>Female:</strong> {{ femaleEnrolees }}</span
             >
-            <span style="margin-left: 50px"
+            <span class="ms-3" style="margin-left: 50px"
               ><strong>Total:</strong> {{ totalEnrolees }}</span
             >
             <i
               class="fa fa-search"
               aria-hidden="true"
               style="margin-left: 95px; margin-bottom: 50px; cursor: pointer"
-              (click)="showSearchEnrolees = !showSearchEnrolees"
+              (click)="showSearchRoster = !showSearchRoster"
             ></i>
           </div>
         </div>

@@ -60,7 +60,7 @@ export class RosterComponent implements OnInit{
     this.aroute.params.subscribe(params => {
         const classIds = params['classIds'].split(',');
         this.classIds = classIds;
-        console.log('Retrieved Class Ids', classIds);
+        // console.log('Retrieved Class Ids', classIds);
     });
 
     this.conn.getClasses().subscribe((result: any) => {
@@ -88,7 +88,7 @@ export class RosterComponent implements OnInit{
 
   getSections(gradeLevel: string, strand: any) {
     this.conn.getSectionsByGradeLevel(gradeLevel, strand).subscribe((result: any) => {
-        console.log('Sections fetched:', result);
+        // console.log('Sections fetched:', result);
         // Filter the sections based on the selected strand and grade level
         this.sections = result.filter((sect: any) => sect.strand === strand && sect.grade_level === gradeLevel);
 
@@ -111,9 +111,9 @@ export class RosterComponent implements OnInit{
     }
 
     this.getSections(this.selectedLevel, this.selectedStrand); // Fetch sections for the new level and strand
-    console.log(this.selectedLevel);
-    console.log(this.selectedSection);
-    console.log(this.selectedStrand);
+    // console.log(this.selectedLevel);
+    // console.log(this.selectedSection);
+    // console.log(this.selectedStrand);
   }
 
   strandChange(event: MatSelectChange){
@@ -161,7 +161,7 @@ getFilteredRosters() {
 
    
     this.getClassId();
-    console.log(this.rosters);
+    // console.log(this.rosters);
 
     this.isLoadingRoster = false;
   });
@@ -179,11 +179,11 @@ getFilteredRosters() {
 
 // In roster.component.ts
   addtoRoster() {
-    if (!this.classes || this.classes.length === 0) {
-        console.error('Classes are not loaded or empty.');
-        alert('Classes are not loaded or empty.');
-        return; // Exit the function early
-    }
+    // if (!this.classes || this.classes.length === 0) {
+    //     console.error('Classes are not loaded or empty.');
+    //     alert('Classes are not loaded or empty.');
+    //     return; // Exit the function early
+    // }
 
     const filteredClassIds = this.classes
         .filter((classInfo: any) => 

@@ -9,11 +9,14 @@ import { MatSelectChange, MatSelectModule } from '@angular/material/select';
 import { Router, RouterModule } from '@angular/router';
 import { PortalService } from '../../../portal.service';
 import { SearchFilterPipe } from '../../../search-filter.pipe';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import { MatDialog } from '@angular/material/dialog';
+import { TermDialogComponent } from '../term-dialog/term-dialog.component';
 
 @Component({
   selector: 'app-studentlist',
   standalone: true,
-  imports: [RouterModule, MatIconModule, MatFormFieldModule, MatSelectModule, MatInputModule, FormsModule, CommonModule, MatButtonModule, SearchFilterPipe],
+  imports: [RouterModule, MatIconModule, MatFormFieldModule, MatSelectModule, MatInputModule, FormsModule, CommonModule, MatButtonModule, SearchFilterPipe, MatSlideToggleModule],
   templateUrl: './studentlist.component.html',
   styleUrl: './studentlist.component.css'
 })
@@ -28,6 +31,13 @@ export class StudentlistComponent implements OnInit{
     'All',
     'Male',
     'Female'
+  ]
+
+  jhTerms: string[] = [
+    '1st Quarter',
+    '2nd Quarter',
+    '3rd Quarter',
+    '4th Quarter'
   ]
 
   selectedLevel: string = "";
@@ -53,6 +63,8 @@ export class StudentlistComponent implements OnInit{
 
   isLoadingRosterGrade = true;
 
+  isSlideToggleVisible = false;
+
   private intervalId: any;
 
   // ngOnInit(): void {
@@ -60,7 +72,8 @@ export class StudentlistComponent implements OnInit{
   // }
 
   constructor(private conn: PortalService,
-    private route: Router
+    private route: Router,
+    private dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -79,9 +92,10 @@ export class StudentlistComponent implements OnInit{
             this.getSubjects(this.selectedLevel, this.selectedStrand); // Get sections for the default selected level
             this.getSections(this.selectedLevel, this.selectedStrand);
         }
-        if (this.gradelevel.length > 0) {
-            this.selectedSection = this.sections[0];
-        }
+        
+        // if (this.gradelevel.length > 0) {
+        //     this.selectedSection = this.sections[0];
+        // }
 
         // console.log(this.selectedLevel);
         // console.log(this.selectedSection);
@@ -89,6 +103,8 @@ export class StudentlistComponent implements OnInit{
 
         this.getFilteredRosters(); 
         this.getClassId();
+
+        
 
         // this.intervalId = setInterval(() => {
         //       this.getFilteredRosters();
@@ -101,22 +117,23 @@ export class StudentlistComponent implements OnInit{
 
   getSections(gradeLevel: string, strand: any) {
     this.conn.getSectionsByGradeLevel(gradeLevel, strand).subscribe((result: any) => {
-        console.log('Sections fetched:', result);
+        // console.log('Sections fetched:', result);
         // Filter the sections based on the selected strand and grade level
         this.sections = result.filter((sect: any) => sect.strand === strand && sect.grade_level === gradeLevel);
 
         if (this.sections.length > 0) {
             this.selectedSection = this.sections[0].section_name; // Set to the first section
-        } else {
-            this.selectedSection = ''; // Reset if no sections are available
-        }
+        } 
+        // else {
+        //     this.selectedSection = ''; // Reset if no sections are available
+        // }
         this.getFilteredRosters(); // Update rosters based on the new section
     });
   }
 
   getSubjects(gradeLevel: string, strand: any) {
     this.conn.getSubjects(gradeLevel, strand).subscribe((result: any) => {
-        console.log('Subjects fetched:', result);
+        // console.log('Subjects fetched:', result);
         // Filter the subjects based on the selected strand and grade level
         this.subjects = result.filter((sub: any) => 
             sub.strand === strand && 
@@ -236,6 +253,36 @@ export class StudentlistComponent implements OnInit{
       this.getFilteredRosters();
       this.getClassId();
     })
+  }
+
+  enableTerm(term: any){
+    this.conn.enableTerm(term).subscribe((result: any) => {
+      console.log(term)
+      console.log(result)
+    })
+  }
+
+  disableTerm(term: any){
+    this.conn.disableTerm(term).subscribe((result: any) => {
+      console.log(result)
+    })
+  }
+
+  toggleSlideToggle() {
+    this.isSlideToggleVisible = !this.isSlideToggleVisible;
+  }
+
+  openConfig(): void {
+    const dialogRef = this.dialog.open(TermDialogComponent, {
+      // data: { eid } // Pass the enrollment ID to the dialog
+    });
+  
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        // Handle any actions after the dialog is closed, if needed
+        // this.deleteEnrollment(eid);
+      }
+    });
   }
  
 }

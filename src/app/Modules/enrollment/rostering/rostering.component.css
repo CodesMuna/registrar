@@ -38,3 +38,13 @@
       transform: rotate(360deg);
     }
   }
+
+  .container {
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border: none;
+    margin-bottom: 30px;
+    transition: all 0.3s ease-in-out;
+    width: 100%;
+  
+  }

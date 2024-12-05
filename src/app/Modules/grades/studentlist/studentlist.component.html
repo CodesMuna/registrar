@@ -51,10 +51,12 @@
             }
           </mat-select>
         </mat-form-field>
+        <button mat-raised-button (click)="openConfig()">Configure Terms</button>
+        <!-- <button (click)="openConfig()">Config Terms</button> -->
       </div>
       </div>
           <!-- Class Roster -->
-          <div class="container align-self-center p-3 bg-white rounded" style="height: 430px; overflow-y: auto;">
+          <div class="container grds align-self-center p-3 bg-white rounded" style="height: 430px; overflow-y: auto;">
             <div class="row">
               <div class="col-md-12 d-flex justify-content-between align-items-center">
                 <div class="d-flex align-items-center">
@@ -64,12 +66,14 @@
                   } @else {
                     <p class="h4 ms-2 text-start">Grade {{selectedLevel}} {{selectedStrand}} {{selectedSection}} - {{selectedSubject}} </p>
                   }     
+                  
                 </div>
                 <div>
                   <span><strong>Male:</strong> {{ maleStudents }}</span>
                   <span class="ms-3"><strong>Female:</strong> {{ femaleStudents }}</span>
                   <span class="ms-3"><strong>Total:</strong> {{ totalStudents }}</span>
                   <i class="fa fa-search" aria-hidden="true" style="margin-left: 80px; margin-bottom: 50px; cursor: pointer;" (click)="showSearchRoster = !showSearchRoster"></i>
+                  <!-- <br><button (click)="toggleSlideToggle()">Toggle Slide Toggle</button> -->
                 </div>
               </div>
               <table class="table table-hover mt-3">
@@ -77,10 +81,10 @@
                   <thead class="table">     
                       <tr>
                         <th scope="col">Names</th>
-                        <th class="text-center">1st Grading</th>
-                        <th class="text-center">2nd Grading</th>
-                        <th class="text-center">3rd Grading</th>
-                        <th class="text-center">4th Grading</th>
+                          <th class="text-center">1st Grading</th>
+                          <th class="text-center">2nd Grading</th>
+                          <th class="text-center">3rd Grading</th>
+                          <th class="text-center">4th Grading</th>
                       </tr>
                     </thead>
                     <tbody class="table-group-divider">

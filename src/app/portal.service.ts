@@ -8,7 +8,7 @@ import { map } from 'rxjs/operators';
 })
 export class PortalService {
 
-  private url = 'http://localhost:8000/api/';
+  private url = 'http://localhost:8000/api/'; // Adjust as necessary
   token = localStorage.getItem('token')
   private adminPicSubject = new BehaviorSubject<string | null>(null); // This will store the admin image URL
   adminPic$ = this.adminPicSubject.asObservable();
@@ -176,6 +176,18 @@ export class PortalService {
 
   decline(gid: any){
     return this.http.post(this.url + 'decline', { gid } );
+  }
+
+  getGradesTP() {
+    return this.http.get<any[]>(this.url + 'getGradesTP');
+  }
+  
+  enableTerm(data: { term: string; permission: string }) {
+    return this.http.post(this.url + 'enableTerm', data);
+  }
+
+  disableTerm(data: { term: string; permission: string }) {
+    return this.http.post(this.url + 'disableTerm', data);
   }
 
   //Message Service

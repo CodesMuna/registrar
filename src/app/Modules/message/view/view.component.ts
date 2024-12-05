@@ -63,7 +63,7 @@ export class ViewComponent implements OnInit {
       if (this.sid) {
         this.getConvo(this.sid, uid).subscribe();
       }
-    }, 3000);
+    }, 10000);
   }
 
   ngOnDestroy(): void {
