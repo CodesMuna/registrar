@@ -200,9 +200,10 @@ h3 {
 }
 
 .card-title {
+  font-family: 'Poppins';
   font-size: 1.5rem;
   margin-bottom: 15px;
-  color: #28a745; /* Green */
+  color: #28a745; 
 }
 
 /* Banner Styles */

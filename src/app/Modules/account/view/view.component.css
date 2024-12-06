@@ -29,7 +29,7 @@
     height: 120px;
     object-fit: cover;
     border-radius: 50%;
-    border: 5px solid #007bff;
+    border: 5px solid #b700ff;
 }
 
 .fs-22 {
@@ -84,10 +84,6 @@
     background-color: #23272b;
 }
 
-.btn-primary {
-    background-color: #007bff;
-    color: #ffffff;
-}
 
 
 /* Form Styles */
@@ -193,10 +189,10 @@
 }
 
 /* Primary Button Styling */
-.btn-primary {
+/* .btn-primary {
     background-color:#8743df;
     border-color: #8743df;
-}
+} */
 .btn-dark {
     background-color:#989898;
     border-color: #989898;

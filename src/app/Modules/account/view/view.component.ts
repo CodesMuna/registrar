@@ -3,19 +3,19 @@ import { FormGroup, FormControl, FormsModule, ReactiveFormsModule } from '@angul
 import { PortalService } from '../../../portal.service';
 import { CommonModule } from '@angular/common';
 import Swal from 'sweetalert2';  // Ensure SweetAlert2 is imported
+import { MatError } from '@angular/material/form-field';
 
 @Component({
   selector: 'app-view',
   standalone: true,
-  imports: [FormsModule, CommonModule, ReactiveFormsModule],
+  imports: [FormsModule, CommonModule, ReactiveFormsModule, MatError],
   templateUrl: './view.component.html',
   styleUrl: './view.component.css'
 })
 export class ViewComponent {
   user: any;
-  adminPic: string | null = null;
-
-  constructor(private conn: PortalService) {
+  adminPic:any;
+  constructor(private adminService: PortalService) {
 
   }
 
@@ -35,38 +35,61 @@ export class ViewComponent {
 
   ngOnInit() {
     this.loadUserData();
+    // const user = JSON.parse(localStorage.getItem('user') || '{}');
+    // if (user && user.admin_pic) {
+    //     this.adminPic = user.admin_pic;
+    // } else {
+    //     console.warn('Admin picture URL not found in localStorage');
+    // }
+}
 
-    this.conn.adminPic$.subscribe((newImageUrl) => {
-      if (newImageUrl) {
-        this.adminPic = newImageUrl; // Update the component's admin picture
-      }
-    });
+loadUserData(): void {
+  const user = JSON.parse(localStorage.getItem('user') || '{}');
+  this.user = user; // Set the user object
+  console.log('Loaded user:', this.user);
 
-    // Optionally, initialize with the image from localStorage
-    const user = JSON.parse(localStorage.getItem('user') || '{}');
-    if (user && user.admin_pic) {
-      this.adminPic = user.admin_pic;
-    }
-  }
-
-  loadUserData(): void {
-    const user = JSON.parse(localStorage.getItem('user') || '{}');
-    this.user = user;
-    console.log(user);
-
-    if (user) {
+  if (user) {
+      // Patch the profile form with user details
       this.profileForm.patchValue({
-        admin_id: user.admin_id,
-        fname: user.fname,
-        mname: user.mname,
-        lname: user.lname,
-        email: user.email,
-        address: user.address,
-        role: user.role,
-        oldPassword: user.oldPassword,
+          admin_id: user.admin_id,
+          fname: user.fname,
+          mname: user.mname,
+          lname: user.lname,
+          email: user.email,
+          address: user.address,
+          role: user.role,
+          oldPassword: user.oldPassword,
+
       });
-    }
   }
+
+  // Set admin picture
+  this.adminPic = user.admin_pic || 'assets/mik.jpg';
+}
+  // loadUserData(): void {
+  //   const user = JSON.parse(localStorage.getItem('user') || '{}');
+  //   this.user = user;
+  //   console.log(user);
+
+  //   if (user) {
+  //     this.profileForm.patchValue({
+  //       admin_id: user.admin_id,
+  //       fname: user.fname,
+  //       mname: user.mname,
+  //       lname: user.lname,
+  //       email: user.email,
+  //       address: user.address,
+  //       role: user.role,
+  //       oldPassword: user.oldPassword,
+  //     });
+  //   }
+
+  //   if (user && user.admin_pic) {
+  //     this.adminPic = user.admin_pic;
+  //   } else {
+  //     console.warn('Admin picture URL not found in localStorage');
+  //   }
+  // }
 
   saveChanges(): void {
     if (this.profileForm.valid) {
@@ -86,7 +109,7 @@ export class ViewComponent {
         
       }
       const adminPic = this.adminPic; //bago
-      this.conn.update(adminId, oldPassword, {
+      this.adminService.update(adminId, oldPassword, {
         fname: formData.fname,
         mname: formData.mname,
         lname: formData.lname,
@@ -145,6 +168,7 @@ export class ViewComponent {
     }
   }
 
+
   onFileChange(event: any): void {
     const file = event.target.files[0];
     const user = JSON.parse(localStorage.getItem('user') || '{}');
@@ -154,7 +178,7 @@ export class ViewComponent {
       formData.append('image', file);
       formData.append('admin_id', user.admin_id);
     
-      this.conn.uploadImage(formData).subscribe(response => {
+      this.adminService.uploadImage(formData).subscribe(response => {
         console.log(response); 
         const newImageUrl = `http://localhost:8000/assets/adminPic/${response['image_url'].split('/').pop()}`;
         
@@ -164,7 +188,7 @@ export class ViewComponent {
         localStorage.setItem('user', JSON.stringify(user)); 
         
         // Notify other components by updating the service
-        this.conn.updateAdminPic(newImageUrl); // Notify all subscribers
+        this.adminService.updateAdminPic(newImageUrl); // Notify all subscribers
         console.log('Admin Picture URL:', this.adminPic);
       }, error => {
         console.error('Error uploading image:', error);
@@ -174,5 +198,6 @@ export class ViewComponent {
     } else {
         console.error('No file selected or admin ID is missing');
     }
-  }
+}
+
 }

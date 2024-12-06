@@ -76,7 +76,24 @@ export class StudentlistComponent implements OnInit{
     private dialog: MatDialog
   ) { }
 
+  currentDate: Date = new Date();
+  currentSY: any;
+
   ngOnInit(): void {
+    const currentYear = this.currentDate.getFullYear();
+    const currentMonth = this.currentDate.getMonth(); // January is 0, December is 11
+
+    let nextYear: number;
+
+    if (currentMonth >= 4) { // June (5) or later
+      nextYear = currentYear + 1;
+    } else { // Before June
+      nextYear = currentYear - 1;
+    }
+
+    // Format school year as "YYYY-YYYY"
+    this.currentSY = currentYear + '-' + nextYear
+
     this.conn.getClasses().subscribe((result: any) => {
       const uniqueGradeLevels = Array.from(new Set(result.map((lvl: any) => lvl.grade_level))).sort((a: any, b: any) => a - b);
         const uniqueStrands = Array.from(new Set(result.map((strnd: any) => strnd.strand)));

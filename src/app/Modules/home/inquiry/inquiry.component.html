@@ -15,7 +15,7 @@
    
   <div class="row mt-4">
     <div class="  dash-col">
-      <h3>Recent Inquiries</h3>
+      <h3 style="font-family: Poppins;">Recent Inquiries</h3>
       <div class="card">
         <div class="card-body-notif">
           <div class="notification-list">
@@ -31,7 +31,7 @@
               @for (inq of inquiries; track $index) {
                 <div class="notification-item" [routerLink]="['/main/message/messagepage/messages/view/' + inq.message_sender]">
                   <div class="notification-header">
-                    <div class="sender-name">{{ inq.sender_name }}</div>
+                    <div class="sender-name">{{ inq.sender_name }} <span style="font-size: 12px; font-weight: 400;" > <br>{{ inq.label}}</span> </div>
                     <div class="notification-date">{{ inq.message_date | date: 'MMMM dd, yyyy' }}</div>
                   </div>
                   <div class="notification-message"> {{ inq.message }}</div>
@@ -46,7 +46,7 @@
         <!-- Enrollment -->              
       
         <div class="inq-col">
-          <h3>Enrollment Summary</h3>
+          <h3 style="font-family: Poppins;">Enrollment Summary</h3>
           <div class="card enrl" (click)="monitor()">
             <div class="card-body-notif" >
               <div class="notification-list">
@@ -59,7 +59,7 @@
                     <p>Loading enrollments...</p>
                   </div>
                 } @else {
-                  <h5 class="card-title">Total: {{totalEnrollments}}</h5>
+                  <h5 class="card-title" style="font-family: Poppins;">Total: {{totalEnrollments}}</h5>
                   <p class="card-text">Pending Enrollees: {{pendingEnrollees}}</p>
                   <p class="card-text">Officially Enrolled: {{officiallyEnrolled}}</p>
                 }

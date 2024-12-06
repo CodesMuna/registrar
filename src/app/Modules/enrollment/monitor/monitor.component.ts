@@ -33,7 +33,24 @@ export class MonitorComponent implements OnInit{
 
   isLoadingEnrollments = true;
 
+  currentDate: Date = new Date();
+  currentSY: any;
+
   ngOnInit(): void {
+    const currentYear = this.currentDate.getFullYear();
+    const currentMonth = this.currentDate.getMonth(); // January is 0, December is 11
+
+    let nextYear: number;
+
+    if (currentMonth >= 4) { // June (5) or later
+      nextYear = currentYear + 1;
+    } else { // Before June
+      nextYear = currentYear - 1;
+    }
+
+    // Format school year as "YYYY-YYYY"
+    this.currentSY = currentYear + '-' + nextYear
+
     this.conn.getEnrollments().subscribe((result: any) => {
       this.enrollments = result;
       // this.enrollments.forEach((enrollment:any) => {

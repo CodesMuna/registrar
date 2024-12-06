@@ -1,47 +1,46 @@
 .pending {
-    color: rgb(251, 222, 0);
+  color: rgb(251, 222, 0);
 }
 
 .dropdown-content {
-    display: block;
-    position: absolute; /* or relative, depending on your layout */
-    background-color: white;
-    border: 1px solid #ccc;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    z-index: 1;
-    margin-top: 5px; /* Adjust as needed */
-    padding: 10px; /* Adjust as needed */
+  display: block;
+  position: absolute; /* or relative, depending on your layout */
+  background-color: white;
+  border: 1px solid #ccc;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  z-index: 1;
+  margin-top: 5px; /* Adjust as needed */
+  padding: 10px; /* Adjust as needed */
 }
 
 loader {
-    text-align: center;
-    padding: 20px;
-  }
-  
-  .spinner-border {
-    width: 2rem;
-    height: 2rem;
-    border: 3px solid #ccc;
-    border-top: 3px solid #333;
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-  }
-  
-  @keyframes spin {
-    0% {
-      transform: rotate(0deg);
-    }
-    100% {
-      transform: rotate(360deg);
-    }
-  }
+  text-align: center;
+  padding: 20px;
+}
 
-  .grds {
-    border-radius: 5px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    border: none;
-    margin-bottom: 30px;
-    transition: all 0.3s ease-in-out;
-    width: 100%;
-  
+.spinner-border {
+  width: 2rem;
+  height: 2rem;
+  border: 3px solid #ccc;
+  border-top: 3px solid #333;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
   }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.grds {
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border: none;
+  margin-bottom: 30px;
+  transition: all 0.3s ease-in-out;
+  width: 100%;
+}

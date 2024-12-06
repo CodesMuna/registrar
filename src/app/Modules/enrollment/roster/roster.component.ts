@@ -51,12 +51,29 @@ export class RosterComponent implements OnInit{
 
   isLoadingRoster = true;
 
+  currentDate: Date = new Date();
+  currentSY: any;
+
   constructor(private conn: PortalService,
     private aroute: ActivatedRoute,
     private route: Router,
   ) { }
   
   ngOnInit(): void {
+    const currentYear = this.currentDate.getFullYear();
+    const currentMonth = this.currentDate.getMonth(); // January is 0, December is 11
+
+    let nextYear: number;
+
+    if (currentMonth >= 4) { // June (5) or later
+      nextYear = currentYear + 1;
+    } else { // Before June
+      nextYear = currentYear - 1;
+    }
+
+    // Format school year as "YYYY-YYYY"
+    this.currentSY = currentYear + '-' + nextYear
+
     this.aroute.params.subscribe(params => {
         const classIds = params['classIds'].split(',');
         this.classIds = classIds;
