@@ -98,7 +98,13 @@ export class ApprovalComponent implements OnInit{
       if (result) {
         // Handle any actions after the dialog is closed, if needed
         this.deleteEnrollment(eid);
-      }
+      } 
+    });
+  }
+
+  openEdit(eid: any) {
+    const dialogRef = this.dialog.open(DeleteDialogComponent, {
+      data: { eid } // Pass the enrollment ID to the dialog
     });
   }
   

@@ -2,132 +2,128 @@
   <div class="container mb-5 ms-1">
     <div class="row ms-1">
       <div class="col">
-        <div class="d-flex align-items-center">
+        <div class="d-flex align-items-center flex-wrap">
           <p class="h1 me-3">Class Rosters</p>
           <p class="mb-5">S.Y {{currentSY}}</p>
         </div>
       </div>
     </div>
-    <div class="d-flex justify-content-between align-items-center mb-3">
-      <div class="d-flex align-items-center">
+    <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap">
+      <div class="d-flex align-items-center flex-wrap">
         <mat-form-field class="me-2">
           <mat-label>Grade Level</mat-label>
           <mat-select [(ngModel)]="selectedLevel" (ngModelChange)="updateRosters()" (selectionChange)="gradeLevelChange($event)">
-            <!-- <mat-option>None</mat-option> -->
             @for (lvl of gradelevel; track lvl) {
-            <mat-option [value]="lvl">{{lvl}}</mat-option>
+              <mat-option [value]="lvl">{{lvl}}</mat-option>
             }
           </mat-select>
         </mat-form-field>
+
         @if(selectedLevel == '11' || selectedLevel == '12'){
           <mat-form-field class="me-2">
             <mat-label>Strand</mat-label>
             <mat-select [(ngModel)]="selectedStrand" (ngModelChange)="updateRosters()" (selectionChange)="strandChange($event)">
-              <!-- <mat-option>None</mat-option> -->
               @for (strnd of strands; track strnd) {
                 <mat-option [value]="strnd">{{strnd}}</mat-option>
               }
             </mat-select>
           </mat-form-field>
-        } 
+        }
+
         <mat-form-field class="me-2">
           <mat-label>Section</mat-label>
-          <mat-select [(ngModel)]="selectedSection" (ngModelChange)="updateRosters()" >
-            <!-- <mat-option>None</mat-option> -->
+          <mat-select [(ngModel)]="selectedSection" (ngModelChange)="updateRosters()">
             @for (sect of sections; track sect) {
-            <mat-option [value]="sect.section_name">{{sect.section_name}}</mat-option>
+              <mat-option [value]="sect.section_name">{{sect.section_name}}</mat-option>
             }
           </mat-select>
         </mat-form-field>
+
         <mat-form-field class="me-2">
           <mat-label>Gender</mat-label>
           <mat-select [(ngModel)]="selectedGender" (ngModelChange)="updateRosters()">
-            <!-- <mat-option>None</mat-option> -->
             @for (gender of genders; track gender) {
-            <mat-option [value]="gender">{{gender}}</mat-option>
+              <mat-option [value]="gender">{{gender}}</mat-option>
             }
           </mat-select>
         </mat-form-field>
       </div>
-      </div>
-          <!-- Class Roster -->
-          <div class="container rstr align-self-center p-3 bg-white rounded" style="height: 430px; overflow-y: auto;">
-            <div class="row">
-              <div class="col-md-12 d-flex justify-content-between align-items-center">
-                <div class="d-flex align-items-center">
-                  <!-- <p>{{rosters.roster_id}}</p> -->
-                  @if(selectedLevel != '11' && selectedLevel != '12'){
-                    <p class="h4 ms-2 text-start">Grade {{selectedLevel}} {{selectedSection}} Roster </p>
-                  } @else {
-                    <p class="h4 ms-2 text-start">Grade {{selectedLevel}} {{selectedStrand}} {{selectedSection}} Roster </p>
-                  }     
-                  @if(rosters){
-                    <div class="btn-group mb-3">
-                      <button mat-icon-button aria-label="Example icon button with a delete icon" (click)="addtoRoster()">
-                        <mat-icon>group_add</mat-icon>
-                      </button>
-                      <!-- <button mat-icon-button aria-label="Example icon button with a delete icon" (click)="addtoRoster()" [disabled]="!rosters || rosters.length === 0">
-                        <mat-icon>group_add</mat-icon>
-                      </button> -->
-                    </div>
-                  }
-                </div>
-                <div>
-                  <span><strong>Male:</strong> {{ maleStudents }}</span>
-                  <span class="ms-3"><strong>Female:</strong> {{ femaleStudents }}</span>
-                  <span class="ms-3"><strong>Total:</strong> {{ totalStudents }}</span>
-                  <i class="fa fa-search" aria-hidden="true" style="margin-left: 80px; margin-bottom: 50px; cursor: pointer;" (click)="showSearchRoster = !showSearchRoster"></i>
-                </div>
-              </div>
-              @if(showSearchRoster){
-                <input type="text" class="form-control search-input"  placeholder="Search Name" aria-label="Name" aria-describedby="basic-addon2" [(ngModel)]="keyword">
-              } 
-              <table class="table table-hover mt-3">
-                <thead class="table">
-                  <tr>
-                    <th scope="col"></th>
-                    <th></th>
-                    <!-- <th></th> -->
-                  </tr>
-                </thead>
-                <tbody class="table-group-divider">
-                  @if(isLoadingRoster){
-                    <tr>
-                      <td colspan="5" class="text-center">
-                        <div class="loader">
-                          <div class="spinner-border text-primary" role="status">
-                            <span class="sr-only">Loading...</span>
-                          </div>
-                          <p>Loading Roster...</p>
-                        </div>
-                      </td>
-                    </tr>
-                  } @else {
-                    @for(roster of getUniqueRosters() | searchFilter: keyword; track roster.roster_id){
-                      @if(roster.length == 0){
-                        <tr>
-                          <td colspan="5" class="text-center">
-                            <div class="">
-                              <div class="" role="">
-                                <!-- <span class="">Loading...</span> -->
-                              </div>
-                              <p>No Students Found</p>
-                            </div>
-                          </td>
-                        </tr>
-                      } @else {
-                        <tr>
-                          <th scope="row">{{roster.student_name}}</th>
-                          <td>{{roster.contact_no}}</td>
-                          
-                        </tr>
-                      }
-                    
-                    }
-                  }       
-                </tbody>
-              </table>
-            </div>
-          </div>          
     </div>
-  </div>
+
+    <!-- Class Roster -->
+    <div class="container rstr align-self-center p-3 bg-white rounded shadow" style="height: 430px; overflow-y: auto;">
+      <div class="row">
+        <div class="col-md-12 d-flex justify-content-between align-items-center flex-wrap">
+          <div class="d-flex align-items-center flex-wrap">
+            @if(selectedLevel != '11' && selectedLevel != '12'){
+              <p class="h4 ms-2 text-start">Grade {{selectedLevel}} {{selectedSection}} Roster</p>
+            } @else {
+              <p class="h4 ms-2 text-start">Grade {{selectedLevel}} {{selectedStrand}} {{selectedSection}} Roster</p>
+            }
+            @if(rosters){
+              <div class="btn-group mb-3">
+                <button mat-icon-button aria-label="Add to roster" (click)="addtoRoster()">
+                  <mat-icon>group_add</mat-icon>
+                </button>
+              </div>
+            }
+          </div>
+
+          <div class="student-counts d-flex flex-wrap align-items-center">
+            <span><strong>Male:</strong> {{ maleStudents }}</span>
+            <span class="ms-3"><strong>Female:</strong> {{ femaleStudents }}</span>
+            <span class="ms-3"><strong>Total:</strong> {{ totalStudents }}</span>
+            <i class="fa fa-search search-icon" aria-hidden="true" (click)="showSearchRoster = !showSearchRoster"></i>
+          </div>
+        </div>
+
+        @if(showSearchRoster){
+          <input type="text" class="form-control search-input" placeholder="Search Name" aria-label="Name" [(ngModel)]="keyword">
+        }
+
+        <!-- Responsive Table -->
+        <table class="table table-hover mt-3 ">
+          <thead class="table">
+            <tr>
+              <th scope="col">Name</th>
+              <th scope="col">Contact No.</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            @if(isLoadingRoster){
+              <tr>
+                <td colspan="5" class="text-center">
+                  <div class="loader">
+                    <div class="spinner-border text-primary" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                    <p>Loading Roster...</p>
+                  </div>
+                </td>
+              </tr>
+            } @else {
+              @for(roster of getUniqueRosters() | searchFilter: keyword; track roster.roster_id){
+                @if(roster.length == 0){
+                  <tr><td colspan="2" class="text-center">No Students Found</td></tr>
+                } @else {
+                  <tr (mouseover)="hover = true" (mouseleave)="hover = false" [class.hover-row]="hover">
+                    <th scope="row">{{roster.student_name}}</th>
+                    <td>{{roster.contact_no}}</td>
+                  </tr>
+                }
+              } @empty {
+              <tr>
+                <td colspan="5" class="text-center">
+                  No Students Found
+                </td>
+              </tr>
+              }
+            } 
+          </tbody>
+        </table>
+
+      </div> 
+    </div>          
+  </div> 
+</div>

@@ -37,6 +37,8 @@ export class RosterComponent implements OnInit{
   
 
   showSearchRoster = false;
+
+  hover: boolean = false;
   
   rosters: any;
   filteredRosters: any;

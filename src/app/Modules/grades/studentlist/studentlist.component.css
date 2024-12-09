@@ -1,5 +1,6 @@
 .pending {
   color: rgb(251, 222, 0);
+  cursor: pointer;
 }
 
 .dropdown-content {
@@ -13,7 +14,7 @@
   padding: 10px; /* Adjust as needed */
 }
 
-loader {
+.loader {
   text-align: center;
   padding: 20px;
 }

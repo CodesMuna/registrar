@@ -1,36 +1,74 @@
 .modal {
-    background-color: rgba(0, 0, 0, 0.5); /* adjust the opacity to your liking */
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.loader {
+  text-align: center;
+  padding: 20px;
+}
+
+.spinner-border {
+  width: 2rem;
+  height: 2rem;
+  border: 3px solid #ccc;
+  border-top: 3px solid #333;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.rstr {
+  border-radius: 10px; /* More rounded corners */
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2); /* Deeper shadow for depth */
+}
+
+.search-icon {
+  margin-left: auto; /* Align search icon to the right */
+  cursor: pointer;
+}
+
+.table-hover tbody tr:hover {
+  background-color: #f1f1f1; /* Highlight on hover */
+}
+
+.loader-cell {
+  height: 100px; /* Adjust height for loading */
+}
+
+.hover-row {
+  background-color: #e9ecef; /* Light gray on hover */
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .search-icon {
+    margin-left: auto; /* Align search icon to the right */
+    margin-bottom: 10px;
+    display: block; /* Stack vertically */
   }
 
-  .loader {
+  .student-counts span {
+    display: block; /* Stack student counts vertically on small screens */
+    margin-bottom: 5px;
     text-align: center;
-    padding: 20px;
-  }
-  
-  .spinner-border {
-    width: 2rem;
-    height: 2rem;
-    border: 3px solid #ccc;
-    border-top: 3px solid #333;
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-  }
-  
-  @keyframes spin {
-    0% {
-      transform: rotate(0deg);
-    }
-    100% {
-      transform: rotate(360deg);
-    }
   }
 
   .rstr {
-    border-radius: 5px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    border: none;
-    margin-bottom: 30px;
-    transition: all 0.3s ease-in-out;
-    width: 100%;
-  
+    height: auto; /* Allow height to adjust based on content */
+    overflow-y: visible; /* Show all content */
   }
+
+  .d-flex.align-items-center.flex-wrap > * {
+    flex-basis: calc(50% - 10px); /* Adjust width for smaller screens */
+    margin-bottom: 10px; /* Add spacing between elements */
+  }
+
+}

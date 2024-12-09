@@ -1,9 +1,9 @@
-<div class="container ms-1">
+<div class="">
   <div class="row ms-1">
     <div class="col">
-      <div class="d-flex align-items-center">
-        <p class="h1 me-3">Monitor Enrollments</p>
-        <p class="mb-5">S.Y {{currentSY}}</p>
+      <div class="d-flex align-items-center flex-wrap">
+        <p class="h1 me-3">Class Rosters</p>
+        <p class="mb-5">S.Y {{ currentSY }}</p>
       </div>
     </div>
   </div>
@@ -48,16 +48,16 @@
         </thead>
         <tbody class="table-group-divider">
           @if(isLoadingEnrollments){
-            <tr>
-              <td colspan="5" class="text-center">
-                <div class="loader">
-                  <div class="spinner-border text-primary" role="status">
-                    <span class="sr-only">Loading...</span>
-                  </div>
-                  <p>Loading Enrollments...</p>
+          <tr>
+            <td colspan="5" class="text-center">
+              <div class="loader">
+                <div class="spinner-border text-primary" role="status">
+                  <span class="sr-only">Loading...</span>
                 </div>
-              </td>
-            </tr>
+                <p>Loading Enrollments...</p>
+              </div>
+            </td>
+          </tr>
           } @else { @for(enrollment of getFilteredEnrollments() | searchFilter:
           keyword; track enrollment){ @if(enrollment.date_register == null){ }
           @else if(enrollment.payment_approval == null){
@@ -146,8 +146,16 @@
               ></i>
               {{ enrollment.regapproval_date | date : "MMMM dd, yyyy" }}
             </td>
-            } } }
-          
+            } 
+          } @empty {
+            <tr>
+              <td colspan="5" class="text-center">
+                No Students Found
+              </td>
+            </tr>
+            }
+           }
+         
         </tbody>
       </table>
     </div>

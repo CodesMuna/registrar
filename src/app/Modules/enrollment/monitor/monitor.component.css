@@ -42,3 +42,43 @@
   width: 100%;
 
 }
+
+.container {
+  padding: 20px;
+}
+
+.table-responsive {
+  display: block;
+  overflow-x: auto; /* Enable horizontal scrolling */
+}
+
+.loader-cell {
+  height: 100px; /* Adjust height for loading */
+}
+
+.spinner-border {
+  width: 2rem;
+  height: 2rem;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .h1, .h4 {
+    font-size: 1.5rem; /* Adjust heading size for smaller screens */
+  }
+
+  .search-input {
+    width: 100%; /* Make search input full width */
+    margin-bottom: 10px; /* Add margin below search input */
+  }
+
+  .d-flex {
+    flex-direction: column; /* Stack elements vertically on small screens */
+    align-items: flex-start; /* Align items to the start */
+  }
+
+  .table th, .table td {
+    font-size: 0.9rem; /* Smaller font size for table cells */
+    white-space: nowrap; /* Prevent text wrapping */
+  }
+}

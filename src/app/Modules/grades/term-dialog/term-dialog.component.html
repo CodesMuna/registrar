@@ -1,4 +1,51 @@
-<h2 mat-dialog-title>Enable/Disable Terms</h2>
+<h2 mat-dialog-title class="dialog-title">Enable/Disable Terms</h2>
+<mat-dialog-content class="dialog-content">
+    <h6 class="section-title">Junior High</h6>
+    <div class="toggle-group">
+        <p><mat-slide-toggle 
+            [(ngModel)]="toggleStates['First Quarter']" 
+            (change)="onToggleChange('First Quarter', $event)" 
+            matTooltip="Enable or disable the 1st Quarter">
+        </mat-slide-toggle> 1st Quarter</p>
+        <p><mat-slide-toggle 
+            [(ngModel)]="toggleStates['Second Quarter']" 
+            (change)="onToggleChange('Second Quarter', $event)" 
+            matTooltip="Enable or disable the 2nd Quarter">
+        </mat-slide-toggle> 2nd Quarter</p>
+        <p><mat-slide-toggle 
+            [(ngModel)]="toggleStates['Third Quarter']" 
+            (change)="onToggleChange('Third Quarter', $event)" 
+            matTooltip="Enable or disable the 3rd Quarter">
+        </mat-slide-toggle> 3rd Quarter</p>
+        <p><mat-slide-toggle 
+            [(ngModel)]="toggleStates['Fourth Quarter']" 
+            (change)="onToggleChange('Fourth Quarter', $event)" 
+            matTooltip="Enable or disable the 4th Quarter">
+        </mat-slide-toggle> 4th Quarter</p>
+    </div>
+    <h6 class="section-title">Senior High</h6>
+    <div class="toggle-group">
+        <p><mat-slide-toggle 
+            [(ngModel)]="toggleStates['Midterm']" 
+            (change)="onToggleChange('Midterm', $event)" 
+            matTooltip="Enable or disable Midterm">
+        </mat-slide-toggle> Midterm</p>
+        <p><mat-slide-toggle 
+            [(ngModel)]="toggleStates['Final']" 
+            (change)="onToggleChange('Final', $event)" 
+            matTooltip="Enable or disable Final">
+        </mat-slide-toggle> Final</p>
+    </div>
+</mat-dialog-content>
+<mat-dialog-actions class="dialog-actions">
+    <button mat-button (click)="cancel()" class="cancel-button">Cancel</button>
+    <!-- Uncomment if needed -->
+    <!-- <button mat-button (click)="delete()" cdkFocusInitial>Delete</button> -->
+</mat-dialog-actions>
+
+
+
+<!-- <h2 mat-dialog-title>Enable/Disable Terms</h2>
 <mat-dialog-content>
     <h6>Junior High</h6>
     <div>
@@ -33,5 +80,4 @@
 </mat-dialog-content>
 <mat-dialog-actions>
   <button mat-button (click)="cancel()">Cancel</button>
-  <!-- <button mat-button (click)="delete()" cdkFocusInitial>Delete</button> -->
-</mat-dialog-actions>
+</mat-dialog-actions> -->

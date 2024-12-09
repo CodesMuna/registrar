@@ -29,7 +29,6 @@
                     <th>Subject</th>
                     <th>Midterm</th>
                     <th>Final</th>
-                    <th>Final Rating</th>
                 </thead>
                 <tbody>
                     @for (grade of grades; track grade){
@@ -37,7 +36,6 @@
                             <td data-label="Subject">{{ grade.subject }}</td>
                             <td data-label="Midterm">{{ grade['Midterm'] !== null ? grade['Midterm'] : ''  }}</td>
                             <td data-label="Final">{{ grade['Final'] !== null ? grade['Final'] : '' }}</td>
-                            <td data-label="Final Rating">Avarage</td>
                             <!-- <td data-label="Final">91</td> -->
                         </tr>
                     }          
