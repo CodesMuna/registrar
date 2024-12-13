@@ -1,6 +1,78 @@
-<h2 mat-dialog-title>Delete </h2>
+<h2 mat-dialog-title>Edit</h2>
 <mat-dialog-content>
-  <p>Are you sure to Delete this Enrollment?</p>
+    <form [formGroup]="profileForm" novalidate>
+        <!-- Generals Section -->
+        <div class="mb-sm-5 mb-2">
+          <div class="title mb-4">
+            <div class="title-wrapper">
+              <span class="fs-18 text-black font-w600">GENERALS</span>
+              <div class="title-line"></div>
+            </div>
+          </div>
+
+          <div class="row">
+
+            <div class="col-xl-4 col-sm-6">
+              <div class="form-group">
+                <label for="firstName">Firstname</label>
+                <input formControlName="fname" id="firstName" placeholder="Enter name" class="form-control">
+              </div>
+            </div>
+            <div class="col-xl-4 col-sm-6">
+              <div class="form-group">
+                <label for="middleName">Middlename</label>
+                <input formControlName="mname" id="middleName" placeholder="Enter Middlename" class="form-control">
+              </div>
+            </div>
+            <div class="col-xl-4 col-sm-6">
+              <div class="form-group">
+                <label for="lastName">Lastname</label>
+                <input formControlName="lname" id="lastName" placeholder="Enter lastname" class="form-control">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xl-4 col-sm-6">
+              <div class="form-group">
+                <label for="password">New Password</label>
+                <input formControlName="newPassword" id="password" type="password" placeholder="Enter new password"
+                  class="form-control">
+              </div>
+            </div>
+            <!-- <div class="col-xl-4 col-sm-6">
+              <div class="form-group">
+                <label for="retypePassword">Re-Type Password</label>
+                <input formControlName="newPassword_confirmation" id="retypePassword" type="password"
+                  placeholder="Re-enter new password" class="form-control">
+              </div>
+            </div> -->
+          </div>
+        </div>
+
+        <!-- Contact Section -->
+        <div class="mb-sm-5 mb-2">
+          <div class="title mb-4">
+            <div class="title-wrapper">
+              <span class="fs-18 text-black font-w600">CONTACT</span>
+              <div class="title-line"></div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xl-4 col-sm-6">
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input formControlName="email" id="email" placeholder="Enter email" class="form-control">
+              </div>
+            </div>
+            <div class="col-xl-4 col-sm-6">
+              <div class="form-group">
+                <label for="address">Address</label>
+                <input formControlName="address" id="address" placeholder="Enter address" class="form-control">
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
 </mat-dialog-content>
 <mat-dialog-actions>
   <button mat-button (click)="cancel()">Cancel</button>

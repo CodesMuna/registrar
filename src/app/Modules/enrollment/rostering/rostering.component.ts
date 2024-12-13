@@ -79,13 +79,14 @@ export class RosteringComponent implements OnInit{
         // Assuming classDetails is an array and you want to get the grade level from the first class
         if (this.classDetails.length > 0) {
             const gradeLevel = this.classDetails[0].grade_level; // Adjust this based on your actual data structure
-            this.getEnrolees(gradeLevel); // Call getEnrolees with the grade level
+            const strand = this.classDetails[0].strand;
+            this.getEnrolees(gradeLevel, strand); // Call getEnrolees with the grade level
         }
     });
 }
 
-getEnrolees(gradeLevel: any) {
-    this.conn.getEnrolees(gradeLevel).subscribe((result: any) => {
+getEnrolees(gradeLevel: any, strand: any) {
+    this.conn.getEnrolees(gradeLevel, strand).subscribe((result: any) => {
         this.enrolees = result;
         console.log(this.enrolees);
         this.maleEnrolees = result.filter((enrolee: any) => enrolee.gender === 'Male').length;
@@ -102,7 +103,7 @@ getEnrolees(gradeLevel: any) {
     this.conn.addStudent(classIds, lrn).subscribe((result: any) => {
         console.log(result);
         this.getRosterInfo(); // Get roster info for the first class ID
-        this.getEnrolees(this.classDetails[0].grade_level); // Refresh the enrolees
+        this.getEnrolees(this.classDetails[0].grade_level, this.classDetails[0].strand); // Refresh the enrolees
         this.isLoading = false
     }, error => {
         console.error('Error adding students:', error);
@@ -115,7 +116,7 @@ getEnrolees(gradeLevel: any) {
     this.conn.removeStudent(lrn).subscribe((result: any) => {
         console.log(result);
         this.getRosterInfo(); // Refresh the roster info
-        this.getEnrolees(this.classDetails[0].grade_level); // Refresh the enrolees
+        this.getEnrolees(this.classDetails[0].grade_level, this.classDetails[0].strand); // Refresh the enrolees
         this.isLoading = false
     }, error => {
         console.error('Error removing student:', error);

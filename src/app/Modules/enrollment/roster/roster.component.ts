@@ -213,10 +213,7 @@ getFilteredRosters() {
         .map((classInfo: any) => classInfo.class_id);
 
     if (filteredClassIds.length > 0) {
-        // this.conn.createRoster(filteredClassIds).subscribe((result: any) => {
-        //     console.log(result);
             this.route.navigate(['/main/enrollment/enrollmentpage/rostering/', filteredClassIds.join(',')]);
-        // });
     } 
     else {
         console.error('No matching class IDs available to add to roster.');

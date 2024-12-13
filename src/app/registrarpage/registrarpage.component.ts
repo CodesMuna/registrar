@@ -47,6 +47,8 @@ export class RegistrarpageComponent implements OnInit{
     if (user && user.admin_pic) {
       this.adminPic = user.admin_pic;
     }
+
+    this.adminPic = user.admin_pic || 'mik.jpg';
   }
 
   logout(){

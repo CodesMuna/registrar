@@ -18,6 +18,7 @@ import { ActivatedRoute, Route, Router, RouterModule } from '@angular/router';
 import { PortalService } from '../../../portal.service';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
+import { EditStudentComponent } from '../edit-student/edit-student.component';
 
 @Component({
   selector: 'app-approval',
@@ -103,7 +104,7 @@ export class ApprovalComponent implements OnInit{
   }
 
   openEdit(eid: any) {
-    const dialogRef = this.dialog.open(DeleteDialogComponent, {
+    const dialogRef = this.dialog.open(EditStudentComponent, {
       data: { eid } // Pass the enrollment ID to the dialog
     });
   }

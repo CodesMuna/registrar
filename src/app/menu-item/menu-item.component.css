@@ -4,10 +4,11 @@
   }
 
 .menu-item {
-    border-radius: 2%;
+    border-radius: 0%;
     color: blue;
     border-left: 5px solid;
     border-left-color: rgba(0, 0, 0, 0);
+    font-family: 'Poppins';
   }
   
   .selected-menu-item {

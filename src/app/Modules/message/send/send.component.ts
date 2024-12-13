@@ -7,14 +7,14 @@ import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
-import { SlicePipe } from '@angular/common';
+import { CommonModule, SlicePipe } from '@angular/common';
 import { ReplyComponent } from '../reply/reply.component';
 import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-send',
   standalone: true,
-  imports: [ViewComponent, RouterOutlet, RouterModule, SearchFilterPipe, FormsModule, MatButtonModule, MatDividerModule, MatIconModule, SlicePipe],
+  imports: [ViewComponent, RouterOutlet, RouterModule, SearchFilterPipe, FormsModule, MatButtonModule, MatDividerModule, MatIconModule, SlicePipe, CommonModule],
   templateUrl: './send.component.html',
   styleUrl: './send.component.css'
 })
@@ -27,6 +27,8 @@ export class SendComponent implements OnInit{
   sid: any;
   uid: any;
   stupar: any;
+
+
   private intervalId: any;
   private currentSid: any; // Store the current SID
 
@@ -40,7 +42,7 @@ export class SendComponent implements OnInit{
     this.uid = localStorage.getItem('admin_id')
     // this.intervalId = setInterval(() => {
     //   this.getMessages();
-    // }, 5000)
+    // }, 10000)
     this.getMessages()
     this.getStudPar()
   }
@@ -91,12 +93,20 @@ export class SendComponent implements OnInit{
     })
   }
 
-  openConvo(sid: any, uid:any) {
-    this.conn.getConvo(sid, uid).subscribe((result: any) => {
-      this.route.navigate(['/main/message/messagepage/messages/view', sid])
-      console.log(result);
-      this.conversation = result;
-    });
+  // openConvo(sid: any, uid:any) {
+  //   this.conn.getConvo(sid, uid).subscribe((result: any) => {
+  //     this.route.navigate(['/main/message/messagepage/messages/view', sid])
+  //     console.log(result);
+  //     this.conversation = result;
+  //   });
+  // }
+
+  markAsRead(sid: any){
+    this.conn.markAsRead(sid).subscribe((result: any) => {
+      console.log('Messages marked as read:', result.updated_count);
+    })
+
+    this.getMessages()
   }
   
 

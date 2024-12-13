@@ -31,7 +31,7 @@
               @for (inq of inquiries; track $index) {
                 <div class="notification-item" [routerLink]="['/main/message/messagepage/messages/view/' + inq.message_sender]">
                   <div class="notification-header">
-                    <div class="sender-name">{{ inq.sender_name }} <span style="font-size: 12px; font-weight: 400;" > <br>{{ inq.label}}</span> </div>
+                    <div class="sender-name">{{ inq.sender_name }} <span style="font-size: 12px; font-weight: 400;" > <br>Grade {{ inq.label}}</span> </div>
                     <div class="notification-date">{{ inq.message_date | date: 'MMMM dd, yyyy' }}</div>
                   </div>
                   <div class="notification-message"> {{ inq.message }}</div>

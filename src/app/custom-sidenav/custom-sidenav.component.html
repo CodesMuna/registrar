@@ -1,5 +1,6 @@
 <div class="sidenav-header">
-  <img [width]="profilePicSize()" [height]="profilePicSize()" [src]="adminPic" alt=""> 
+  <img [width]="profilePicSize()" [height]="profilePicSize()" [src]="adminPic ? adminPic: '/assets/mik.jpg'" class="prof-image" alt="Admin Profile Picture"> 
+  <img /> 
     <div class="header-text" [class.hide-header-text]="sideNavCollapsed()">
       <p style="font-weight: 600; font-size: 15px;">{{ role }}</p>
       <p >{{ lname }} {{ fname }}</p> 

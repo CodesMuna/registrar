@@ -1,8 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-
+import { CustomSidenavComponent } from './custom-sidenav/custom-sidenav.component';
 @Injectable({
   providedIn: 'root'
 })
@@ -70,8 +70,8 @@ export class PortalService {
     return this.http.get(this.url + 'getSections')
   }
 
-  getSubjects(gradeLevel: string, strand: any){
-    return this.http.get(`${this.url}getSubjects`, { params: { gradeLevel, strand } })
+  getSubjects(gradeLevel: string, strand: any, semester: any){
+    return this.http.get(`${this.url}getSubjects`, { params: { gradeLevel, strand, semester } })
   }
 
   // getSectionsByGradeLevel(gradeLevel: string) {
@@ -110,8 +110,8 @@ export class PortalService {
     return this.http.get(`${this.url}getRosterInfo?classIds=${ids}`);
 }
 
-  getEnrolees(lvl: any){
-    return this.http.get(this.url + `getEnrolees/${lvl}`)
+  getEnrolees(gradeLevel: any, strand: any){
+    return this.http.get(this.url + 'getEnrolees', { params: { gradeLevel, strand }})
   }
 
   //Rostering Service
@@ -216,6 +216,14 @@ export class PortalService {
     return this.http.post(this.url + 'composemessage', messageData);
   }
 
+  markAsRead(sid: any){
+    return this.http.post(this.url + 'markAsRead', {sid});
+  }
+
+  getUnreadMessagesCount(uid: any) {
+    const params = new HttpParams().set('uid', uid);
+    return this.http.get(this.url + 'getUnreadCount', {params});
+}
 
   // account 
   update(adminId: number, oldPassword: string, newData: any): Observable<any> {

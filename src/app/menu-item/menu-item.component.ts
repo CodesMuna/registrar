@@ -1,10 +1,11 @@
-import { Component, input, signal } from '@angular/core';
+import { Component, input, OnInit, signal } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { RouterModule } from '@angular/router';
 import { MenuItem } from '../custom-sidenav/custom-sidenav.component';
 import { animate, style, transition, trigger } from '@angular/animations';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import { MatBadgeModule } from '@angular/material/badge';
 
 @Component({
   selector: 'app-menu-item',
@@ -20,17 +21,22 @@ import {MatTooltipModule} from '@angular/material/tooltip';
       ])
     ])
   ],
-  imports: [MatListModule, RouterModule, MatIcon, MatTooltipModule],
+  imports: [MatListModule, RouterModule, MatIcon, MatTooltipModule, MatBadgeModule],
   templateUrl: './menu-item.component.html',
   styleUrl: './menu-item.component.css'
 })
-export class MenuItemComponent {
-
+export class MenuItemComponent implements OnInit{
+  // @Input() item!: MenuItem;
+  
   item = input.required<MenuItem>()
 
   collapsed = input(false);
 
   nestedMenuOpen = signal(false);
+
+  ngOnInit(): void {
+    console.log(this.item())
+  }
 
   toggleNested(){
     if (!this.item().subItems) {

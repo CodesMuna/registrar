@@ -12,7 +12,18 @@ table {
     border-collapse: collapse; /* Remove extra spacing between cells */
 }
 
-th, td {
+.sbjct {
+    padding: 10px;
+    border: 1px solid #ddd; /* Add border for clarity */
+}
+
+th{
+    padding: 10px;
+    text-align: center; /* Center-align all text */
+    border: 1px solid #ddd; /* Add border for clarity */
+}
+
+.grd{
     padding: 10px;
     text-align: center; /* Center-align all text */
     border: 1px solid #ddd; /* Add border for clarity */
@@ -51,3 +62,29 @@ td strong {
         width: 30%;
     }
 }
+
+button.mat-flat-button {
+    background-color: transparent;
+    border: 1px solid #ccc;
+    color: #333;
+    text-transform: none; /* To keep the text case as it is */
+  }
+  
+  button.mat-flat-button.selected {
+    background-color: #3f51b5;  /* Or your chosen color for the active button */
+    color: white;  /* Ensure text is readable when selected */
+  }
+  
+  button.mat-flat-button.selected:hover {
+    background-color: #303f9f; /* Slightly darker on hover */
+  }
+  
+  button.mat-flat-button:focus {
+    outline: none;
+  }
+
+/* .mat-blue {
+    background-color: #303f9f !important; 
+    color: white;
+} */
+  

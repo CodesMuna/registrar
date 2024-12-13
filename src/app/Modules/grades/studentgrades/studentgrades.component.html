@@ -1,5 +1,31 @@
 <div class="container">
     <h2>{{student[0].student.full_name}}'s Grades</h2>
+
+    @if(student[0].student.grade_level == 11 || student[0].student.grade_level == 12){
+        <div class="semester-filters mb-3">
+
+            @if(selectedSemester === 1){
+                <button mat-flat-button (click)="filterSemester(1)" 
+                [class.active]="selectedSemester === 1">
+                1st Semester
+                </button>
+    
+                <button mat-raised-button class="ml-2" (click)="filterSemester(2)" >
+                2nd Semester
+                </button>
+            } @else if (selectedSemester === 2) {
+                <button mat-raised-button (click)="filterSemester(1)" >
+                1st Semester
+                </button>
+
+                <button mat-flat-button class="ml-2" (click)="filterSemester(2)"   
+                [class.active]="selectedSemester === 2">
+                2nd Semester
+                </button>
+            }
+        </div>
+    }
+
     <table class="responsive-table">
             @if(student[0].student.grade_level >= 7 && student[0].student.grade_level <= 10){
                 <thead>
@@ -15,11 +41,11 @@
                 <tbody>
                     @for (grade of grades; track grade){
                         <tr>
-                            <td data-label="Subject">{{ grade.subject }}</td>
-                            <td data-label="1st Q">{{ grade['First Quarter'] !== null ? grade['First Quarter'] : '' }}</td>
-                            <td data-label="2nd Q">{{ grade['Second Quarter'] !== null ? grade['Second Quarter'] : '' }}</td>
-                            <td data-label="3rd Q">{{ grade['Third Quarter'] !== null ? grade['Third Quarter'] : '' }}</td>
-                            <td data-label="4th Q">{{ grade['Fourth Quarter'] !== null ? grade['Fourth Quarter'] : '' }}</td>
+                            <td data-label="Subject" class="sbjct">{{ grade.subject }}</td>
+                            <td data-label="1st Q" class="grd">{{ grade['First Quarter'] !== null ? grade['First Quarter'] : '' }}</td>
+                            <td data-label="2nd Q" class="grd">{{ grade['Second Quarter'] !== null ? grade['Second Quarter'] : '' }}</td>
+                            <td data-label="3rd Q" class="grd">{{ grade['Third Quarter'] !== null ? grade['Third Quarter'] : '' }}</td>
+                            <td data-label="4th Q" class="grd">{{ grade['Fourth Quarter'] !== null ? grade['Fourth Quarter'] : '' }}</td>
                             <!-- <td data-label="Final">91</td> -->
                         </tr>
                     }          
@@ -31,11 +57,11 @@
                     <th>Final</th>
                 </thead>
                 <tbody>
-                    @for (grade of grades; track grade){
+                    @for (grade of filteredGrades; track grade){
                         <tr>
-                            <td data-label="Subject">{{ grade.subject }}</td>
-                            <td data-label="Midterm">{{ grade['Midterm'] !== null ? grade['Midterm'] : ''  }}</td>
-                            <td data-label="Final">{{ grade['Final'] !== null ? grade['Final'] : '' }}</td>
+                            <td data-label="Subject" class="sbjct">{{ grade.subject }}</td>
+                            <td data-label="Midterm" class="grd">{{ grade['Midterm'] !== null ? grade['Midterm'] : ''  }}</td>
+                            <td data-label="Final" class="grd">{{ grade['Final'] !== null ? grade['Final'] : '' }}</td>
                             <!-- <td data-label="Final">91</td> -->
                         </tr>
                     }          
@@ -46,3 +72,72 @@
         
     </table>
 </div>
+
+
+<!-- <div class="container">
+    <h2>{{ student[0].student.full_name }}'s Grades</h2>
+
+    
+    <div class="semester-filters">
+        <button 
+          (click)="filterSemester(1)" 
+          [class.active]="selectedSemester === 1">
+          1st Semester
+        </button>
+        <button 
+          (click)="filterSemester(2)" 
+          [class.active]="selectedSemester === 2">
+          2nd Semester
+        </button>
+    </div>
+
+
+    <table class="responsive-table">
+        <thead>
+            <tr>
+                <th>Subject</th>
+                <th *ngIf="student[0].student.grade_level >= 7 && student[0].student.grade_level <= 10">
+                    1st Q
+                </th>
+                <th *ngIf="student[0].student.grade_level >= 7 && student[0].student.grade_level <= 10">
+                    2nd Q
+                </th>
+                <th *ngIf="student[0].student.grade_level >= 7 && student[0].student.grade_level <= 10">
+                    3rd Q
+                </th>
+                <th *ngIf="student[0].student.grade_level >= 7 && student[0].student.grade_level <= 10">
+                    4th Q
+                </th>
+                <th *ngIf="student[0].student.grade_level === 11 || student[0].student.grade_level === 12">
+                    Midterm
+                </th>
+                <th *ngIf="student[0].student.grade_level === 11 || student[0].student.grade_level === 12">
+                    Final
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let grade of filteredGrades">
+                <td>{{ grade.subject }}</td>
+                <td *ngIf="student[0].student.grade_level >= 7 && student[0].student.grade_level <= 10">
+                    {{ grade['First Quarter'] || '' }}
+                </td>
+                <td *ngIf="student[0].student.grade_level >= 7 && student[0].student.grade_level <= 10">
+                    {{ grade['Second Quarter'] || '' }}
+                </td>
+                <td *ngIf="student[0].student.grade_level >= 7 && student[0].student.grade_level <= 10">
+                    {{ grade['Third Quarter'] || '' }}
+                </td>
+                <td *ngIf="student[0].student.grade_level >= 7 && student[0].student.grade_level <= 10">
+                    {{ grade['Fourth Quarter'] || '' }}
+                </td>
+                <td *ngIf="student[0].student.grade_level === 11 || student[0].student.grade_level === 12">
+                    {{ grade['Midterm'] || '' }}
+                </td>
+                <td *ngIf="student[0].student.grade_level === 11 || student[0].student.grade_level === 12">
+                    {{ grade['Final'] || '' }}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div> -->

@@ -8,7 +8,7 @@
 
     <!-- Profile Button with Dropdown -->
   <button mat-icon-button class="example-icon circle-btn ms-2" [matMenuTriggerFor]="profileMenu">
-      <img [src]="adminPic" class="prof-image" />
+    <img [src]="adminPic ? adminPic: '/assets/mik.jpg'" class="prof-image" alt="Admin Profile Picture" />
   </button>
   
   <!-- Profile Dropdown Menu -->

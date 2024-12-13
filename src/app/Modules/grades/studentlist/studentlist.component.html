@@ -8,7 +8,7 @@
         </div>
       </div>
     </div>
-    <div class="d-flex justify-content-between align-items-center mb-3">
+    <div class="d-flex justify-content-between align-items-center">
       <div class="d-flex align-items-center">
         <mat-form-field class="me-2">
           <mat-label>Grade Level</mat-label>
@@ -26,10 +26,13 @@
             <mat-select [(ngModel)]="selectedStrand" (ngModelChange)="updateRosters()" (selectionChange)="strandChange($event)">
               <!-- <mat-option>None</mat-option> -->
               @for (strnd of strands; track strnd) {
-              <mat-option [value]="strnd">{{strnd}}</mat-option>
+                @if (strnd !== '-') { <!-- Exclude '-' from options -->
+                  <mat-option [value]="strnd">{{strnd}}</mat-option>
+                }
               }
             </mat-select>
           </mat-form-field>
+          
         } 
         <mat-form-field class="me-2">
           <mat-label>Section</mat-label>
@@ -40,15 +43,8 @@
             }
           </mat-select>
         </mat-form-field>
-        <mat-form-field class="me-2">
-          <mat-label>Subject</mat-label>
-          <mat-select [(ngModel)]="selectedSubject" (ngModelChange)="updateRosters()">
-            <!-- <mat-option>None</mat-option> -->
-            @for (subject of subjects; track subject) {
-            <mat-option [value]="subject.subject_name">{{subject.subject_name}}</mat-option>
-            }
-          </mat-select>
-        </mat-form-field>
+       
+        
         <mat-form-field class="me-2">
           <mat-label>Gender</mat-label>
           <mat-select [(ngModel)]="selectedGender" (ngModelChange)="updateRosters()">
@@ -58,12 +54,41 @@
             }
           </mat-select>
         </mat-form-field>
+      </div>
+      
+      </div>
+
+      <div>
+        @if(selectedLevel == '11' || selectedLevel == '12'){
+          <mat-form-field class="me-2">
+            <mat-label>Semester</mat-label>
+            <mat-select [(ngModel)]="selectedSem" (ngModelChange)="updateRosters()" (selectionChange)="semChange($event)">
+              <!-- <mat-option>None</mat-option> -->
+              @for (sem of semester; track sem) {
+                @if (sem !== null) {
+                  <mat-option [value]="sem">{{sem}}</mat-option>
+                }
+              }
+            </mat-select>
+          </mat-form-field>
+        }
+
+        <mat-form-field class="me-2">
+          <mat-label>Subject</mat-label>
+          <mat-select [(ngModel)]="selectedSubject" (ngModelChange)="updateRosters()" (selectionChange)="subjectChange($event)">
+            <!-- <mat-option>None</mat-option> -->
+            @for (subject of subjects; track subject) {
+            <mat-option [value]="subject.subject_name">{{subject.subject_name}}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+
         <button mat-raised-button (click)="openConfig()">Configure Terms</button>
-        <!-- <button (click)="openConfig()">Config Terms</button> -->
       </div>
-      </div>
+
+
           <!-- Class Roster -->
-          <div class="container grds align-self-center p-3 bg-white rounded" style="height: 430px;">
+          <div class="container grds align-self-center p-3 bg-white rounded" >
             <div class="row">
               <div class="col-md-12 d-flex justify-content-between align-items-center">
                 <div class="d-flex align-items-center">
@@ -86,7 +111,7 @@
               @if(showSearchRoster){
                 <input type="text" class="form-control search-input" placeholder="Search Name" aria-label="Name" aria-describedby="basic-addon2" [(ngModel)]="keyword">
               } 
-              <table class="table table-hover mt-3">
+              <table class="table table-hover mt-3" >
                 @if(selectedLevel >= '7' || selectedLevel <= '10'){
                   <thead class="table">     
                       <tr>
@@ -97,7 +122,7 @@
                           <th class="text-center">4th Grading</th>
                       </tr>
                     </thead>
-                    <tbody class="table-group-divider">
+                    <tbody class="table-group-divider" style="height: 40px; overflow-y: auto;">
                       @if(isLoadingRosterGrade){
                         <tr>
                           <td colspan="5" class="text-center">
@@ -112,7 +137,7 @@
                       } @else {
                         @for(roster of rosters | searchFilter: keyword; track roster){
                           <!-- @if(roster.grade_level >= 7 && roster.grade_level <= 10){ -->
-                            <tr>
+                            <tr >
                                 <th scope="row" [routerLink]="['/main/grades/gradespage/studentgrades/' + roster.LRN + '/' + roster.school_year]">{{roster.student_name}}</th>
                                 @if(roster.permission_Q1 == 'none' || roster.permission_Q1 == 'on'){
                                  <td class="text-center">{{roster.grade_Q1}}</td>
@@ -191,16 +216,15 @@
                     <thead class="table"> 
                       <th scope="col">Names</th>
                         <th class="text-center">Midterm</th>
-                        <th class="text-center">Final</th>
-                        <th class="text-center">Final Rating</th>
-                    </thead>
+                        <th class="text-center">Final</th>                    
+                      </thead>
                     @for(roster of rosters ; track roster){
                       <tr>
                         <th scope="row" [routerLink]="['/main/grades/gradespage/studentgrades/' + roster.LRN + '/' + roster.school_year]">{{roster.student_name}}</th>
                         @if(roster.permission_midterm == 'none' || roster.permission_midterm == 'on'){
                           <td class="text-center">{{roster.midterm}}</td>
                          } @else if(roster.permission_midterm == 'pending') {
-                           <td class="text-center">{{roster.grade_midterm}} 
+                           <td class="text-center">{{roster.midterm}} 
                              <i class="fa fa-exclamation-circle pending" aria-hidden="true" (click)="toggleDropdown(roster.grade_id_midterm)"></i>
                              <div *ngIf="dropdownVisibility[roster.grade_id_midterm]" class="dropdown-content">
                                <tr>
@@ -217,7 +241,7 @@
                          @if(roster.permission_final == 'none' || roster.permission_final == 'on'){
                           <td class="text-center">{{roster.final}}</td>
                          } @else if(roster.permission_final == 'pending') {
-                           <td class="text-center">{{roster.grade_final}} 
+                           <td class="text-center">{{roster.final}} 
                              <i class="fa fa-exclamation-circle pending" aria-hidden="true" (click)="toggleDropdown(roster.grade_id_final)"></i>
                              <div *ngIf="dropdownVisibility[roster.grade_id_final]" class="dropdown-content">
                                <tr>
@@ -245,39 +269,3 @@
           </div>          
     </div>
   </div>
-
-<!-- <div class="container ms-1">
-    <p class="h1">Student Grades</p>
-  </div>
-
-  <div class="d-flex justify-content-between align-items-center mb-3">
-    <div class="d-flex align-items-center">
-      <mat-form-field>
-        <mat-label>Search Name</mat-label>
-        <input matInput [(ngModel)]="keyword">
-      </mat-form-field>    </div>
-  </div>
-  <div class="container align-self-center p-3 bg-white rounded" >
-      <div class="row">
-        <div class="col-md-12">
-          <table class="table table-hover">
-            <thead class="table">
-              <tr>
-                <th scope="col">Student</th>
-                <th class="text-center" scope="col">School Year</th>
-              </tr>
-            </thead>
-            <tbody class="table-group-divider">
-              @for(enrollment of enrollments | searchFilter: keyword; track enrollment){
-                 <tr [routerLink]="['/main/grades/gradespage/studentgrades/' + enrollment.LRN + '/' + enrollment.school_year]">
-                <th scope="row">{{enrollment.full_name}}</th>
-                <td class="text-center"> 
-                  {{enrollment.school_year}}
-                </td>
-              </tr>
-              }
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div> -->

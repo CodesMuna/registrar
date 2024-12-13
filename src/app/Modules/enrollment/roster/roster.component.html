@@ -24,7 +24,9 @@
             <mat-label>Strand</mat-label>
             <mat-select [(ngModel)]="selectedStrand" (ngModelChange)="updateRosters()" (selectionChange)="strandChange($event)">
               @for (strnd of strands; track strnd) {
-                <mat-option [value]="strnd">{{strnd}}</mat-option>
+                @if (strnd !== '-') { <!-- Exclude '-' from options -->
+                  <mat-option [value]="strnd">{{strnd}}</mat-option>
+                }
               }
             </mat-select>
           </mat-form-field>
@@ -51,7 +53,7 @@
     </div>
 
     <!-- Class Roster -->
-    <div class="container rstr align-self-center p-3 bg-white rounded shadow" style="height: 430px; overflow-y: auto;">
+    <div class="container rstr align-self-center p-3 bg-white rounded shadow">
       <div class="row">
         <div class="col-md-12 d-flex justify-content-between align-items-center flex-wrap">
           <div class="d-flex align-items-center flex-wrap">
@@ -69,11 +71,12 @@
             }
           </div>
 
-          <div class="student-counts d-flex flex-wrap align-items-center">
+          <div>
             <span><strong>Male:</strong> {{ maleStudents }}</span>
             <span class="ms-3"><strong>Female:</strong> {{ femaleStudents }}</span>
             <span class="ms-3"><strong>Total:</strong> {{ totalStudents }}</span>
-            <i class="fa fa-search search-icon" aria-hidden="true" (click)="showSearchRoster = !showSearchRoster"></i>
+            <i class="fa fa-search" aria-hidden="true" style="margin-left: 80px; margin-bottom: 50px; cursor: pointer;" (click)="showSearchRoster = !showSearchRoster"></i>
+            <!-- <br><button (click)="toggleSlideToggle()">Toggle Slide Toggle</button> -->
           </div>
         </div>
 

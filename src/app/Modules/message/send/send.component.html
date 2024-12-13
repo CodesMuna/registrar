@@ -29,16 +29,31 @@
                     }
                 } @else if(messages && inputClicked == false) {
                     @for(msg of messages; track msg.message_id) {
-                        <div class="user-list-item" 
-                             [routerLink]="['/main/message/messagepage/messages/view/', 
-                                 msg.message_sender == uid ? msg.message_reciever : msg.message_sender]" 
-                             routerLinkActive="active-link">
-                            <img src="mik.jpg" alt="User " class="rounded-circle me-1" width="40" height="40">
-                            <div class="content">
-                                <span>{{msg.sender_name}}</span>
-                                <h6>{{ msg.message.length > 30 ? (msg.message | slice:0:30) + '...' : msg.message }}</h6>
-                            </div>
-                        </div>
+                        @if (msg.is_read == 0 && msg.message_sender != uid) {
+                            <div class="user-list-item" 
+                            [routerLink]="['/main/message/messagepage/messages/view/', 
+                                msg.message_sender == uid ? msg.message_reciever : msg.message_sender]" 
+                            routerLinkActive="active-link" (click)="markAsRead(msg.message_sender == uid ? msg.message_reciever : msg.message_sender)">
+                           <img src="mik.jpg" alt="User " class="rounded-circle me-1" width="40" height="40">
+                           <div class="content">
+                               <span><strong>{{msg.sender_name}}</strong></span>
+                               <h6><strong>{{ msg.message.length > 30 ? (msg.message | slice:0:30) + '...' : msg.message }}</strong></h6>
+                               
+                           </div>
+                       </div>
+                        } @else {
+                            <div class="user-list-item" 
+                            [routerLink]="['/main/message/messagepage/messages/view/', 
+                                msg.message_sender == uid ? msg.message_reciever : msg.message_sender]" 
+                            routerLinkActive="active-link">
+                           <img src="mik.jpg" alt="User " class="rounded-circle me-1" width="40" height="40">
+                           <div class="content">
+                               <span>{{msg.sender_name}}</span>
+                               <h6>{{ msg.message.length > 30 ? (msg.message | slice:0:30) + '...' : msg.message }}</h6>
+                           </div>
+                       </div>
+                        }
+                        
                     }
                 }
             </div>

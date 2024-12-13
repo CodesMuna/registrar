@@ -12,11 +12,12 @@ import { SearchFilterPipe } from '../../../search-filter.pipe';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { MatDialog } from '@angular/material/dialog';
 import { TermDialogComponent } from '../term-dialog/term-dialog.component';
+import {MatGridListModule} from '@angular/material/grid-list';
 
 @Component({
   selector: 'app-studentlist',
   standalone: true,
-  imports: [RouterModule, MatIconModule, MatFormFieldModule, MatSelectModule, MatInputModule, FormsModule, CommonModule, MatButtonModule, SearchFilterPipe, MatSlideToggleModule],
+  imports: [RouterModule, MatIconModule, MatFormFieldModule, MatSelectModule, MatInputModule, FormsModule, CommonModule, MatButtonModule, SearchFilterPipe, MatSlideToggleModule, MatGridListModule],
   templateUrl: './studentlist.component.html',
   styleUrl: './studentlist.component.css'
 })
@@ -26,6 +27,7 @@ export class StudentlistComponent implements OnInit{
   sections: any[] = [];
   strands: any[] = [];
   subjects: any[] = [];
+  semester: any [] = [];
 
   genders: string[] = [
     'All',
@@ -43,6 +45,7 @@ export class StudentlistComponent implements OnInit{
   selectedLevel: string = "";
   selectedSection: string = "";
   selectedStrand: string = "-";
+  selectedSem: any ;
   selectedSubject: string = "";
   selectedGender: string = "All";
 
@@ -97,16 +100,19 @@ export class StudentlistComponent implements OnInit{
     this.conn.getClasses().subscribe((result: any) => {
       const uniqueGradeLevels = Array.from(new Set(result.map((lvl: any) => lvl.grade_level))).sort((a: any, b: any) => a - b);
         const uniqueStrands = Array.from(new Set(result.map((strnd: any) => strnd.strand)));
+        const uniqueSem = Array.from(new Set(result.map((sem: any) => sem.semester)));
         const uniqueSections = Array.from(new Set(result.map((sect: any) => sect.section_name))).map((x) => x as string);
         
         
         this.gradelevel = uniqueGradeLevels;
         this.strands = uniqueStrands;
         this.sections = uniqueSections;
+        this.semester =uniqueSem;
 
         if (this.gradelevel.length > 0) {
             this.selectedLevel = this.gradelevel[0];
-            this.getSubjects(this.selectedLevel, this.selectedStrand); // Get sections for the default selected level
+            this.selectedSem = this.semester[0];
+            this.getSubjects(this.selectedLevel, this.selectedStrand, this.selectedSem); // Get sections for the default selected level
             this.getSections(this.selectedLevel, this.selectedStrand);
         }
         
@@ -136,7 +142,10 @@ export class StudentlistComponent implements OnInit{
     this.conn.getSectionsByGradeLevel(gradeLevel, strand).subscribe((result: any) => {
         // console.log('Sections fetched:', result);
         // Filter the sections based on the selected strand and grade level
-        this.sections = result.filter((sect: any) => sect.strand === strand && sect.grade_level === gradeLevel);
+        this.sections = result.filter((sect: any) => 
+          sect.strand === strand && 
+          sect.grade_level === gradeLevel
+        );
 
         if (this.sections.length > 0) {
             this.selectedSection = this.sections[0].section_name; // Set to the first section
@@ -148,47 +157,95 @@ export class StudentlistComponent implements OnInit{
     });
   }
 
-  getSubjects(gradeLevel: string, strand: any) {
-    this.conn.getSubjects(gradeLevel, strand).subscribe((result: any) => {
-        // console.log('Subjects fetched:', result);
-        // Filter the subjects based on the selected strand and grade level
+  // getSubjects(gradeLevel: string, strand: any, semester: any) {
+  //   console.log('Fetching subjects with:', { gradeLevel, strand, semester });
+  //   this.conn.getSubjects(gradeLevel, strand, semester).subscribe((result: any) => {
+  //       // console.log('Fetching subjects with:', { gradeLevel, strand, sem });
+  //       this.subjects = result.filter((sub: any) => 
+  //           sub.strand === strand && 
+  //           sub.grade_level === gradeLevel &&
+  //           sub.semester === semester
+  //       );
+  //       if (this.subjects.length > 0) {
+  //           this.selectedSubject = this.subjects[0].subject_name; // Set to the first subject
+  //       }
+
+  //       this.getFilteredRosters(); // Update rosters based on the new section
+  //   });
+  // }
+
+  getSubjects(gradeLevel: string, strand: any, semester: any) {
+    console.log('Fetching subjects with:', { gradeLevel, strand, semester });
+    this.conn.getSubjects(gradeLevel, strand, semester).subscribe((result: any) => {
+        // Filter subjects based on the selected strand, grade level, and semester
         this.subjects = result.filter((sub: any) => 
             sub.strand === strand && 
-            sub.grade_level === gradeLevel
+            sub.grade_level === gradeLevel &&
+            sub.semester === semester
         );
 
+        // Reset selected subject if no subjects are available
         if (this.subjects.length > 0) {
-            this.selectedSubject = this.subjects[0].subject_name; // Set to the first subject
+            this.selectedSubject = this.subjects[0].subject_name; // Set to the first subject if available
+        } else {
+            this.selectedSubject = ""; // Reset if no subjects are available
         }
 
-        this.getFilteredRosters(); // Update rosters based on the new section
+        // Update rosters based on the new subject
+        this.getFilteredRosters();
     });
-  }
+}
 
   gradeLevelChange(event: MatSelectChange) {
     this.selectedLevel = event.value; // Update selected level
 
     if (parseInt(this.selectedLevel) >= 7 && parseInt(this.selectedLevel) <= 10) {
         this.selectedStrand = "-"; // Set selectedStrand to "-"
+        this.selectedSem = null; 
     } else {
+        this.selectedSem = this.semester.length > 0 ? this.semester[1] : "";
         this.selectedStrand = this.strands.length > 0 ? this.strands[1] : ""; // Set to first strand if available
     }
 
-    this.getSubjects(this.selectedLevel, this.selectedStrand); // Fetch sections for the new level, strand, and subject
+    this.getSubjects(this.selectedLevel, this.selectedStrand, this.selectedSem); // Fetch sections for the new level, strand, and subject
     this.getSections(this.selectedLevel, this.selectedStrand);
   }
 
   strandChange(event: MatSelectChange){
     this.selectedStrand = event.value
 
-    this.getSubjects(this.selectedLevel, this.selectedStrand);
+    this.getSubjects(this.selectedLevel, this.selectedStrand, this.selectedSem);
     this.getSections(this.selectedLevel, this.selectedStrand);
   } 
+  
+  // semChange(event: MatSelectChange) {
+  //   this.selectedSem = event.value; // Update selected semester
+
+  //   if (parseInt(this.selectedLevel) >= 7 && parseInt(this.selectedLevel) <= 10) {
+  //     // this.selectedSem = null;   
+  //   } else {
+  //       this.selectedSem = this.semester.length > 0 ? this.semester[1] : ""; // Set to first strand if available
+        
+  //   }
+
+  //   this.getSubjects(this.selectedLevel, this.selectedStrand, this.selectedSem);
+  //   // this.getSections(this.selectedLevel, this.selectedStrand); 
+  // }
+
+  semChange(event: MatSelectChange) {
+    this.selectedSem = event.value; // Update selected semester
+
+    // Reset selected subject when semester changes
+    this.selectedSubject = ""; // Reset selected subject
+
+    // Fetch subjects for the new semester, level, and strand
+    this.getSubjects(this.selectedLevel, this.selectedStrand, this.selectedSem);
+}
 
   subjectChange(event: MatSelectChange) {
     this.selectedSubject = event.value; // Update selected subject
 
-    this.getSubjects(this.selectedLevel, this.selectedStrand); // Fetch sections for the new level, strand, and subject
+    this.getSubjects(this.selectedLevel, this.selectedStrand, this.selectedSem); // Fetch sections for the new level, strand, and subject
     this.getSections(this.selectedLevel, this.selectedStrand);
     
   }
@@ -210,7 +267,8 @@ export class StudentlistComponent implements OnInit{
     const params: any = {
       gradelevel: this.selectedLevel,
       section: this.selectedSection,
-      subject: this.selectedSubject
+      subject: this.selectedSubject,
+      // semester: this.selectedSem
     };
 
     console.log('Selected Subject:', this.selectedSubject);
@@ -229,7 +287,7 @@ export class StudentlistComponent implements OnInit{
       this.femaleStudents = result.filter((student: any) => student.gender === 'Female').length;
       this.totalStudents = result.length;
       this.getClassId();
-      // console.log(this.rosters);
+      console.log(this.rosters);
 
     this.isLoadingRosterGrade = false;
 

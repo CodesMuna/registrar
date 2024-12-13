@@ -64,7 +64,7 @@ loadUserData(): void {
   }
 
   // Set admin picture
-  this.adminPic = user.admin_pic || 'assets/mik.jpg';
+  this.adminPic = user.admin_pic || 'mik.jpg';
 }
   // loadUserData(): void {
   //   const user = JSON.parse(localStorage.getItem('user') || '{}');
