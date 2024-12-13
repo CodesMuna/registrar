@@ -40,11 +40,19 @@ export class SendComponent implements OnInit{
 
   ngOnInit(): void {
     this.uid = localStorage.getItem('admin_id')
-    // this.intervalId = setInterval(() => {
-    //   this.getMessages();
-    // }, 10000)
-    this.getMessages()
+
+    this.intervalId = setInterval(() => {
+      this.getMessages();
+    }, 10000)
+
+    // this.getMessages()
     this.getStudPar()
+  }
+
+  ngOnDestroy(): void {
+    if (this.intervalId) {
+      clearInterval(this.intervalId);
+    }
   }
 
   openDialog(): void {
@@ -71,7 +79,7 @@ export class SendComponent implements OnInit{
   getMessages(){
     console.log(this.uid)
     this.conn.getMessages(this.uid).subscribe((result: any) => {
-      console.log(result)
+      // console.log(result)
       const uniqueMessages = [];
       const seenSenders = new Set();
 

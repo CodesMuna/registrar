@@ -25,7 +25,7 @@ import { MatBadgeModule } from '@angular/material/badge';
   templateUrl: './menu-item.component.html',
   styleUrl: './menu-item.component.css'
 })
-export class MenuItemComponent implements OnInit{
+export class MenuItemComponent {
   // @Input() item!: MenuItem;
   
   item = input.required<MenuItem>()
@@ -34,9 +34,9 @@ export class MenuItemComponent implements OnInit{
 
   nestedMenuOpen = signal(false);
 
-  ngOnInit(): void {
-    console.log(this.item())
-  }
+  // ngOnInit(): void {
+  //   console.log(this.item())
+  // }
 
   toggleNested(){
     if (!this.item().subItems) {

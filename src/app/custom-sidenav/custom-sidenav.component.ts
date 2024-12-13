@@ -53,6 +53,8 @@ export class CustomSidenavComponent implements OnInit{
   uid: any;
   adminPic: string | null = null;
 
+  private intervalId: any;
+
   unreadMessagesCount: any = 0;
 
   constructor(private conn: PortalService,) {}
@@ -61,7 +63,11 @@ export class CustomSidenavComponent implements OnInit{
     this.uid = localStorage.getItem('admin_id')
     this.loadUserData();
 
-    this.loadUnreadMessagesCount();
+    this.intervalId = setInterval(() => {
+      this.loadUnreadMessagesCount();
+    }, 10000)
+
+    // this.loadUnreadMessagesCount();
     
     this.conn.adminPic$.subscribe((newImageUrl) => {
       if (newImageUrl) {

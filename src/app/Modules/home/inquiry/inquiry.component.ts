@@ -61,7 +61,7 @@ export class InquiryComponent implements OnInit{
     this.conn.getInquiries(this.uid).subscribe((result: any) => {
       this.inquiries = result;
       this.inquiries.forEach((inquiry:any) => {
-        console.log(inquiry);
+        // console.log(inquiry);
 
         const uniqueMessages = [];
         const seenSenders = new Set();
@@ -82,7 +82,7 @@ export class InquiryComponent implements OnInit{
   getEnrollments(){
     this.conn.getEnrollments().subscribe((results: any) => {
       this.enrollments = results;
-      console.log(this.enrollments)
+      // console.log(this.enrollments)
       this.totalEnrollments = this.enrollments.length
       this.pendingEnrollees = this.enrollments.filter((pndng: any) => pndng.payment_approval === null || pndng.regapproval_date === null ).length
       this.officiallyEnrolled = this.enrollments.filter((ofc: any) => ofc.regapproval_date != null).length

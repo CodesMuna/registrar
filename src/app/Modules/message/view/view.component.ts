@@ -59,6 +59,7 @@ export class ViewComponent implements OnInit {
         return this.getConvo(sid, uid);
       })
     ).subscribe();
+    
     this.intervalId = setInterval(() => {
       if (this.sid) {
         this.getConvo(this.sid, uid).subscribe();
@@ -73,10 +74,10 @@ export class ViewComponent implements OnInit {
   }
 
   getConvo(sid: any, uid: any) {
-    console.log("Fetching conversation with sid:", sid, "and uid:", uid);
+    // console.log("Fetching conversation with sid:", sid, "and uid:", uid);
     return this.conn.getConvo(sid, uid).pipe(
       tap(result => {
-        console.log("Received conversation:", result);
+        // console.log("Received conversation:", result);
         this.convo = result;
         this.cdRef.detectChanges();
         this.isLoadingConvo = false
@@ -88,10 +89,10 @@ export class ViewComponent implements OnInit {
 
   sendMessage(event: Event) {
     event.preventDefault(); // Prevent default form submission
-    console.log(this.msgForm.value); // Log form values for debugging
+    // console.log(this.msgForm.value); // Log form values for debugging
 
     this.conn.sendMessage(this.msgForm.value).subscribe((result: any) => {
-      console.log(result); // Log response from sending message
+      // console.log(result); // Log response from sending message
       this.getConvo(this.sid, this.uid).subscribe(); // Refresh conversation after sending
       this.msgForm.get('message')?.reset(); // Clear the message input after sending
     }, error => {
