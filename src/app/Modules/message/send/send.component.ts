@@ -45,7 +45,7 @@ export class SendComponent implements OnInit{
       this.getMessages();
     }, 10000)
 
-    // this.getMessages()
+    this.getMessages()
     this.getStudPar()
   }
 
@@ -79,7 +79,7 @@ export class SendComponent implements OnInit{
   getMessages(){
     console.log(this.uid)
     this.conn.getMessages(this.uid).subscribe((result: any) => {
-      // console.log(result)
+      console.log(result)
       const uniqueMessages = [];
       const seenSenders = new Set();
 

@@ -1,4 +1,4 @@
-import { Component, input, OnInit, signal } from '@angular/core';
+import { Component, input, OnInit, signal, ViewEncapsulation } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { RouterModule } from '@angular/router';
@@ -6,6 +6,7 @@ import { MenuItem } from '../custom-sidenav/custom-sidenav.component';
 import { animate, style, transition, trigger } from '@angular/animations';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import { MatBadgeModule } from '@angular/material/badge';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-menu-item',
@@ -21,9 +22,10 @@ import { MatBadgeModule } from '@angular/material/badge';
       ])
     ])
   ],
-  imports: [MatListModule, RouterModule, MatIcon, MatTooltipModule, MatBadgeModule],
+  imports: [MatListModule, RouterModule, MatIcon, MatTooltipModule, MatBadgeModule, CommonModule ],
   templateUrl: './menu-item.component.html',
-  styleUrl: './menu-item.component.css'
+  styleUrl: './menu-item.component.css',
+  
 })
 export class MenuItemComponent {
   // @Input() item!: MenuItem;

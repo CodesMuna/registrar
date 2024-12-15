@@ -120,6 +120,7 @@
                           <th class="text-center">2nd Grading</th>
                           <th class="text-center">3rd Grading</th>
                           <th class="text-center">4th Grading</th>
+                          <th class="text-center">Final Grade</th>
                       </tr>
                     </thead>
                     <tbody class="table-group-divider" style="height: 40px; overflow-y: auto;">
@@ -200,6 +201,11 @@
                                     </div>
                                   </td>
                                  }
+                                 <td class="text-center">
+                                  <span *ngIf="calculateAverage(roster.grade_Q1, roster.grade_Q2, roster.grade_Q3, roster.grade_Q4) > 0">
+                                    {{ calculateAverage(roster.grade_Q1, roster.grade_Q2, roster.grade_Q3, roster.grade_Q4)}}
+                                </span>
+                                 </td>
                             </tr>
                             }@empty {
                               <tr>
@@ -216,7 +222,8 @@
                     <thead class="table"> 
                       <th scope="col">Names</th>
                         <th class="text-center">Midterm</th>
-                        <th class="text-center">Final</th>                    
+                        <th class="text-center">Final</th>
+                        <th class="text-center"> Final Grade</th>                    
                       </thead>
                     @for(roster of rosters ; track roster){
                       <tr>
@@ -254,6 +261,11 @@
                            </td>
                            
                          }
+                         <td class="text-center">
+                          <span *ngIf="calculateAveragee(roster.midterm, roster.final) > 0">
+                            {{ calculateAveragee(roster.midterm, roster.final)}}
+                        </span>
+                         </td>
                       </tr>
                     } @empty {
                       <tr>

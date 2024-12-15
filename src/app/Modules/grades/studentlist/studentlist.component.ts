@@ -359,5 +359,25 @@ export class StudentlistComponent implements OnInit{
       }
     });
   }
+
+  calculateAverage(grade1: number, grade2: number, grade3: number, grade4: number): number {
+    const grades = [grade1, grade2, grade3, grade4];
+    // Filter out invalid or undefined grades
+    const validGrades = grades.filter(grade => grade >= 60 && grade <= 99);
+    // Calculate the average if there are valid grades
+    return validGrades.length > 0 
+    ? Math.ceil(validGrades.reduce((sum, grade) => sum + grade, 0) / validGrades.length)
+    : 0;
+  }
+
+  calculateAveragee(grade1: number, grade2: number): number {
+    const grades = [grade1, grade2];
+    // Filter out invalid or undefined grades
+    const validGrades = grades.filter(grade => grade >= 60 && grade <= 99);
+    // Calculate the average if there are valid grades
+    return validGrades.length > 0 
+    ? Math.ceil(validGrades.reduce((sum, grade) => sum + grade, 0) / validGrades.length)
+    : 0;
+  }
  
 }

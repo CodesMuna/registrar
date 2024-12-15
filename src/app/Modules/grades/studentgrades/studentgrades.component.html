@@ -30,12 +30,12 @@
             @if(student[0].student.grade_level >= 7 && student[0].student.grade_level <= 10){
                 <thead>
                     <tr>
-                        <th>Subject</th>
-                        <th>1st Q</th>
-                        <th>2nd Q</th>
-                        <th>3rd Q</th>
-                        <th>4th Q</th>
-                        <!-- <th>Final</th> -->
+                        <th class="nth">Subject</th>
+                        <th class="nth">1st Q</th>
+                        <th class="nth">2nd Q</th>
+                        <th class="nth">3rd Q</th>
+                        <th class="nth">4th Q</th>
+                        <th class="nth">Final Grade</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -46,15 +46,30 @@
                             <td data-label="2nd Q" class="grd">{{ grade['Second Quarter'] !== null ? grade['Second Quarter'] : '' }}</td>
                             <td data-label="3rd Q" class="grd">{{ grade['Third Quarter'] !== null ? grade['Third Quarter'] : '' }}</td>
                             <td data-label="4th Q" class="grd">{{ grade['Fourth Quarter'] !== null ? grade['Fourth Quarter'] : '' }}</td>
-                            <!-- <td data-label="Final">91</td> -->
+                            <td data-label="Final" class="grd">
+                                <span *ngIf="calculateAverage(grade['First Quarter'], grade['Second Quarter'],  grade['Third Quarter'], grade['Fourth Quarter']) > 0">
+                                    {{ calculateAverage(grade['First Quarter'], grade['Second Quarter'],  grade['Third Quarter'], grade['Fourth Quarter'])}}
+                                </span>
+                            </td>
                         </tr>
                     }          
                 </tbody>
+                <tbody>
+                    <th class="hdn text-center"></th>
+                    <th class="hdn text-center"></th>
+                    <th class="hdn text-center"></th>
+                    <th class="hdn text-center"></th>
+                    <th class="nth text-center">
+                        Average
+                    </th>
+                    <th class="nth text-center"> {{ calculateGeneralAverage() }}</th>
+                </tbody>
             } @else if(student[0].student.grade_level == 11 || student[0].student.grade_level == 12 ) {
                 <thead>
-                    <th>Subject</th>
-                    <th>Midterm</th>
-                    <th>Final</th>
+                    <th class="nth">Subject</th>
+                    <th class="nth">Midterm</th>
+                    <th class="nth">Final</th>
+                    <th class="nth">Final Grade</th>
                 </thead>
                 <tbody>
                     @for (grade of filteredGrades; track grade){
@@ -62,9 +77,21 @@
                             <td data-label="Subject" class="sbjct">{{ grade.subject }}</td>
                             <td data-label="Midterm" class="grd">{{ grade['Midterm'] !== null ? grade['Midterm'] : ''  }}</td>
                             <td data-label="Final" class="grd">{{ grade['Final'] !== null ? grade['Final'] : '' }}</td>
-                            <!-- <td data-label="Final">91</td> -->
+                            <td data-label="Final" class="grd">
+                                <span *ngIf="calculateAveragee(grade['Midterm'], grade['Final']) > 0">
+                                    {{ calculateAveragee(grade['Midterm'], grade['Final'])}}
+                                </span>
+                            </td>
                         </tr>
                     }          
+                </tbody>
+                <tbody>
+                    <th class="hdn text-center"></th>
+                    <th class="hdn text-center"></th>
+                    <th class="nth text-center">
+                        Average
+                    </th>
+                    <th class="nth text-center"> {{ calculateGeneralAveragee() }}</th>
                 </tbody>
             }
             
@@ -73,71 +100,3 @@
     </table>
 </div>
 
-
-<!-- <div class="container">
-    <h2>{{ student[0].student.full_name }}'s Grades</h2>
-
-    
-    <div class="semester-filters">
-        <button 
-          (click)="filterSemester(1)" 
-          [class.active]="selectedSemester === 1">
-          1st Semester
-        </button>
-        <button 
-          (click)="filterSemester(2)" 
-          [class.active]="selectedSemester === 2">
-          2nd Semester
-        </button>
-    </div>
-
-
-    <table class="responsive-table">
-        <thead>
-            <tr>
-                <th>Subject</th>
-                <th *ngIf="student[0].student.grade_level >= 7 && student[0].student.grade_level <= 10">
-                    1st Q
-                </th>
-                <th *ngIf="student[0].student.grade_level >= 7 && student[0].student.grade_level <= 10">
-                    2nd Q
-                </th>
-                <th *ngIf="student[0].student.grade_level >= 7 && student[0].student.grade_level <= 10">
-                    3rd Q
-                </th>
-                <th *ngIf="student[0].student.grade_level >= 7 && student[0].student.grade_level <= 10">
-                    4th Q
-                </th>
-                <th *ngIf="student[0].student.grade_level === 11 || student[0].student.grade_level === 12">
-                    Midterm
-                </th>
-                <th *ngIf="student[0].student.grade_level === 11 || student[0].student.grade_level === 12">
-                    Final
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let grade of filteredGrades">
-                <td>{{ grade.subject }}</td>
-                <td *ngIf="student[0].student.grade_level >= 7 && student[0].student.grade_level <= 10">
-                    {{ grade['First Quarter'] || '' }}
-                </td>
-                <td *ngIf="student[0].student.grade_level >= 7 && student[0].student.grade_level <= 10">
-                    {{ grade['Second Quarter'] || '' }}
-                </td>
-                <td *ngIf="student[0].student.grade_level >= 7 && student[0].student.grade_level <= 10">
-                    {{ grade['Third Quarter'] || '' }}
-                </td>
-                <td *ngIf="student[0].student.grade_level >= 7 && student[0].student.grade_level <= 10">
-                    {{ grade['Fourth Quarter'] || '' }}
-                </td>
-                <td *ngIf="student[0].student.grade_level === 11 || student[0].student.grade_level === 12">
-                    {{ grade['Midterm'] || '' }}
-                </td>
-                <td *ngIf="student[0].student.grade_level === 11 || student[0].student.grade_level === 12">
-                    {{ grade['Final'] || '' }}
-                </td>
-            </tr>
-        </tbody>
-    </table>
-</div> -->

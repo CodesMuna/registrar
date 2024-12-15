@@ -17,7 +17,7 @@ table {
     border: 1px solid #ddd; /* Add border for clarity */
 }
 
-th{
+.nth{
     padding: 10px;
     text-align: center; /* Center-align all text */
     border: 1px solid #ddd; /* Add border for clarity */
@@ -88,3 +88,6 @@ button.mat-flat-button {
     color: white;
 } */
   
+.hdn {
+    visibility: hidden; /* Keep space occupied */
+}

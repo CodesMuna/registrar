@@ -67,7 +67,7 @@ export class CustomSidenavComponent implements OnInit{
       this.loadUnreadMessagesCount();
     }, 10000)
 
-    // this.loadUnreadMessagesCount();
+    this.loadUnreadMessagesCount();
     
     this.conn.adminPic$.subscribe((newImageUrl) => {
       if (newImageUrl) {

@@ -29,3 +29,13 @@
 mat-drawer-inner-container::-webkit-scrollbar {
   display: none;
 }
+
+/* .my-custom-badge-accent.mat-badge-accent .mat-badge-content {
+  background-color: #f1bf28;
+  color: white;
+} */
+
+::ng-deep .mat-badge-content {
+  background-color: red !important;
+  color: white !important;
+}
