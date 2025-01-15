@@ -33,6 +33,17 @@ export class MenuItemComponent {
 
   collapsed = input(false);
 
+  getBadgeContent(unreadCount: number, pendingCount: number): string | null {
+    if (unreadCount > 0 && pendingCount > 0) {
+      return `${unreadCount}/${pendingCount}`;
+    } else if (unreadCount > 0) {
+      return `${unreadCount}`;
+    } else if (pendingCount > 0) {
+      return `${pendingCount}`;
+    }
+    return null;
+  }
+
   nestedMenuOpen = signal(false);
   private intervalId: any;
 

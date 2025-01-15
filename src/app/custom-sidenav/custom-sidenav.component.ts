@@ -49,6 +49,7 @@ export class CustomSidenavComponent implements OnInit{
     this.loadUserData();
 
     this.loadUnreadMessagesCount();
+    this.loadPendingCount();
     
     this.conn.adminPic$.subscribe((newImageUrl) => {
       if (newImageUrl) {
@@ -91,6 +92,7 @@ export class CustomSidenavComponent implements OnInit{
   loadPendingCount(){
     this.conn.countPending().subscribe(result => {
       this.pendingGradeCount = result
+      console.log('Pending Count:', this.pendingGradeCount);
       this.updateMenuItems();
     })
   }

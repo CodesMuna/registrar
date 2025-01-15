@@ -8,8 +8,7 @@
         
     <mat-icon matListItemIcon [fontSet]="rla.isActive ? 'material-icons' : 'material-icons-outlined'" 
     matTooltip="{{item().label}}" 
-    [matBadge]="item().unreadCount > 0 ? item().unreadCount : null" 
-    [matBadge]="item().pendingCount > 0 ? item().pendingCount : null" 
+    [matBadge]="getBadgeContent(item().unreadCount, item().pendingCount)"
     matBadgeColor="accent" 
     matBadgeClass="custom-badge">
     {{ item().icon }}

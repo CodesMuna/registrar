@@ -120,7 +120,7 @@ export class PortalService {
   //Grade Service
 
   countPending(){
-    return this.http.get(this.url + 'getPending');
+    return this.http.get(this.url + 'countPending');
   }
 
   getClassGrades(params: any){
