@@ -96,18 +96,9 @@ export class SendComponent implements OnInit{
 
   getStudPar(){
     this.conn.getStudentParents().subscribe((result: any) => {
-      // console.log(result)
       this.stupar = result; 
     })
   }
-
-  // openConvo(sid: any, uid:any) {
-  //   this.conn.getConvo(sid, uid).subscribe((result: any) => {
-  //     this.route.navigate(['/main/message/messagepage/messages/view', sid])
-  //     console.log(result);
-  //     this.conversation = result;
-  //   });
-  // }
 
   markAsRead(sid: any){
     this.conn.markAsRead(sid).subscribe((result: any) => {

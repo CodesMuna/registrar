@@ -5,15 +5,11 @@
     routerLinkActive="selected-menu-item" 
     #rla="routerLinkActive" 
     [activated]="rla.isActive">
-    <!-- @if (item().unreadCount == 0){
-        <mat-icon matListItemIcon [fontSet]="rla.isActive ? 'material-icons' : 'material-icons-outlined'"  matTooltip="{{item().label}}">{{item().icon}}</mat-icon>
-    } @else {
-        <mat-icon matListItemIcon [fontSet]="rla.isActive ? 'material-icons' : 'material-icons-outlined'"  matTooltip="{{item().label}}" >{{item().icon}}</mat-icon>
-    } -->
         
     <mat-icon matListItemIcon [fontSet]="rla.isActive ? 'material-icons' : 'material-icons-outlined'" 
     matTooltip="{{item().label}}" 
     [matBadge]="item().unreadCount > 0 ? item().unreadCount : null" 
+    [matBadge]="item().pendingCount > 0 ? item().pendingCount : null" 
     matBadgeColor="accent" 
     matBadgeClass="custom-badge">
     {{ item().icon }}
@@ -33,11 +29,6 @@
             }           
         </span>
     }
-    <!-- @if(item().subItems){
-        <span matListItemMeta>
-            <mat-icon>expand_more</mat-icon>
-        </span>
-    } -->
 </a>
 
 @if(item().subItems && nestedMenuOpen()) {

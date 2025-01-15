@@ -13,6 +13,7 @@ export type MenuItem = {
   route: string,
   subItems?: MenuItem[];
   unreadCount?: any;
+  pendingCount?: any;
 }
 
 @Component({
@@ -21,23 +22,6 @@ export type MenuItem = {
   imports: [CommonModule, MatListModule, MatIconModule, RouterModule, MenuItemComponent ,MatBadgeModule],
   templateUrl: './custom-sidenav.component.html',
   styleUrl: './custom-sidenav.component.css',
-  template: `
-    <a mat-list-item [routerLink]="item.route" class="menu-item" routerLinkActive="selected-menu-item">
-    <mat-icon [matBadge]="item.unreadCount > 0 ? item.unreadCount : null" matBadgeColor="warn">
-      {{ item.icon }}
-    </mat-icon>
-      <span>{{ item.label }} yo</span>
-    </a>
-  `,
-  styles: [`
-    .badge {
-      background-color: red;
-      color: white;
-      border-radius: 12px;
-      padding: 0 6px;
-      margin-left: 8px;
-    }
-  `]
 })
 export class CustomSidenavComponent implements OnInit{
   @Input() item: any;
@@ -56,16 +40,13 @@ export class CustomSidenavComponent implements OnInit{
   private intervalId: any;
 
   unreadMessagesCount: any = 0;
+  pendingGradeCount: any = 0;
 
   constructor(private conn: PortalService,) {}
 
   ngOnInit(): void {
     this.uid = localStorage.getItem('admin_id')
     this.loadUserData();
-
-    this.intervalId = setInterval(() => {
-      this.loadUnreadMessagesCount();
-    }, 10000)
 
     this.loadUnreadMessagesCount();
     
@@ -107,6 +88,13 @@ export class CustomSidenavComponent implements OnInit{
     }
   }
 
+  loadPendingCount(){
+    this.conn.countPending().subscribe(result => {
+      this.pendingGradeCount = result
+      this.updateMenuItems();
+    })
+  }
+
   updateMenuItems() {
     this.menuItems.set([
       {
@@ -135,6 +123,7 @@ export class CustomSidenavComponent implements OnInit{
         icon: 'grade',
         label: 'Grades',
         route: 'grades/gradespage/studentlist',
+        pendingCount: this.pendingGradeCount
       },
       {
         icon: 'chat',
@@ -173,6 +162,7 @@ export class CustomSidenavComponent implements OnInit{
       icon: 'grade',
       label: 'Grades',
       route: 'grades/gradespage/studentlist',
+      pendingCount: this.pendingGradeCount
     },
     {
       icon: 'chat',

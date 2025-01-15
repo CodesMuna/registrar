@@ -35,12 +35,6 @@ export class ViewComponent {
 
   ngOnInit() {
     this.loadUserData();
-    // const user = JSON.parse(localStorage.getItem('user') || '{}');
-    // if (user && user.admin_pic) {
-    //     this.adminPic = user.admin_pic;
-    // } else {
-    //     console.warn('Admin picture URL not found in localStorage');
-    // }
 }
 
 loadUserData(): void {
@@ -66,30 +60,6 @@ loadUserData(): void {
   // Set admin picture
   this.adminPic = user.admin_pic || 'mik.jpg';
 }
-  // loadUserData(): void {
-  //   const user = JSON.parse(localStorage.getItem('user') || '{}');
-  //   this.user = user;
-  //   console.log(user);
-
-  //   if (user) {
-  //     this.profileForm.patchValue({
-  //       admin_id: user.admin_id,
-  //       fname: user.fname,
-  //       mname: user.mname,
-  //       lname: user.lname,
-  //       email: user.email,
-  //       address: user.address,
-  //       role: user.role,
-  //       oldPassword: user.oldPassword,
-  //     });
-  //   }
-
-  //   if (user && user.admin_pic) {
-  //     this.adminPic = user.admin_pic;
-  //   } else {
-  //     console.warn('Admin picture URL not found in localStorage');
-  //   }
-  // }
 
   saveChanges(): void {
     if (this.profileForm.valid) {

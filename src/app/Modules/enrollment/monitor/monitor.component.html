@@ -76,9 +76,6 @@
               {{ enrollment.date_register | date : "MMMM dd, yyyy" }}
             </td>
             <td>
-              <!-- <button mat-icon-button aria-label="Example icon button with a delete icon" [routerLink]="['/main/enrollment/enrollmentpage/approval/' + enrollment.enrol_id]">
-                        <mat-icon>approval</mat-icon>
-                      </button> -->
             </td>
             <td></td>
           </tr>
@@ -106,15 +103,9 @@
               {{ enrollment.payment_approval | date : "MMMM dd, yyyy" }}
             </td>
             <td>
-              <!-- <button mat-icon-button aria-label="Example icon button with a delete icon" [routerLink]="['/main/enrollment/enrollmentpage/approval/' + enrollment.enrol_id]">
-                        <mat-icon>approval</mat-icon>
-                      </button> -->
             </td>
           </tr>
-          }
-          <!-- @else if(enrollment.date_register == null && enrollment.regapproval_date ==  null && enrollment.payment_approval ==  null){          
-                  
-                } -->
+          } 
           @else {
           <tr
             [routerLink]="[

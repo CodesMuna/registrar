@@ -13,7 +13,6 @@
         <mat-form-field class="me-2">
           <mat-label>Grade Level</mat-label>
           <mat-select [(ngModel)]="selectedLevel" (ngModelChange)="updateRosters()" (selectionChange)="gradeLevelChange($event)">
-            <!-- <mat-option>None</mat-option> -->
             @for (lvl of gradelevel; track lvl) {
             <mat-option [value]="lvl">{{lvl}}</mat-option>
             }
@@ -24,7 +23,6 @@
           <mat-form-field class="me-2">
             <mat-label>Strand</mat-label>
             <mat-select [(ngModel)]="selectedStrand" (ngModelChange)="updateRosters()" (selectionChange)="strandChange($event)">
-              <!-- <mat-option>None</mat-option> -->
               @for (strnd of strands; track strnd) {
                 @if (strnd !== '-') { <!-- Exclude '-' from options -->
                   <mat-option [value]="strnd">{{strnd}}</mat-option>
@@ -37,7 +35,6 @@
         <mat-form-field class="me-2">
           <mat-label>Section</mat-label>
           <mat-select [(ngModel)]="selectedSection" (ngModelChange)="updateRosters()">
-            <!-- <mat-option>None</mat-option> -->
             @for (sect of sections; track sect) {
               <mat-option [value]="sect.section_name">{{sect.section_name}}</mat-option>
             }
@@ -48,7 +45,6 @@
         <mat-form-field class="me-2">
           <mat-label>Gender</mat-label>
           <mat-select [(ngModel)]="selectedGender" (ngModelChange)="updateRosters()">
-            <!-- <mat-option>None</mat-option> -->
             @for (gender of genders; track gender) {
             <mat-option [value]="gender">{{gender}}</mat-option>
             }
@@ -63,7 +59,6 @@
           <mat-form-field class="me-2">
             <mat-label>Semester</mat-label>
             <mat-select [(ngModel)]="selectedSem" (ngModelChange)="updateRosters()" (selectionChange)="semChange($event)">
-              <!-- <mat-option>None</mat-option> -->
               @for (sem of semester; track sem) {
                 @if (sem !== null) {
                   <mat-option [value]="sem">{{sem}}</mat-option>
@@ -75,8 +70,7 @@
 
         <mat-form-field class="me-2">
           <mat-label>Subject</mat-label>
-          <mat-select [(ngModel)]="selectedSubject" (ngModelChange)="updateRosters()" (selectionChange)="subjectChange($event)">
-            <!-- <mat-option>None</mat-option> -->
+          <mat-select [(ngModel)]="selectedSubject" (ngModelChange)="updateRosters()" >
             @for (subject of subjects; track subject) {
             <mat-option [value]="subject.subject_name">{{subject.subject_name}}</mat-option>
             }
@@ -92,7 +86,6 @@
             <div class="row">
               <div class="col-md-12 d-flex justify-content-between align-items-center">
                 <div class="d-flex align-items-center">
-                  <!-- <p>{{rosters.roster_id}}</p> -->
                   @if(selectedLevel != '11' && selectedLevel != '12'){
                     <p class="h4 ms-2 text-start">Grade {{selectedLevel}} {{selectedSection}} - {{selectedSubject}} </p>
                   } @else {
@@ -105,7 +98,6 @@
                   <span class="ms-3"><strong>Female:</strong> {{ femaleStudents }}</span>
                   <span class="ms-3"><strong>Total:</strong> {{ totalStudents }}</span>
                   <i class="fa fa-search" aria-hidden="true" style="margin-left: 80px; margin-bottom: 50px; cursor: pointer;" (click)="showSearchRoster = !showSearchRoster"></i>
-                  <!-- <br><button (click)="toggleSlideToggle()">Toggle Slide Toggle</button> -->
                 </div>
               </div>
               @if(showSearchRoster){
@@ -137,7 +129,6 @@
                         </tr>
                       } @else {
                         @for(roster of rosters | searchFilter: keyword; track roster){
-                          <!-- @if(roster.grade_level >= 7 && roster.grade_level <= 10){ -->
                             <tr >
                                 <th scope="row" [routerLink]="['/main/grades/gradespage/studentgrades/' + roster.LRN + '/' + roster.school_year]">{{roster.student_name}}</th>
                                 @if(roster.permission_Q1 == 'none' || roster.permission_Q1 == 'on'){
@@ -147,7 +138,7 @@
                                     <i class="fa fa-exclamation-circle pending" aria-hidden="true" (click)="toggleDropdown(roster.grade_id_Q1)"></i>
                                     <div *ngIf="dropdownVisibility[roster.grade_id_Q1]" class="dropdown-content">
                                       <tr>
-                                        <td (click)="permit(roster.grade_id_Q1)">Permit</td>
+                                        <td (click)="permit(roster.grade_id_Q1)">Accept</td>
                                       </tr>
                                       <tr>
                                         <td (click)="decline(roster.grade_id_Q1)">Decline</td>
@@ -163,7 +154,7 @@
                                     <i class="fa fa-exclamation-circle pending" aria-hidden="true" (click)="toggleDropdown(roster.grade_id_Q2)"></i>
                                     <div *ngIf="dropdownVisibility[roster.grade_id_Q2]" class="dropdown-content">
                                       <tr>
-                                        <td (click)="permit(roster.grade_id_Q2)">Permit</td>
+                                        <td (click)="permit(roster.grade_id_Q2)">Accept</td>
                                       </tr>
                                       <tr>
                                         <td (click)="decline(roster.grade_id_Q2)">Decline</td>
@@ -178,7 +169,7 @@
                                     <i class="fa fa-exclamation-circle pending" aria-hidden="true" (click)="toggleDropdown(roster.grade_id_Q3)"></i>
                                     <div *ngIf="dropdownVisibility[roster.grade_id_Q3]" class="dropdown-content">
                                       <tr>
-                                        <td (click)="permit(roster.grade_id_Q3)">Permit</td>
+                                        <td (click)="permit(roster.grade_id_Q3)">Accept</td>
                                       </tr>
                                       <tr>
                                         <td (click)="decline(roster.grade_id_Q3)">Decline</td>
@@ -193,7 +184,7 @@
                                     <i class="fa fa-exclamation-circle pending" aria-hidden="true" (click)="toggleDropdown(roster.grade_id_Q4)"></i>
                                     <div *ngIf="dropdownVisibility[roster.grade_id_Q4] " class="dropdown-content">
                                       <tr>
-                                        <td (click)="permit(roster.grade_id_Q4)">Permit</td>
+                                        <td (click)="permit(roster.grade_id_Q4)">Accept</td>
                                       </tr>
                                       <tr>
                                         <td (click)="decline(roster.grade_id_Q4)">Decline</td>
@@ -216,7 +207,6 @@
                               } 
                       }
                       
-                        <!-- } -->
                     </tbody>
                   } @else {
                     <thead class="table"> 
@@ -235,7 +225,7 @@
                              <i class="fa fa-exclamation-circle pending" aria-hidden="true" (click)="toggleDropdown(roster.grade_id_midterm)"></i>
                              <div *ngIf="dropdownVisibility[roster.grade_id_midterm]" class="dropdown-content">
                                <tr>
-                                 <td (click)="permit(roster.grade_id_midterm)">Permit</td>
+                                 <td (click)="permit(roster.grade_id_midterm)">Accept</td>
                                </tr>
                                <tr>
                                  <td (click)="decline(roster.grade_id_midterm)">Decline</td>
@@ -252,7 +242,7 @@
                              <i class="fa fa-exclamation-circle pending" aria-hidden="true" (click)="toggleDropdown(roster.grade_id_final)"></i>
                              <div *ngIf="dropdownVisibility[roster.grade_id_final]" class="dropdown-content">
                                <tr>
-                                 <td (click)="permit(roster.grade_id_final)">Permit</td>
+                                 <td (click)="permit(roster.grade_id_final)">Accept</td>
                                </tr>
                                <tr>
                                  <td (click)="decline(roster.grade_id_final)">Decline</td>

@@ -89,10 +89,8 @@ export class ViewComponent implements OnInit {
 
   sendMessage(event: Event) {
     event.preventDefault(); // Prevent default form submission
-    // console.log(this.msgForm.value); // Log form values for debugging
 
     this.conn.sendMessage(this.msgForm.value).subscribe((result: any) => {
-      // console.log(result); // Log response from sending message
       this.getConvo(this.sid, this.uid).subscribe(); // Refresh conversation after sending
       this.msgForm.get('message')?.reset(); // Clear the message input after sending
     }, error => {

@@ -14,9 +14,6 @@ import { inject } from '@angular/core';
 })
 export class LoginComponent implements OnInit{
 
-  // route = inject(Router)
-  // conn = inject(PortalService);
-
   errorMessage: any;
 
   ngOnInit(): void {

@@ -53,9 +53,6 @@ export class MonitorComponent implements OnInit{
 
     this.conn.getEnrollments().subscribe((result: any) => {
       this.enrollments = result;
-      // this.enrollments.forEach((enrollment:any) => {
-        // console.log(enrollment);
-      // });
 
       this.isLoadingEnrollments = false;
     })
@@ -64,16 +61,6 @@ export class MonitorComponent implements OnInit{
   constructor(private conn: PortalService,
     private route: Router,
   ) { }
-
-  // getEnrollments(): void {
-  //   this.conn.getEnrollments().subscribe((result: any) => {
-  //     this.enrollments = result;
-  //     // this.enrollments.forEach((enrollment:any) => {
-  //       // console.log(enrollment);
-  //     // });
-  //   })
-    
-  // }
 
   getFilteredEnrollments() {
     switch (this.selectedProgress) {

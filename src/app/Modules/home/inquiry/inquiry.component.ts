@@ -3,12 +3,6 @@ import { PortalService } from '../../../portal.service';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 
-// interface User {
-//   id: number;
-//   name: string;
-//   // add other user properties as needed
-// }
-
 @Component({
   selector: 'app-inquiry',
   standalone: true,
@@ -48,7 +42,6 @@ export class InquiryComponent implements OnInit{
     }
 
     // Format school year as "YYYY-YYYY"
-    // this.currentSY = `${currentYear}-${nextYear}`;
     this.currentSY = currentYear + '-' + nextYear
   
     this.uid = localStorage.getItem('admin_id');
@@ -82,7 +75,6 @@ export class InquiryComponent implements OnInit{
   getEnrollments(){
     this.conn.getEnrollments().subscribe((results: any) => {
       this.enrollments = results;
-      // console.log(this.enrollments)
       this.totalEnrollments = this.enrollments.length
       this.pendingEnrollees = this.enrollments.filter((pndng: any) => pndng.payment_approval === null || pndng.regapproval_date === null ).length
       this.officiallyEnrolled = this.enrollments.filter((ofc: any) => ofc.regapproval_date != null).length

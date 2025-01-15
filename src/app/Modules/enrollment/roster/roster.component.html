@@ -24,7 +24,7 @@
             <mat-label>Strand</mat-label>
             <mat-select [(ngModel)]="selectedStrand" (ngModelChange)="updateRosters()" (selectionChange)="strandChange($event)">
               @for (strnd of strands; track strnd) {
-                @if (strnd !== '-') { <!-- Exclude '-' from options -->
+                @if (strnd !== '-') { 
                   <mat-option [value]="strnd">{{strnd}}</mat-option>
                 }
               }
@@ -76,7 +76,6 @@
             <span class="ms-3"><strong>Female:</strong> {{ femaleStudents }}</span>
             <span class="ms-3"><strong>Total:</strong> {{ totalStudents }}</span>
             <i class="fa fa-search" aria-hidden="true" style="margin-left: 80px; margin-bottom: 50px; cursor: pointer;" (click)="showSearchRoster = !showSearchRoster"></i>
-            <!-- <br><button (click)="toggleSlideToggle()">Toggle Slide Toggle</button> -->
           </div>
         </div>
 

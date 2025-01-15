@@ -62,13 +62,6 @@ export class ApprovalComponent implements OnInit{
     
   }
 
-  // getEnrollmentInfo(lrn: string): void {
-  //   this.conn.getEnrollmentInfo(lrn).subscribe((result: any) => {
-  //     this.enrolinfo = result;
-  //     console.log(this.enrolinfo);
-  //   });
-  // }
-
   getStudentInfo(eid: any) {
     this.conn.getEnrollmentInfo(eid).subscribe((result: any) => {
       this.studentInfo = result;

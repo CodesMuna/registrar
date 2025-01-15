@@ -67,8 +67,6 @@ export class RosteringComponent implements OnInit{
 
     const cid = this.aroute.snapshot.paramMap.get('cid')
     this.getRosterInfo();
-    // this.getClass(cid);
-    // this.getEnrolees(); // Call getEnrolees() separately
   }
 
   getClassInfo(classIds: string[]) {

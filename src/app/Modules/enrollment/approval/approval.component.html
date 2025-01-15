@@ -1,7 +1,6 @@
 <div class="card mb-4 shadow-sm">
   <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
     <h5 class="card-title mb-0" style="font-family: Poppins;">Student Information</h5>
-    <!-- <button class="btn btn-primary" (click)="openEdit(studentInfo.enrol_id)">Edit Information</button> -->
   </div>
   <div class="card-body p-4">
     <div class="row mb-3">
@@ -10,7 +9,6 @@
       </div>
       <div class="col-sm-9">
           <p class="text-muted">{{ studentInfo.fname }} {{ studentInfo.mname }} {{ studentInfo.lname }}</p>
-          <!-- <input type="text"> -->
       </div>
     </div>
     <div class="divider"></div>
@@ -64,11 +62,8 @@
     <div class="d-flex justify-content-end">
       @if(studentInfo.payment_approval == null || studentInfo.regapproval_date != null){
         <button class="btn btn-primary mr-2" (click)="approve(studentInfo.enrol_id)" disabled>Approve</button>
-        <!-- <button class="btn btn-danger" (click)="openMessage(studentInfo.enrol_id)">Delete</button> -->
       } @else {
         <button class="btn btn-primary mr-2" (click)="approve(studentInfo.enrol_id)">Approve</button>
-        <!-- <button class="btn btn-danger" (click)="deleteEnrollment(studentInfo.enrol_id)">Delete</button> -->
-        <!-- <button class="btn btn-danger" (click)="openMessage(studentInfo.enrol_id)">Delete</button> -->
       }     
     </div>
   </div>

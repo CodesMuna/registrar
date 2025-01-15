@@ -28,17 +28,13 @@ import { CommonModule } from '@angular/common';
   
 })
 export class MenuItemComponent {
-  // @Input() item!: MenuItem;
   
   item = input.required<MenuItem>()
 
   collapsed = input(false);
 
   nestedMenuOpen = signal(false);
-
-  // ngOnInit(): void {
-  //   console.log(this.item())
-  // }
+  private intervalId: any;
 
   toggleNested(){
     if (!this.item().subItems) {

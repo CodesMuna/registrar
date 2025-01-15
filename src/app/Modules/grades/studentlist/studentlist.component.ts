@@ -70,10 +70,6 @@ export class StudentlistComponent implements OnInit{
 
   private intervalId: any;
 
-  // ngOnInit(): void {
-  //   this.getAllEnrollments()
-  // }
-
   constructor(private conn: PortalService,
     private route: Router,
     private dialog: MatDialog
@@ -115,23 +111,10 @@ export class StudentlistComponent implements OnInit{
             this.getSubjects(this.selectedLevel, this.selectedStrand, this.selectedSem); // Get sections for the default selected level
             this.getSections(this.selectedLevel, this.selectedStrand);
         }
-        
-        // if (this.gradelevel.length > 0) {
-        //     this.selectedSection = this.sections[0];
-        // }
-
-        // console.log(this.selectedLevel);
-        // console.log(this.selectedSection);
-        // console.log(this.selectedStrand);
 
         this.getFilteredRosters(); 
         this.getClassId();
 
-        
-
-        // this.intervalId = setInterval(() => {
-        //       this.getFilteredRosters();
-        //     }, 1000);
     });
 }
   getClasses() {
@@ -140,7 +123,7 @@ export class StudentlistComponent implements OnInit{
 
   getSections(gradeLevel: string, strand: any) {
     this.conn.getSectionsByGradeLevel(gradeLevel, strand).subscribe((result: any) => {
-        // console.log('Sections fetched:', result);
+        
         // Filter the sections based on the selected strand and grade level
         this.sections = result.filter((sect: any) => 
           sect.strand === strand && 
@@ -150,29 +133,9 @@ export class StudentlistComponent implements OnInit{
         if (this.sections.length > 0) {
             this.selectedSection = this.sections[0].section_name; // Set to the first section
         } 
-        // else {
-        //     this.selectedSection = ''; // Reset if no sections are available
-        // }
         this.getFilteredRosters(); // Update rosters based on the new section
     });
   }
-
-  // getSubjects(gradeLevel: string, strand: any, semester: any) {
-  //   console.log('Fetching subjects with:', { gradeLevel, strand, semester });
-  //   this.conn.getSubjects(gradeLevel, strand, semester).subscribe((result: any) => {
-  //       // console.log('Fetching subjects with:', { gradeLevel, strand, sem });
-  //       this.subjects = result.filter((sub: any) => 
-  //           sub.strand === strand && 
-  //           sub.grade_level === gradeLevel &&
-  //           sub.semester === semester
-  //       );
-  //       if (this.subjects.length > 0) {
-  //           this.selectedSubject = this.subjects[0].subject_name; // Set to the first subject
-  //       }
-
-  //       this.getFilteredRosters(); // Update rosters based on the new section
-  //   });
-  // }
 
   getSubjects(gradeLevel: string, strand: any, semester: any) {
     console.log('Fetching subjects with:', { gradeLevel, strand, semester });
@@ -217,20 +180,6 @@ export class StudentlistComponent implements OnInit{
     this.getSubjects(this.selectedLevel, this.selectedStrand, this.selectedSem);
     this.getSections(this.selectedLevel, this.selectedStrand);
   } 
-  
-  // semChange(event: MatSelectChange) {
-  //   this.selectedSem = event.value; // Update selected semester
-
-  //   if (parseInt(this.selectedLevel) >= 7 && parseInt(this.selectedLevel) <= 10) {
-  //     // this.selectedSem = null;   
-  //   } else {
-  //       this.selectedSem = this.semester.length > 0 ? this.semester[1] : ""; // Set to first strand if available
-        
-  //   }
-
-  //   this.getSubjects(this.selectedLevel, this.selectedStrand, this.selectedSem);
-  //   // this.getSections(this.selectedLevel, this.selectedStrand); 
-  // }
 
   semChange(event: MatSelectChange) {
     this.selectedSem = event.value; // Update selected semester

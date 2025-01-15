@@ -42,17 +42,14 @@ export class PortalService {
   }
 
   getEnrollmentInfo(eid: any) {
-    // const headers = { 'Authorization': 'Bearer ' + this.token }
     return this.http.get(this.url + 'enrollmentinfo/' + eid);
   }
 
   approval(eid: any) {
-    // const headers = { 'Authorization': 'Bearer ' + this.token }
     return this.http.post(this.url + 'approval/' + eid, {});
   }
 
   deleteEnrollment(eid: any) {
-    // const headers = { 'Authorization': 'Bearer ' + this.token }
     return this.http.delete(this.url + 'deleteEnrollment/' + eid, {});
   }
 
@@ -74,21 +71,12 @@ export class PortalService {
     return this.http.get(`${this.url}getSubjects`, { params: { gradeLevel, strand, semester } })
   }
 
-  // getSectionsByGradeLevel(gradeLevel: string) {
-  //   return this.http.get(`${this.url}getSections`, { params: { gradeLevel } });
-  // }
-
   getSectionsByGradeLevel(gradeLevel: string, strand: any) {
     return this.http.get(`${this.url}getSections`, { params: { gradeLevel, strand } });
   }
 
   //Roster Service
 
-  // createRoster(cid: any) {
-  //   return this.http.post(this.url + 'createRoster/' + cid, {});
-  // }
-
- // In portal.service.ts
   createRoster(classIds: any[]) {
     return this.http.post(this.url + 'createRoster', { cid: classIds });
   }
@@ -100,10 +88,6 @@ export class PortalService {
   getFilteredRosters(params: any){
     return this.http.get(this.url + 'getFilteredRosters', {params})
   }
-  
-  // getRosterInfo(cid: any){
-  //   return this.http.get(this.url + 'getRosterInfo/' + cid)
-  // }
 
   getRosterInfo(classIds: any[]) {
     const ids = classIds.join(','); // Join the class IDs into a comma-separated string
@@ -115,10 +99,6 @@ export class PortalService {
   }
 
   //Rostering Service
-
-  // getClassInfo(cid: any){
-  //   return this.http.get(this.url + 'getClassInfo/' + cid)
-  // }
 
   getClassInfo(classIds: any[]){
     return this.http.get(this.url + 'getClassInfo', {
@@ -137,22 +117,11 @@ export class PortalService {
         body: { lrn } // Correctly include rid and cid in the body
     });
 }
-
-//   removeStudent(rid: any, classIds: any[]) {
-//     return this.http.delete(this.url + 'removeStudent', {
-//         body: { rid, cid: classIds } // Correctly include rid and cid in the body
-//     });
-// }
-
-  // addStudent(cid: any, lrn: any){
-  //   return this.http.post(this.url + 'addStudent', {cid: cid, lrn: lrn});
-  // }
-
-  // removeStudent(rid: any){
-  //   return this.http.delete(this.url + 'removeStudent/' + rid)
-  // }
-
   //Grade Service
+
+  countPending(){
+    return this.http.get(this.url + 'getPending');
+  }
 
   getClassGrades(params: any){
     return this.http.get(this.url + 'getClassGrades', {params})
